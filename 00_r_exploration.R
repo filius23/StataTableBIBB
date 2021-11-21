@@ -1,5 +1,6 @@
 if(Sys.getenv("USERNAME") == "Filser" ) .libPaths("D:/R-library4")  # set library
 library(tidyverse)
+library(markdown)
 baua <- haven::read_dta("D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta")
 baua2 <- readstata13::read.dta13("D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta",convert.factors = F)
 
