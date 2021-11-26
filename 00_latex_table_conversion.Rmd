@@ -1,0 +1,26 @@
+This table is converted from LaTeX:
+```{r, results = "asis", echo = FALSE, message = FALSE}
+library(knitr)
+
+tex2markdown <- function(texstring) {
+  writeLines(text = texstring,
+             con = myfile <- tempfile(fileext = ".tex"))
+  texfile <- pandoc(input = myfile, format = "html")
+  cat(readLines(texfile), sep = "\n")
+  unlink(c(myfile, texfile))
+}
+
+textable <- "
+\\begin{table}[]
+\\centering
+\\caption{Food order}
+\\begin{tabular}{| l | l |}
+\\hline
+ Hamburgers & 3 \\\\ 
+ Hot dogs & 2 \\\\ \\hline
+\\end{tabular}
+\\end{table}
+"
+
+tex2markdown(textable)
+```

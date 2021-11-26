@@ -1,0 +1,1 @@
+https://www.statalist.org/forums/forum/general-stata-discussion/general/1529090-spanning-multiple-columns-using-esttab

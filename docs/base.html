@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Tabellenexport mit Stata: Grundlagen &amp; Pakete | Stata Fortbildungen am BIBB</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Tabellenexport mit Stata: Grundlagen &amp; Pakete | Stata Fortbildungen am BIBB" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Tabellenexport mit Stata: Grundlagen &amp; Pakete | Stata Fortbildungen am BIBB" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Andreas Filser" />
+
+
+<meta name="date" content="2021-11-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Stata @ BIBB</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Herzlich Willkommen</a></li>
+<li class="chapter" data-level="1" data-path="base.html"><a href="base.html"><i class="fa fa-check"></i><b>1</b> Tabellenexport mit Stata: Grundlagen &amp; Pakete</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="base.html"><a href="base.html#grundlagen-e-und-r"><i class="fa fa-check"></i><b>1.1</b> Grundlagen: <code>e()</code> und <code>r()</code></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stata Fortbildungen am BIBB</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="base" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Tabellenexport mit Stata: Grundlagen &amp; Pakete</h1>
+<p>Es gibt eine ganze Reihe von <code>ado</code>s, welche einen Tabellenexport aus Stata erlauben.
+Wir werden mit <a href="http://repec.sowi.unibe.ch/stata/estout/"><code>estout</code>/<code>esttab</code></a> von Ben Jann arbeiten, das einige Vorteile bietet:
+Zunächst können damit sowohl Deskriptions- als auch Regressionstabellen exportiert werden - man muss also nur eine Syntaxlogik lernen.
+Dabei sind Exportbefehle für (fast) alle gängigen Deskriptionen und Regressionsmodelle vorhanden, inklusive Outputs von <code>margins</code>.
+Außerdem können damit Tabellen sowohl in Word-, Latex- und auch Excel-Formate exportiert werden - auch hier ist (fast) die gleiche Syntaxlogik verwendbar.
+Darüber hinaus bietet <code>esttab</code> die Möglichkeit einiger Formatierungseinstellungen.</p>
+<p>Um <code>estout</code>/<code>esttab</code> zu verwenden, müssen wir es zunächst installieren:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="base.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install estout, <span class="kw">replace</span></span></code></pre></div>
+<p>Dies sind die aktuellen Versionen:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb2-1"><a href="base.html#cb2-1" aria-hidden="true" tabindex="-1"></a>which estout <span class="co">// check versions</span></span>
+<span id="cb2-2"><a href="base.html#cb2-2" aria-hidden="true" tabindex="-1"></a>*! <span class="kw">version</span> 3.24  30apr2021  Ben Jann</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb3-1"><a href="base.html#cb3-1" aria-hidden="true" tabindex="-1"></a>which esttab <span class="co">// check version</span></span>
+<span id="cb3-2"><a href="base.html#cb3-2" aria-hidden="true" tabindex="-1"></a>*! <span class="kw">version</span> 2.1.0  19may2021  Ben Jann</span>
+<span id="cb3-3"><a href="base.html#cb3-3" aria-hidden="true" tabindex="-1"></a>*! wrapper <span class="kw">for</span> estout</span></code></pre></div>
+<p>Mit <code>estout</code>/<code>esttab</code> können wir Tabellen mit zusammenfassenden Statistiken und Regressionsergebnissen zu erstellen, die leicht in LaTeX oder importiert werden können oder in Word verwendet werden können.
+Für die Latex-Verion ergibt sich der Vorteil, dass das ganze System dynamisch ist.
+Wenn wir etwas in unserem Do-File ändern (z. B. eine bestimmte Gruppe weglassen, eine neue Variabe aufnehmen), dann werden die Ergebnisse automatisch in LaTeX aktualisiert.
+Das kann eine Menge Zeit sparen, aber die Einrichtung in Latex ist sehr zeitintensiv und deren Details würden den Rahmen unseres Kurses sprengen.
+Ich stelle daher <a href="">hier</a> eine (sehr einfache) Latexvorlage zur Verfügung, die versierte Latex-Nutzer*innen gerne an Ihre Bedürfnisse anpassen können.
+<!-- https://www.overleaf.com/read/zgnvgxdzzptg --></p>
+<div id="grundlagen-e-und-r" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Grundlagen: <code>e()</code> und <code>r()</code></h2>
+<p>Grundsätzlich baut <code>esttab</code> auf die Postestimates <code>e()</code> auf.
+Bei jedem Befehl werden im Hintergrund Werte in Matrizen und Skalere (also Zahlenreihen) abgelegt, bspw. bei einem Regressionsmodell:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb4-1"><a href="base.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">quietly</span> <span class="kw">reg</span> F518_SUF zpalter</span>
+<span id="cb4-2"><a href="base.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ereturn</span> <span class="ot">list</span></span></code></pre></div>
+<pre><code>scalars:
+                  e(N) =  16543
+               e(df_m) =  1
+               e(df_r) =  16541
+                  e(F) =  105.3561454498825
+                 e(r2) =  .0063290815436915
+               e(rmse) =  3525.162828161657
+                e(mss) =  1309236899.97876
+                e(rss) =  205551251614.9366
+               e(r2_a) =  .0062690083366028
+                 e(ll) =  -158590.4618746699
+               e(ll_0) =  -158642.9792418738
+               e(rank) =  2
+
+macros:
+            e(cmdline) : &quot;regress F518_SUF zpalter&quot;
+              e(title) : &quot;Linear regression&quot;
+          e(marginsok) : &quot;XB default&quot;
+                e(vce) : &quot;ols&quot;
+             e(depvar) : &quot;F518_SUF&quot;
+                e(cmd) : &quot;regress&quot;
+         e(properties) : &quot;b V&quot;
+            e(predict) : &quot;regres_p&quot;
+              e(model) : &quot;ols&quot;
+          e(estat_cmd) : &quot;regress_estat&quot;
+
+matrices:
+                  e(b) :  1 x 2
+                  e(V) :  2 x 2
+
+functions:
+             e(sample)   </code></pre>
+<p>Die Matrizen können wir mit <code>matrix list</code>, die <code>Skalare</code> mit <code>scalar list</code> + Name aufrufen, unter <code>e(b)</code> sind beispielsweise die Koeffizienten abgelegt:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb6-1"><a href="base.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span> <span class="ot">list</span> <span class="fu">e</span>(b)</span></code></pre></div>
+<pre><code>e(b)[1,2]
+      zpalter      _cons
+y1  24.622534  2381.2797</code></pre>
+<p>Bei vielen deskriptiven Befehlen werden die Kennzahlen hingegen als <em>results</em> in <code>r()</code> abgelegt:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb8-1"><a href="base.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">quietly</span> su F518_SUF</span>
+<span id="cb8-2"><a href="base.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ereturn</span> <span class="ot">list</span></span>
+<span id="cb8-3"><a href="base.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span></code></pre></div>
+<pre><code>scalars:
+                  r(N) =  16635
+              r(sum_w) =  16635
+               r(mean) =  3532.108506161707
+                r(Var) =  12467451.86889181
+                 r(sd) =  3530.927904799503
+                r(min) =  1
+                r(max) =  72000
+                r(sum) =  58756625</code></pre>
+<p>Das bringt mit sich, dass wir für Deskriptionen meist mit dem Hilfsbefehl <code>estpost</code> die in <code>r()</code> abgelegten Ergebnisse in <code>e()</code> umwandeln müssen.
+Grundsätzlich sind aber die Ergebnisse aus <code>e()</code> und <code>r()</code> alle in Tabellen mit <code>esttab</code> exportierbar.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Stata Tables BIBB.pdf", "Stata Tables BIBB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
