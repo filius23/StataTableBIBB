@@ -1,5 +1,6 @@
 --- 
-title: "Stata Fortbildungen am BIBB"
+title: "Stata: Erzeugen von Deskriptions- und Regressionstabellen"
+subtitle: "Export in Word und Latex"
 author: "Andreas Filser"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -31,7 +32,7 @@ library(ggthemes)
 # Herzlich Willkommen {-}
 
 
-Hier entsteht das Begleitskript für die Stata-Weiterbildung **Stata – Erzeugen von Deskriptions- und Regressionstabellen** am BIBB von Andreas Filser am 16.12.2021
+Hier entsteht das Begleitskript für die Weiterbildung **Stata – Erzeugen von Deskriptions- und Regressionstabellen** am BIBB von Andreas Filser am 16.12.2021
 
 ```{r index_illustration, echo = F,out.width = "80%",fig.height= 3, fig.align="center"}
 knitr::include_graphics("pics/01_titel.png")

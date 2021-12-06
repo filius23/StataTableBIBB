@@ -20,6 +20,25 @@ div.orbox {
   background-color: #FDEBD0;
   border: dashed 3px #FAD7A0;
 }
+
+/* Give headers font */
+h1,
+h2,
+h3 {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  color: #1A1A1A;
+}
+
+/*link styling 495A82*/
+a:link {
+  color: #3B5082; 
+}
+/* visited link */
+a:visited {
+  color: #3B5082;
+}
+
 /* -----------div tips------------- */
 
 div.note {
