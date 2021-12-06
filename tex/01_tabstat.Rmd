@@ -4,9 +4,7 @@ subtitle: "1 `tabstat`"
 author: "Andreas Filser"
 date: "`r format(Sys.Date(), '%B %Y')`"
 output: 
-  pdf_document:
-    includes:
-      in_header: est_wrapper.tex
+  pdf_document
 output_dir: "docs"
 header-includes:
    - \usepackage{xcolor,soul,mdframed,color,float}
@@ -72,6 +70,10 @@ Table
 \vspace{5mm}
 
 \input{crosstab2.tex}
+
+\vspace{5mm}
+
+\input{regtab.tex}
 
 
 <!-- \begin{table}[!htbp] -->

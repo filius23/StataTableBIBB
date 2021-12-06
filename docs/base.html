@@ -24,7 +24,7 @@
 <meta name="author" content="Andreas Filser" />
 
 
-<meta name="date" content="2021-11-26" />
+<meta name="date" content="2021-12-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -187,7 +187,7 @@ Ich stelle daher <a href="">hier</a> eine (sehr einfache) Latexvorlage zur Verf�
 <div id="grundlagen-e-und-r" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Grundlagen: <code>e()</code> und <code>r()</code></h2>
 <p>Grundsätzlich baut <code>esttab</code> auf die Postestimates <code>e()</code> auf.
-Bei jedem Befehl werden im Hintergrund Werte in Matrizen und Skalere (also Zahlenreihen) abgelegt, bspw. bei einem Regressionsmodell:</p>
+Bei jedem Befehl werden im Hintergrund Werte in Matrizen und Skalere (also Zahlenreihen) abgelegt, bspw. bei einem Regressionsmodell. Mit <code>ereturn list</code> können wir uns eine Liste der Postestimates ausgeben lassen:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb4-1"><a href="base.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">quietly</span> <span class="kw">reg</span> F518_SUF zpalter</span>
 <span id="cb4-2"><a href="base.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ereturn</span> <span class="ot">list</span></span></code></pre></div>
 <pre><code>scalars:
@@ -227,7 +227,8 @@ functions:
 <pre><code>e(b)[1,2]
       zpalter      _cons
 y1  24.622534  2381.2797</code></pre>
-<p>Bei vielen deskriptiven Befehlen werden die Kennzahlen hingegen als <em>results</em> in <code>r()</code> abgelegt:</p>
+<p>Bei vielen deskriptiven Befehlen werden die Kennzahlen hingegen als <em>results</em> in <code>r()</code> abgelegt.
+An die Werte in <code>r()</code> kommen wird mit <code>return list</code>, <code>ereturn list</code> für <code>e()</code> ist dahingegen leer:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb8-1"><a href="base.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">quietly</span> su F518_SUF</span>
 <span id="cb8-2"><a href="base.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ereturn</span> <span class="ot">list</span></span>
 <span id="cb8-3"><a href="base.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span></code></pre></div>

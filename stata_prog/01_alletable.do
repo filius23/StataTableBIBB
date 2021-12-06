@@ -27,7 +27,7 @@ mvdecode m1202, mv(-1)
 }
 
 saveold "BIBBBAuA_2018_suf1.0_clean.dta", replace ver(13)
-glo tab_dir "D:\oCloud\Home-Cloud\Lehre\BIBB\StataBIBB3/tex"
+glo tab_dir "D:\oCloud\Home-Cloud\Lehre\BIBB\StataBIBB3_tex"
 
 * ------------------ *
 quietly reg F518_SUF zpalter
@@ -198,7 +198,7 @@ esttab, cell(b) unstack noobs collabels(none) nonumber nomtitles ///
 			eqlabels(, lhs("Ausbildungsabs.")) ///
 			mgroups("Gender" "", pattern(1 0 1))
 
-esttab using "${tab_dir}/crosstab.rtf", cell(b) unstack noobs collabels(none) nonumber nomtitles ///
+esttab using "${tab_dir}/crosstab.tex", cell(b) unstack noobs collabels(none) nonumber nomtitles ///
 			replace ///
 			varlabels(`e(labels)', blist(Total "{hline @width}{break}")) ///
 			eqlabels(, lhs("Ausbildungsabs.")) ///
@@ -238,7 +238,7 @@ esttab . using "${tab_dir}/svy_desc.rtf", cell(count(fmt(2))) se nostar nostar u
 		span erepeat(\cmidrule(lr){@span}))
 		collabels(none) // "count" ausblenden
 
-esttab . using "${tab_dir}/svy_desc.tex", se nostar nostar unstack ///
+esttab . using "${tab_dir}/svy_desc.tex", se nostar unstack ///
 	booktabs replace nonumber nomtitles ///
 	varlabels(`e(labels)') eqlabels(`e(eqlabels)', lhs("Ausbildungsabs.")) ///
 	mgroups("Gender", pattern(0 1 0 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) // Überschrift über spalten
@@ -276,9 +276,31 @@ estadd local note "Mod2"
 esttab reg2, r2 scalar(note) stats(ll r2 cmdline)
 
 
-esttab reg1 reg2, r2 scalar(note) stats(ll r2 cmdline)
+esttab reg1 reg2, r2 scalar(note) stats(ll r2)
+
+esttab reg1 reg2, r2 scalar(note) stats(N r2) se nonumber  ///
+	noabbrev label ///
+	coeflabel(zpalter "Alter" c.zpalter#c.zpalter "Alter²" 1.m1202 "ohne Berufsausb." 2.m1202 "duale/schulische Berufsausb." 3.m1202 "Aufstiegsfortb." 4.m1202 "Uni/FH" F200 "Arbeitszeit/Woche" _cons "Konstante") ///
+	mgroups("monatl. Einkommen" "", pattern(0 1) prefix(\multicolumn{2}{c}{) suffix(}) span erepeat(\cmidrule(lr){2-3})) ///
+	mtitles("Modell 1" "Modell 2")
+
+//	varlabels(`e(labels)') eqlabels(`e(eqlabels)', lhs("Ausbildungsabs."))
+// varwidth(25)
+
 
 esttab reg1 reg2 using "${tab_dir}/regtab.rtf", r2 scalar(note) stats(ll r2 cmdline)
+
+
+
+esttab reg1 reg2 using "${tab_dir}/regtab.tex", replace r2 scalar(note) se nonumber  ///
+	stats(r2 N, fmt(%9.3f %9.0g) labels(R-squared Observations)) ///
+	noabbrev label booktabs ///
+	coeflabel(zpalter "Alter" c.zpalter#c.zpalter "Alter²" 1.m1202 "ohne Berufsausb." 2.m1202 "duale/schulische Berufsausb." 3.m1202 "Aufstiegsfortb." 4.m1202 "Uni/FH" F200 "Arbeitszeit/Woche" _cons "Konstante") ///
+	mtitles("Modell 1" "Modell 2") ///
+	addnote("Source: ETB 2028 SUF Version 1")
+	
+	///
+	mgroups("monatl. Einkommen" "", pattern(0 1 0) prefix(\multicolumn{2}{c}{) suffix(}) span erepeat(\cmidrule(lr){2-3})) 
 
 * ------------------ *
 * margins
