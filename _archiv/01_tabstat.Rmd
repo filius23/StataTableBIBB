@@ -1,0 +1,125 @@
+---
+title: "STATA – Erzeugen von Deskriptions- und Regressionstabellen"
+subtitle: "1 `tabstat`"
+author: "Andreas Filser"
+date: "`r format(Sys.Date(), '%B %Y')`"
+output: 
+  pdf_document
+output_dir: "docs"
+header-includes:
+   - \usepackage{xcolor,soul,mdframed,color,float}
+---
+
+
+```{r setup1, echo = F, message=F, warning = F}
+.libPaths("D:/R-library4")
+knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(dpi=800)
+# knitr::opts_chunk$set(collectcode = T)
+library(Statamarkdown)
+library(tidyverse)
+library(kableExtra)
+# stataexe <- "C:/Program Files (x86)/Stata13/StataSE-64.exe"
+stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+# baua <- readstata13::read.dta13("D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta",convert.factors = F)
+```
+
+# `tabstat` {#tabstat}
+
+Mit `tabstat` können wir eine ganze Reihe statistischer Kennzahlen für metrische/kontinuierliche Merkmale berechnen. Die Syntax hat dabei das folgende Format: `tabstat varlist, s(*option*) c(stat|var)`
+
+Hier eine Übersicht der Kennzahlen:
+```{r, message=F,warning=F, echo = F}
+opts <- options(knitr.kable.NA = "")
+
+readxl::read_xlsx("03_tabstat.xlsx",sheet = 1) %>% 
+  # mutate(Option = paste0("\\texttt{",Option,"}")) %>% 
+  kbl(., booktabs = T) %>% 
+  kable_styling(latex_options = "striped", font_size = 8,position = "center") %>% 
+  kable_styling(latex_options = "HOLD_position")
+```
+
+Hier ein Bespielbefehl für die Berechnung des arith. Mittels, des Medians, der Varianz und des Varianzkoeffizienten mit `tabstat`:
+```{stata tabstatF, eval = F}
+tabstat zpalter, s(mean median var cv)
+```
+
+```{stata tabstatT, echo = F}
+set linesize 80
+qui use "D:\Datenspeicher\BIBB_BAuA/BIBBBAuA_2018_suf1.0_clean.dta", clear
+tabstat zpalter, s(mean sd min max n)
+```
+
+
+
+\input{tab1.tex}
+
+\vspace{5mm}
+\input{desc_miss.tex}  
+
+\vspace{5mm}
+Table  
+
+\vspace{5mm}
+<!-- \input{svy_desc.tex} -->
+
+
+\input{crosstab.tex}  
+
+\vspace{5mm}
+
+\input{crosstab2.tex}
+
+\vspace{5mm}
+
+\input{regtab.tex}
+
+
+<!-- \begin{table}[!htbp] -->
+<!-- \begin{tabular}{lrrrrrrr} -->
+<!-- \estwide{desc.tex}{10}{c} -->
+<!-- \end{tabular} -->
+<!-- \end{table} -->
+
+<!-- \resizebox{1\textwidth}{!}{ -->
+<!-- \include{desc.tex} -->
+<!-- } -->
+
+<!-- \begin{table}[!htbp] -->
+<!-- \caption{Summary statistics - using \texttt{mean} and \texttt{aux} options} \label{tab:table2} -->
+<!-- 	  \estauto{desc.tex}{15}{c} -->
+<!-- \end{table} -->
+
+\newpage
+
+# Anhang
+
+## `format` {#format}
+
+Hier eine kurze (unvollständige) Erklärung zu den `fmt()`-Optionen, mehr unter `help format` oder **[hier](https://wlm.userweb.mwn.de/Stata/wstatfor.htm)**
+
+### `%`*w*`.`*d*`f`
+
++ Mit `w` geben wir die Gesamtbreite des Outputs an - die Vorzeichen und Dezimaltrenner mitgezählt
++ `d` gibt die Zahl der Dezimalstellen
++ Grundsätzlich wird von "rechts" gezählt - The result is right-justified.
+
+Aus der Stata-Hilfe:
+
+The number 5.139 in %12.2f format displays as
+```{r fm1,eval =F}
+----+----1--
+        5.14
+```
+
+
+### `%`*w*``.``*d*`fc`
+    
+Analog zu `%w.df`, jedoch werden Kommata für bessere Lesbarkeit eingefügt. Auch die Kommata zählen für die Breite `w`.
+
+Während ``
+
+
+Mit `%`*w*`**,**`*d*`fc` können wir das Format für Dezimal- und Tausendertrenner ändern: Dezimalstellen werden mit einem `,` abgetrennt, 1000er mit `.`
+

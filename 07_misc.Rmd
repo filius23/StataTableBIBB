@@ -1,0 +1,28 @@
+# Weitere optionen {#misc} 
+
+```{r setup2, echo = F, message=F, warning = F}
+.libPaths("D:/R-library4")
+knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(dpi=800)
+# knitr::opts_chunk$set(collectcode = T)
+library(Statamarkdown)
+library(tidyverse)
+library(kableExtra)
+# stataexe <- "C:/Program Files (x86)/Stata13/StataSE-64.exe"
+stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+# baua <- readstata13::read.dta13("D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta",convert.factors = F)
+```
+
+
+
+`fonttbl(string)    set custom font table (RTF)`
+
+
+`title({\b Table 1.} {\i This is the 1{\super st} table})`
+[Formatierung anpassen](http://repec.org/bocode/e/estout/esttab011d.do)
+
+ 
+`alignment(string)  set alignment within columns (LaTeX, HTML, RTF)`
+
+[esttab any matrix](http://repec.org/bocode/e/estout/advanced.html#advanced905)

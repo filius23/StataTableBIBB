@@ -1,0 +1,277 @@
+# `table` {#tab} 
+
+```{r setup2, echo = F, message=F, warning = F}
+.libPaths("D:/R-library4")
+knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(dpi=800)
+# knitr::opts_chunk$set(collectcode = T)
+library(Statamarkdown)
+library(tidyverse)
+library(kableExtra)
+# stataexe <- "C:/Program Files (x86)/Stata13/StataSE-64.exe"
+stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+# baua <- readstata13::read.dta13("D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta",convert.factors = F)
+```
+
+
+
+
+Mit `table` können wir sowohl uni- als auch bivariate Häufigkeitsauszählungen erstellen. 
+Auch diese können wir mit `esttab` exportieren.
+Außerdem können wir auch gewichtete Tabellen exportieren.
+
+## `tab x`: One-way frequency table
+
+```{stata tabl1, eval = F}
+tabulate m1202
+```
+
+
+```{stata tabl1b, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+tabulate m1202
+```
+
+Auch hier benötigen wir `estpost`, um dann die `esttab`-Tabelle zu erstellen:
+
+```{stata tabl2, eval = F}
+estpost tabulate m1202
+esttab, cells("b(label(freq)) pct(fmt(%13.0fc)) cumpct(fmt(%13.0fc))") ///
+       nonumber nomtitle noobs
+```
+
+
+```{stata tabl2b, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+estpost tabulate m1202
+esttab, cells("b(label(freq)) pct(fmt(%13.0fc)) cumpct(fmt(%13.0fc))") ///
+       nonumber nomtitle noobs
+```
+
++ `varlabels()`  $\Rightarrow$ Labels verwenden
++ `varwidth(40)` $\Rightarrow$ Breite anpassen sodass ganzes Label sichtbar
+```{stata tabl3, eval = F}
+esttab, cells("b(label(freq)) pct(fmt(%13.0fc)) cumpct(fmt(%13.0fc))") ///	 
+	nonumber nomtitle noobs ///
+	varlabels(`e(labels)') ///	
+	varwidth(40) 
+```
+
+
+
+```{stata tabl3b, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost tabulate m1202
+}
+esttab, cells("b(label(freq)) pct(fmt(%13.0fc)) cumpct(fmt(%13.0fc))") ///
+       nonumber nomtitle noobs ///
+	varlabels(`e(labels)') ///	
+	varwidth(40) 
+```
+
+
+Export:
+```{stata tabexport, eval= F}
+esttab using "${word}/03_tab1.rtf", cells("b(label(freq)) pct(fmt(%13.0fc)) cumpct(fmt(%13.0fc))") ///
+	nonumber nomtitle noobs ///
+	varlabels(`e(labels)') ///
+	varwidth(40) ///
+	replace 
+```
+
+
+***
+
+**[Übung 1](#table1)**
+
+***
+
+## `tab var1 var2`: Kontingenz-/Kreuztabelle
+
+```{stata ctab1, eval = F}
+tabulate m1202 S1
+```
+
+
+```{stata ctab1a, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+tabulate m1202 S1
+```
+
+`estpost` gibt uns hier vier Kennzahlen:
+
++ `b`     $\Rightarrow$ abs. Häufigkeiten
++ `pct`     $\Rightarrow$  rel. Häufigkeiten
++ `colpct`    $\Rightarrow$ Spaltenprozente
++ `rowpct`    $\Rightarrow$ Zeilenprozente
+
+```{stata ctab2, eval = F}
+estpost tabulate m1202 S1
+esttab, cell(b(fmt(%13.0fc))) unstack noobs nonumber nomtitles ///
+  collabels(none)  varlabels(`e(labels)') varwidth(40)
+```
+
+
+```{stata ctab2b, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+estpost tabulate m1202 S1
+esttab, cell(b(fmt(%13.0fc))) unstack noobs nonumber nomtitles ///
+  collabels(none) varlabels(`e(labels)') varwidth(40)
+```
+
+Dazu noch die Labels und mit `mgroups` eine Spaltenüberschrift:
+```{stata ctab3, eval = F}
+esttab, cell(b(fmt(%13.0fc))) unstack noobs collabels(none) nonumber nomtitles ///
+			varlabels(`e(labels)') ///
+			eqlabels(, lhs("Ausbildungsabs."))  ///
+			varwidth(40) /// 
+			mgroups("Gender" "", pattern(1 0 1))
+```
+
+
+```{stata ctab3b, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+estpost tabulate m1202 S1
+}
+esttab, cell(b(fmt(%13.0fc))) unstack noobs collabels(none) nonumber nomtitles ///
+			varlabels(`e(labels)') ///
+			eqlabels(, lhs("Ausbildungsabs."))  ///
+			varwidth(40) ///
+			mgroups("Gender" "", pattern(1 0 1))
+```
+
+
+```{stata ctab4, eval = F}
+loc x "eingefügtem Text"
+esttab, cell(b) unstack noobs collabels(none) nonumber nomtitles ///
+			varlabels(`e(labels)') ///
+			eqlabels(, lhs("Ausbildungsabs."))  ///
+			varwidth(40) ///
+			mgroups("Gender" "", pattern(1 0 1)) /// Überschrift über spalten
+			title("Hier kann ein Titel stehen") /// titel
+			note("Und hier eine Notiz sogar mit: `x'") // notiz
+```
+
+```{stata ctab4b, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+estpost tabulate m1202 S1
+}
+loc x "eingefügtem Text"
+esttab, cell(b) unstack noobs collabels(none) nonumber nomtitles ///
+			varlabels(`e(labels)') ///
+			eqlabels(, lhs("Ausbildungsabs."))  ///
+			varwidth(40) ///
+			mgroups("Gender" "", pattern(1 0 1)) /// Überschrift über spalten
+			title("Hier kann ein Titel stehen") /// titel
+			note("Und hier eine Notiz sogar mit: `x'") // notiz
+```
+
+
+***
+
+**[Übung 2](#table2)**
+
+***
+
+
+
+## Gewichtete Tabelle mit `svy`
+
+
+```{stata svytab0, eval = F}
+svyset _n [pweight=gew2018]
+estpost svy: tabulate  m1202 S1 , row percent count
+```
+
+
+```{stata svytab1, eval = F}
+esttab ., cell(b(fmt(%13.2fc))) ///
+    nostar nostar unstack ///
+		nonumber nomtitles collabels(none)  ///
+		varlabels(`e(labels)') eqlabels(`e(eqlabels)', lhs("Ausbildungsabs.")) ///
+		mgroups("Gender", pattern(0 1 0 1) span ) ///
+		varwidth(40)
+```
+
+
+```{stata svytab01, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+estpost tabulate m1202 S1
+}
+esttab ., cell(b(fmt(%13.2fc))) ///
+    nostar nostar unstack ///
+		nonumber nomtitles collabels(none)  ///
+		varlabels(`e(labels)') eqlabels(`e(eqlabels)', lhs("Ausbildungsabs.")) ///
+		mgroups("Gender", pattern(0 1 0 1) span ) ///
+		varwidth(40)
+```
+
+
+```{stata svytab2, eval = F}
+esttab using "${word}/svytab.rtf", cell(b(fmt(%13.2fc))) ///
+    nostar nostar unstack ///
+		nonumber nomtitles collabels(none)  ///
+		varlabels(`e(labels)') eqlabels(`e(eqlabels)', lhs("Ausbildungsabs.")) ///
+		mgroups("Gender", pattern(0 1) span ) ///
+		varwidth(40) ///
+		replace
+	
+esttab . using "${tex}/svy_desc.tex",  cell(b(fmt(%13.2fc))) ///
+		nostar nostar unstack ///
+		nonumber nomtitles collabels(none)  ///
+		varlabels(`e(labels)') eqlabels(`e(eqlabels)', lhs("Ausbildungsabs."))  ///
+		mgroups("Gender", pattern(0 1 0 1) prefix(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) ///
+		booktabs replace
+```
+
+
+
++ `e(b)` =  cell percentages
++ `e(se)` =  standard errors of cell percentages
++ `e(lb)` =  lower 95% confidence bounds for cell percentages
++ `e(ub)` =  upper 95% confidence bounds for cell percentages
++ `e(cell)` =  cell percentages
++ `e(row)` =  row percentages
++ `e(col)` =  column percentages
++ `e(count)` =  weighted counts
++ `e(obs)` =  number of observations
+
+
+
+
+## Übungen
+
+### Übung {#table1}
+
++ Erstellen Sie eine Häufigkeitstabelle für von `gkpol`. 
++ Lassen Sie sich die Labels für `gkpol` anzeigen und passen Sie die Tabelle nach Ihren Vorstellungen an.
++ Passen Sie die Labels für die Spalten (bspw. `N` statt `freq` und `%` statt `pct`) an und blenden Sie die kumulierte relative Häufigkeit aus.
+
+### Übung {#table2}
+
++ Erstellen Sie eine Kreuztabelle für `gkpol` und `mobil`. 
++ Passen Sie die Beschriftung der Tabelle nach Ihren Vorstellungen an.
++ Was müssten Sie ändern, um die Zeilen- oder Spaltenprozente anzeigen zu lassen?
++ Fügen Sie auch eine Notiz ein und einen Titel ein
+

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 table | Stata: Erzeugen von Deskriptions- und Regressionstabellen</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 table | Stata: Erzeugen von Deskriptions- und Regressionstabellen" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 table | Stata: Erzeugen von Deskriptions- und Regressionstabellen" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Andreas Filser" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="desc.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Stata @ BIBB</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Herzlich Willkommen</a></li>
+<li class="chapter" data-level="1" data-path="base.html"><a href="base.html"><i class="fa fa-check"></i><b>1</b> Tabellenexport mit Stata: Grundlagen &amp; Pakete</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="base.html"><a href="base.html#grundlagen-e-und-r"><i class="fa fa-check"></i><b>1.1</b> Grundlagen: <code>e()</code> und <code>r()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="desc.html"><a href="desc.html"><i class="fa fa-check"></i><b>2</b> Deskriptionen</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="desc.html"><a href="desc.html#summary"><i class="fa fa-check"></i><b>2.1</b> <code>summary</code></a></li>
+<li class="chapter" data-level="2.2" data-path="desc.html"><a href="desc.html#tabstat"><i class="fa fa-check"></i><b>2.2</b> <code>tabstat</code></a></li>
+<li class="chapter" data-level="2.3" data-path="desc.html"><a href="desc.html#export"><i class="fa fa-check"></i><b>2.3</b> export</a></li>
+<li class="chapter" data-level="2.4" data-path="desc.html"><a href="desc.html#zusätzliche-kennzahlen-hinzufügen"><i class="fa fa-check"></i><b>2.4</b> Zusätzliche Kennzahlen hinzufügen</a></li>
+<li class="chapter" data-level="2.5" data-path="desc.html"><a href="desc.html#mehrere-variablen"><i class="fa fa-check"></i><b>2.5</b> mehrere Variablen</a></li>
+<li class="chapter" data-level="2.6" data-path="desc.html"><a href="desc.html#gruppenvergleich"><i class="fa fa-check"></i><b>2.6</b> Gruppenvergleich</a></li>
+<li class="chapter" data-level="2.7" data-path="desc.html"><a href="desc.html#übungen"><i class="fa fa-check"></i><b>2.7</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="desc.html"><a href="desc.html#tabst1"><i class="fa fa-check"></i><b>2.7.1</b> Übung</a></li>
+<li class="chapter" data-level="2.7.2" data-path="desc.html"><a href="desc.html#tabst2"><i class="fa fa-check"></i><b>2.7.2</b> Übung</a></li>
+<li class="chapter" data-level="2.7.3" data-path="desc.html"><a href="desc.html#tabst3"><i class="fa fa-check"></i><b>2.7.3</b> Übung</a></li>
+<li class="chapter" data-level="2.7.4" data-path="desc.html"><a href="desc.html#tabst4"><i class="fa fa-check"></i><b>2.7.4</b> Übung</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="desc.html"><a href="desc.html#format"><i class="fa fa-check"></i><b>2.8</b> Mehr zu <code>format</code></a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="desc.html"><a href="desc.html#w.df"><i class="fa fa-check"></i><b>2.8.1</b> <code>%</code><em>w</em><code>.</code><em>d</em><code>f</code></a></li>
+<li class="chapter" data-level="2.8.2" data-path="desc.html"><a href="desc.html#w.dfc"><i class="fa fa-check"></i><b>2.8.2</b> <code>%</code><em>w</em><code>.</code><em>d</em><code>fc</code></a></li>
+<li class="chapter" data-level="2.8.3" data-path="desc.html"><a href="desc.html#beispiele"><i class="fa fa-check"></i><b>2.8.3</b> Beispiele</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tab.html"><a href="tab.html"><i class="fa fa-check"></i><b>3</b> <code>table</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tab.html"><a href="tab.html#tab-x-one-way-frequency-table"><i class="fa fa-check"></i><b>3.1</b> <code>tab x</code>: One-way frequency table</a></li>
+<li class="chapter" data-level="3.2" data-path="tab.html"><a href="tab.html#tab-var1-var2-kontingenz-kreuztabelle"><i class="fa fa-check"></i><b>3.2</b> <code>tab var1 var2</code>: Kontingenz-/Kreuztabelle</a></li>
+<li class="chapter" data-level="3.3" data-path="tab.html"><a href="tab.html#gewichtete-tabelle-mit-svy"><i class="fa fa-check"></i><b>3.3</b> Gewichtete Tabelle mit <code>svy</code></a></li>
+<li class="chapter" data-level="3.4" data-path="tab.html"><a href="tab.html#übungen-1"><i class="fa fa-check"></i><b>3.4</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="tab.html"><a href="tab.html#table1"><i class="fa fa-check"></i><b>3.4.1</b> Übung</a></li>
+<li class="chapter" data-level="3.4.2" data-path="tab.html"><a href="tab.html#table2"><i class="fa fa-check"></i><b>3.4.2</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stata: Erzeugen von Deskriptions- und Regressionstabellen</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tab" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> <code>table</code></h1>
+<p>Mit <code>table</code> können wir sowohl uni- als auch bivariate Häufigkeitsauszählungen erstellen.
+Auch diese können wir mit <code>esttab</code> exportieren.
+Außerdem können wir auch gewichtete Tabellen exportieren.</p>
+<div id="tab-x-one-way-frequency-table" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> <code>tab x</code>: One-way frequency table</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="tab.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">tabulate</span> m1202</span></code></pre></div>
+<pre><code>                         HÃ¶chster Ausbi |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                   Ohne Berufsabschluss |      1,091        5.46        5.46
+duale o. schulische Berufsausbildung/ei |      9,297       46.56       52.03
+Aufstiegsfortbildung (Meister, Technike |      1,725        8.64       60.67
+Fachhochschule, UniversitÃ¤t/ geh., hÃ¶he |      7,854       39.33      100.00
+----------------------------------------+-----------------------------------
+                                  Total |     19,967      100.00</code></pre>
+<p>Auch hier benötigen wir <code>estpost</code>, um dann die <code>esttab</code>-Tabelle zu erstellen:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb3-1"><a href="tab.html#cb3-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabulate</span> m1202</span>
+<span id="cb3-2"><a href="tab.html#cb3-2" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;b(label(freq)) pct(fmt(%13.0fc)) cumpct(fmt(%13.0fc))&quot;</span>) <span class="co">///</span></span>
+<span id="cb3-3"><a href="tab.html#cb3-3" aria-hidden="true" tabindex="-1"></a>       nonumber nomtitle <span class="kw">noobs</span></span></code></pre></div>
+<pre><code>       m1202 |      e(b)     e(pct)  e(cumpct) 
+-------------+---------------------------------
+           1 |      1091   5.464016   5.464016 
+           2 |      9297   46.56183   52.02584 
+           3 |      1725   8.639255    60.6651 
+           4 |      7854    39.3349        100 
+-------------+---------------------------------
+       Total |     19967        100            
+
+row labels saved in macro e(labels)
+
+
+---------------------------------------------------
+                     freq          pct       cumpct
+---------------------------------------------------
+1                    1091            5            5
+2                    9297           47           52
+3                    1725            9           61
+4                    7854           39          100
+Total               19967          100             
+---------------------------------------------------</code></pre>
+<ul>
+<li><code>varlabels()</code> <span class="math inline">\(\Rightarrow\)</span> Labels verwenden</li>
+<li><code>varwidth(40)</code> <span class="math inline">\(\Rightarrow\)</span> Breite anpassen sodass ganzes Label sichtbar</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="tab.html#cb5-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;b(label(freq)) pct(fmt(%13.0fc)) cumpct(fmt(%13.0fc))&quot;</span>) <span class="co">///   </span></span>
+<span id="cb5-2"><a href="tab.html#cb5-2" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle <span class="kw">noobs</span> <span class="co">///</span></span>
+<span id="cb5-3"><a href="tab.html#cb5-3" aria-hidden="true" tabindex="-1"></a>    varlabels(<span class="ot">`e(labels)&#39;</span>) <span class="co">///  </span></span>
+<span id="cb5-4"><a href="tab.html#cb5-4" aria-hidden="true" tabindex="-1"></a>    varwidth(40) </span></code></pre></div>
+<pre><code>                                                 freq          pct       cumpct
+-------------------------------------------------------------------------------
+Ohne Berufsabschluss                             1091            5            5
+duale o. schulische Berufsausbildung/ein         9297           47           52
+Aufstiegsfortbildung (Meister, Techniker         1725            9           61
+Fachhochschule, UniversitÃ¤t/ geh., hÃ¶her         7854           39          100
+Total                                           19967          100             
+-------------------------------------------------------------------------------</code></pre>
+<p>Export:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb7-1"><a href="tab.html#cb7-1" aria-hidden="true" tabindex="-1"></a>esttab <span class="kw">using</span> <span class="st">&quot;${word}/03_tab1.rtf&quot;</span>, cells(<span class="st">&quot;b(label(freq)) pct(fmt(%13.0fc)) cumpct(fmt(%13.0fc))&quot;</span>) <span class="co">///</span></span>
+<span id="cb7-2"><a href="tab.html#cb7-2" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle <span class="kw">noobs</span> <span class="co">///</span></span>
+<span id="cb7-3"><a href="tab.html#cb7-3" aria-hidden="true" tabindex="-1"></a>    varlabels(<span class="ot">`e(labels)&#39;</span>) <span class="co">///</span></span>
+<span id="cb7-4"><a href="tab.html#cb7-4" aria-hidden="true" tabindex="-1"></a>    varwidth(40) <span class="co">///</span></span>
+<span id="cb7-5"><a href="tab.html#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> </span></code></pre></div>
+<hr />
+<p><strong><a href="tab.html#table1">Übung 1</a></strong></p>
+<hr />
+</div>
+<div id="tab-var1-var2-kontingenz-kreuztabelle" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> <code>tab var1 var2</code>: Kontingenz-/Kreuztabelle</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb8-1"><a href="tab.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">tabulate</span> m1202 S1</span></code></pre></div>
+<pre><code>                      |      Geschlecht
+       HÃ¶chster Ausbi |  mÃ¤nnlich   weiblich |     Total
+----------------------+----------------------+----------
+ Ohne Berufsabschluss |       594        497 |     1,091 
+duale o. schulische B |     4,371      4,926 |     9,297 
+Aufstiegsfortbildung  |     1,073        652 |     1,725 
+Fachhochschule, Unive |     4,015      3,839 |     7,854 
+----------------------+----------------------+----------
+                Total |    10,053      9,914 |    19,967 </code></pre>
+<p><code>estpost</code> gibt uns hier vier Kennzahlen:</p>
+<ul>
+<li><code>b</code> <span class="math inline">\(\Rightarrow\)</span> abs. Häufigkeiten</li>
+<li><code>pct</code> <span class="math inline">\(\Rightarrow\)</span> rel. Häufigkeiten</li>
+<li><code>colpct</code> <span class="math inline">\(\Rightarrow\)</span> Spaltenprozente</li>
+<li><code>rowpct</code> <span class="math inline">\(\Rightarrow\)</span> Zeilenprozente</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb10-1"><a href="tab.html#cb10-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabulate</span> m1202 S1</span>
+<span id="cb10-2"><a href="tab.html#cb10-2" aria-hidden="true" tabindex="-1"></a>esttab, cell(b(fmt(%13.0fc))) unstack <span class="kw">noobs</span> nonumber nomtitles <span class="co">///</span></span>
+<span id="cb10-3"><a href="tab.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  collabels(<span class="kw">none</span>)  varlabels(<span class="ot">`e(labels)&#39;</span>) varwidth(40)</span></code></pre></div>
+<pre><code>S1           |                                            
+       m1202 |      e(b)     e(pct)  e(colpct)  e(rowpct) 
+-------------+--------------------------------------------
+mÃ¤nnlich     |                                            
+           1 |       594   2.974909   5.908684   54.44546 
+           2 |      4371   21.89112   43.47956   47.01517 
+           3 |      1073   5.373867   10.67343    62.2029 
+           4 |      4015   20.10818   39.93833   51.12045 
+       Total |     10053   50.34807        100   50.34807 
+-------------+--------------------------------------------
+weiblich     |                                            
+           1 |       497   2.489107   5.013113   45.55454 
+           2 |      4926   24.67071   49.68731   52.98483 
+           3 |       652   3.265388   6.576558    37.7971 
+           4 |      3839   19.22672   38.72302   48.87955 
+       Total |      9914   49.65193        100   49.65193 
+-------------+--------------------------------------------
+Total        |                                            
+           1 |      1091   5.464016   5.464016        100 
+           2 |      9297   46.56183   46.56183        100 
+           3 |      1725   8.639255   8.639255        100 
+           4 |      7854    39.3349    39.3349        100 
+       Total |     19967        100        100        100 
+
+row labels saved in macro e(labels)
+
+
+-------------------------------------------------------------------------------
+                                             mÃ¤nnlich     weiblich        Total
+-------------------------------------------------------------------------------
+Ohne Berufsabschluss                              594          497        1,091
+duale o. schulische Berufsausbildung/ein        4,371        4,926        9,297
+Aufstiegsfortbildung (Meister, Techniker        1,073          652        1,725
+Fachhochschule, UniversitÃ¤t/ geh., hÃ¶her        4,015        3,839        7,854
+Total                                          10,053        9,914       19,967
+-------------------------------------------------------------------------------</code></pre>
+<p>Dazu noch die Labels und mit <code>mgroups</code> eine Spaltenüberschrift:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb12-1"><a href="tab.html#cb12-1" aria-hidden="true" tabindex="-1"></a>esttab, cell(b(fmt(%13.0fc))) unstack <span class="kw">noobs</span> collabels(<span class="kw">none</span>) nonumber nomtitles <span class="co">///</span></span>
+<span id="cb12-2"><a href="tab.html#cb12-2" aria-hidden="true" tabindex="-1"></a>            varlabels(<span class="ot">`e(labels)&#39;</span>) <span class="co">///</span></span>
+<span id="cb12-3"><a href="tab.html#cb12-3" aria-hidden="true" tabindex="-1"></a>            eqlabels(, lhs(<span class="st">&quot;Ausbildungsabs.&quot;</span>))  <span class="co">///</span></span>
+<span id="cb12-4"><a href="tab.html#cb12-4" aria-hidden="true" tabindex="-1"></a>            varwidth(40) <span class="co">/// </span></span>
+<span id="cb12-5"><a href="tab.html#cb12-5" aria-hidden="true" tabindex="-1"></a>            mgroups(<span class="st">&quot;Gender&quot;</span> <span class="st">&quot;&quot;</span>, pattern(1 0 1))</span></code></pre></div>
+<pre><code>                                               Gender                          
+Ausbildungsabs.                              mÃ¤nnlich     weiblich        Total
+-------------------------------------------------------------------------------
+Ohne Berufsabschluss                              594          497        1,091
+duale o. schulische Berufsausbildung/ein        4,371        4,926        9,297
+Aufstiegsfortbildung (Meister, Techniker        1,073          652        1,725
+Fachhochschule, UniversitÃ¤t/ geh., hÃ¶her        4,015        3,839        7,854
+Total                                          10,053        9,914       19,967
+-------------------------------------------------------------------------------</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb14-1"><a href="tab.html#cb14-1" aria-hidden="true" tabindex="-1"></a>loc x <span class="st">&quot;eingefügtem Text&quot;</span></span>
+<span id="cb14-2"><a href="tab.html#cb14-2" aria-hidden="true" tabindex="-1"></a>esttab, cell(b) unstack <span class="kw">noobs</span> collabels(<span class="kw">none</span>) nonumber nomtitles <span class="co">///</span></span>
+<span id="cb14-3"><a href="tab.html#cb14-3" aria-hidden="true" tabindex="-1"></a>            varlabels(<span class="ot">`e(labels)&#39;</span>) <span class="co">///</span></span>
+<span id="cb14-4"><a href="tab.html#cb14-4" aria-hidden="true" tabindex="-1"></a>            eqlabels(, lhs(<span class="st">&quot;Ausbildungsabs.&quot;</span>))  <span class="co">///</span></span>
+<span id="cb14-5"><a href="tab.html#cb14-5" aria-hidden="true" tabindex="-1"></a>            varwidth(40) <span class="co">///</span></span>
+<span id="cb14-6"><a href="tab.html#cb14-6" aria-hidden="true" tabindex="-1"></a>            mgroups(<span class="st">&quot;Gender&quot;</span> <span class="st">&quot;&quot;</span>, pattern(1 0 1)) <span class="co">/// Überschrift über spalten</span></span>
+<span id="cb14-7"><a href="tab.html#cb14-7" aria-hidden="true" tabindex="-1"></a>            <span class="bn">title</span>(<span class="st">&quot;Hier kann ein Titel stehen&quot;</span>) <span class="co">/// titel</span></span>
+<span id="cb14-8"><a href="tab.html#cb14-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">note</span>(<span class="st">&quot;Und hier eine Notiz sogar mit: `x&#39;&quot;</span>) <span class="co">// notiz</span></span></code></pre></div>
+<pre><code>Hier kann ein Titel stehen
+-------------------------------------------------------------------------------
+                                               Gender                          
+Ausbildungsabs.                              mÃ¤nnlich     weiblich        Total
+-------------------------------------------------------------------------------
+Ohne Berufsabschluss                              594          497         1091
+duale o. schulische Berufsausbildung/ein         4371         4926         9297
+Aufstiegsfortbildung (Meister, Techniker         1073          652         1725
+Fachhochschule, UniversitÃ¤t/ geh., hÃ¶her         4015         3839         7854
+Total                                           10053         9914        19967
+-------------------------------------------------------------------------------
+Und hier eine Notiz sogar mit: eingefügtem Text</code></pre>
+<hr />
+<p><strong><a href="tab.html#table2">Übung 2</a></strong></p>
+<hr />
+</div>
+<div id="gewichtete-tabelle-mit-svy" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Gewichtete Tabelle mit <code>svy</code></h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb16-1"><a href="tab.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">svyset</span> <span class="dt">_n</span> [<span class="kw">pweight</span>=gew2018]</span>
+<span id="cb16-2"><a href="tab.html#cb16-2" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">svy</span>: <span class="kw">tabulate</span>  m1202 S1 , <span class="ot">row</span> <span class="kw">percent</span> <span class="fu">count</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb17-1"><a href="tab.html#cb17-1" aria-hidden="true" tabindex="-1"></a>esttab ., cell(b(fmt(%13.2fc))) <span class="co">///</span></span>
+<span id="cb17-2"><a href="tab.html#cb17-2" aria-hidden="true" tabindex="-1"></a>    nostar nostar unstack <span class="co">///</span></span>
+<span id="cb17-3"><a href="tab.html#cb17-3" aria-hidden="true" tabindex="-1"></a>        nonumber nomtitles collabels(<span class="kw">none</span>)  <span class="co">///</span></span>
+<span id="cb17-4"><a href="tab.html#cb17-4" aria-hidden="true" tabindex="-1"></a>        varlabels(<span class="ot">`e(labels)&#39;</span>) eqlabels(<span class="ot">`e(eqlabels)&#39;</span>, lhs(<span class="st">&quot;Ausbildungsabs.&quot;</span>)) <span class="co">///</span></span>
+<span id="cb17-5"><a href="tab.html#cb17-5" aria-hidden="true" tabindex="-1"></a>        mgroups(<span class="st">&quot;Gender&quot;</span>, pattern(0 1 0 1) span ) <span class="co">///</span></span>
+<span id="cb17-6"><a href="tab.html#cb17-6" aria-hidden="true" tabindex="-1"></a>        varwidth(40)</span></code></pre></div>
+<pre><code>                                         Gender                                
+Ausbildungsabs.                              mÃ¤nnlich     weiblich        Total
+-------------------------------------------------------------------------------
+Ohne Berufsabschluss                           594.00       497.00     1,091.00
+duale o. schulische Berufsausbildung/ein     4,371.00     4,926.00     9,297.00
+Aufstiegsfortbildung (Meister, Techniker     1,073.00       652.00     1,725.00
+Fachhochschule, UniversitÃ¤t/ geh., hÃ¶her     4,015.00     3,839.00     7,854.00
+Total                                       10,053.00     9,914.00    19,967.00
+-------------------------------------------------------------------------------
+N                                               19967                          
+-------------------------------------------------------------------------------</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb19-1"><a href="tab.html#cb19-1" aria-hidden="true" tabindex="-1"></a>esttab <span class="kw">using</span> <span class="st">&quot;${word}/svytab.rtf&quot;</span>, cell(b(fmt(%13.2fc))) <span class="co">///</span></span>
+<span id="cb19-2"><a href="tab.html#cb19-2" aria-hidden="true" tabindex="-1"></a>    nostar nostar unstack <span class="co">///</span></span>
+<span id="cb19-3"><a href="tab.html#cb19-3" aria-hidden="true" tabindex="-1"></a>        nonumber nomtitles collabels(<span class="kw">none</span>)  <span class="co">///</span></span>
+<span id="cb19-4"><a href="tab.html#cb19-4" aria-hidden="true" tabindex="-1"></a>        varlabels(<span class="ot">`e(labels)&#39;</span>) eqlabels(<span class="ot">`e(eqlabels)&#39;</span>, lhs(<span class="st">&quot;Ausbildungsabs.&quot;</span>)) <span class="co">///</span></span>
+<span id="cb19-5"><a href="tab.html#cb19-5" aria-hidden="true" tabindex="-1"></a>        mgroups(<span class="st">&quot;Gender&quot;</span>, pattern(0 1) span ) <span class="co">///</span></span>
+<span id="cb19-6"><a href="tab.html#cb19-6" aria-hidden="true" tabindex="-1"></a>        varwidth(40) <span class="co">///</span></span>
+<span id="cb19-7"><a href="tab.html#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">replace</span></span>
+<span id="cb19-8"><a href="tab.html#cb19-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-9"><a href="tab.html#cb19-9" aria-hidden="true" tabindex="-1"></a>esttab . <span class="kw">using</span> <span class="st">&quot;${tex}/svy_desc.tex&quot;</span>,  cell(b(fmt(%13.2fc))) <span class="co">///</span></span>
+<span id="cb19-10"><a href="tab.html#cb19-10" aria-hidden="true" tabindex="-1"></a>        nostar nostar unstack <span class="co">///</span></span>
+<span id="cb19-11"><a href="tab.html#cb19-11" aria-hidden="true" tabindex="-1"></a>        nonumber nomtitles collabels(<span class="kw">none</span>)  <span class="co">///</span></span>
+<span id="cb19-12"><a href="tab.html#cb19-12" aria-hidden="true" tabindex="-1"></a>        varlabels(<span class="ot">`e(labels)&#39;</span>) eqlabels(<span class="ot">`e(eqlabels)&#39;</span>, lhs(<span class="st">&quot;Ausbildungsabs.&quot;</span>))  <span class="co">///</span></span>
+<span id="cb19-13"><a href="tab.html#cb19-13" aria-hidden="true" tabindex="-1"></a>        mgroups(<span class="st">&quot;Gender&quot;</span>, pattern(0 1 0 1) <span class="kw">prefix</span>(\multicolumn{@span}{c}{) suffix(}) span erepeat(\cmidrule(lr){@span})) <span class="co">///</span></span>
+<span id="cb19-14"><a href="tab.html#cb19-14" aria-hidden="true" tabindex="-1"></a>        booktabs <span class="kw">replace</span></span></code></pre></div>
+<ul>
+<li><code>e(b)</code> = cell percentages</li>
+<li><code>e(se)</code> = standard errors of cell percentages</li>
+<li><code>e(lb)</code> = lower 95% confidence bounds for cell percentages</li>
+<li><code>e(ub)</code> = upper 95% confidence bounds for cell percentages</li>
+<li><code>e(cell)</code> = cell percentages</li>
+<li><code>e(row)</code> = row percentages</li>
+<li><code>e(col)</code> = column percentages</li>
+<li><code>e(count)</code> = weighted counts</li>
+<li><code>e(obs)</code> = number of observations</li>
+</ul>
+</div>
+<div id="übungen-1" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Übungen</h2>
+<div id="table1" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Übung</h3>
+<ul>
+<li>Erstellen Sie eine Häufigkeitstabelle für von <code>gkpol</code>.</li>
+<li>Lassen Sie sich die Labels für <code>gkpol</code> anzeigen und passen Sie die Tabelle nach Ihren Vorstellungen an.</li>
+<li>Passen Sie die Labels für die Spalten (bspw. <code>N</code> statt <code>freq</code> und <code>%</code> statt <code>pct</code>) an und blenden Sie die kumulierte relative Häufigkeit aus.</li>
+</ul>
+</div>
+<div id="table2" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Übung</h3>
+<ul>
+<li>Erstellen Sie eine Kreuztabelle für <code>gkpol</code> und <code>mobil</code>.</li>
+<li>Passen Sie die Beschriftung der Tabelle nach Ihren Vorstellungen an.</li>
+<li>Was müssten Sie ändern, um die Zeilen- oder Spaltenprozente anzeigen zu lassen?</li>
+<li>Fügen Sie auch eine Notiz ein und einen Titel ein</li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="desc.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Stata Tables BIBB.pdf", "Stata Tables BIBB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

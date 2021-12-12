@@ -1,0 +1,199 @@
+# Korrelationsmatrix  {#cormat} 
+
+```{r setup2, echo = F, message=F, warning = F}
+.libPaths("D:/R-library4")
+knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(dpi=800)
+# knitr::opts_chunk$set(collectcode = T)
+library(Statamarkdown)
+library(tidyverse)
+library(kableExtra)
+# stataexe <- "C:/Program Files (x86)/Stata13/StataSE-64.exe"
+stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+# baua <- readstata13::read.dta13("D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta",convert.factors = F)
+```
+
+
+Häufig ist eine Korrelationsmatrix ein Bestandteil einer Datendeskription.
+
+## `corr x`
+
+```{stata cor1, eval = F}
+correlate zpalter F518_SUF F200
+```
+
+```{stata cor2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+correlate zpalter F518_SUF F200
+```
+
+Wieder benötigen wir `estpost`, um dann die `esttab`-Tabelle zu erstellen:
+```{stata cor3, eval = F}
+estpost correlate zpalter F518_SUF F200, matrix
+esttab ., not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30)
+```
+
+
+```{stata cor4, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+estpost correlate zpalter F518_SUF F200, matrix
+esttab ., not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30)
+```
+
+
+```{stata cor5, eval = F}
+esttab  using "${word}/corrmat.rtf", not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30) ///
+		 replace
+		 
+esttab  using "${tex}/corrmat.tex", not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30) ///
+		 replace booktabs
+```
+
+
+## Spearman's Rho:
+
+```{stata rho1, eval = F}
+foreach v of varlist zpalter F518_SUF F200 {
+	egen rnk_`v' = rank (`v'), unique
+}
+estpost correlate rnk_zpalter rnk_F518_SUF rnk_F200, matrix
+```
+
+
+```{stata rho2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  foreach v of varlist zpalter F518_SUF F200 {
+  	egen rnk_`v' = rank (`v'), unique
+  }
+}
+estpost correlate rnk_zpalter rnk_F518_SUF rnk_F200, matrix
+
+```
+
+
+```{stata rho4, eval = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  foreach v of varlist zpalter F518_SUF F200 {
+  	egen rnk_`v' = rank (`v'), unique
+  }
+  estpost correlate rnk_zpalter rnk_F518_SUF rnk_F200, matrix
+}
+
+esttab ., not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30) ///
+		 title("Dies ist der Spearman-Rangkorrelationskoeffizient")
+```
+
+
+```{stata rho5, eval = F}
+esttab  using "${word}/corrmat2.rtf", not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30) ///
+		 replace ///
+		 title("Dies ist der Spearman-Rangkorrelationskoeffizient")
+		 
+		 
+esttab  using "${tex}/corrmat2.tex", not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30) ///
+		 replace booktabs ///
+		 title("Dies ist der Spearman-Rangkorrelationskoeffizient")
+```
+
+
+
+
+***
+
+**[Übung 1](#corr1)**
+
+***
+
+## `ttest` {#ttest}
+
+```{stata ttest1, eval = F}
+ttest az, by(S1) unequal
+
+estpost ttest az F518_SUF, by(S1) unequal
+esttab, wide nonumber noobs
+esttab,  cell("b(fmt(%13.3fc) star) N_1(fmt(%13.0fc)) mu_1 N_2(fmt(%13.0fc)) mu_2") /// 
+	unstack wide nonumber noobs nomtitles ///
+	collabels("t" "N(M)" "Mean(M)" "N(W)" "Mean(W)")		 
+		 
+```
+```{stata ttest2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+estpost ttest az F518_SUF, by(S1) unequal
+esttab, wide nonumber noobs
+```
+
+
+```{stata ttest3, eval = F}
+esttab,  cell("b(fmt(%13.3fc)) t(fmt(%13.3fc) star) N_1(fmt(%13.0fc)) mu_1 N_2(fmt(%13.0fc)) mu_2") /// 
+	unstack wide nonumber noobs nomtitles ///
+	collabels("Difference" "t" "N(M)" "Mean(M)" "N(W)" "Mean(W)")		 		 
+```
+
+```{stata ttest4, echo =F }
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost ttest az F518_SUF, by(S1) unequal
+}
+esttab,  cell("b(fmt(%13.3fc)) t(fmt(%13.3fc) star) N_1(fmt(%13.0fc)) mu_1 N_2(fmt(%13.0fc)) mu_2") /// 
+	unstack wide nonumber noobs nomtitles ///
+	collabels("Difference" "t" "N(M)" "Mean(M)" "N(W)" "Mean(W)")		 		 
+```
+
+
+***
+
+**[Übung 2](#ttest1)**
+
+***
+
+## Übungen
+
+### Übung {#corr1}
+
++ Erstellen Sie eine Korrelationstabelle für  `zpalter` `F518_SUF` `F200` und `F1410_01`
+
+### Übung {#ttest1}
+
++ Erstellen Sie eine t-Testtabelle für Gruppenunterschiede zwischen Menschen mit und ohne Migrationshintergrund für die Variablen `az` und `F518_SUF`. Die Variablen zum Migrationshintergrund können Sie so erstellen: 
+
+```{stata, eval = F}
+gen mig01 = Mig != 0
+```
+In `mig01` steht dann `0` für keinen Migrationshintergrund und `1` für Migrationshintergrund.
+

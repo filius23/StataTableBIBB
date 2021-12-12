@@ -49,7 +49,7 @@ Ich stelle daher [hier]() eine (sehr einfache) Latexvorlage zur Verfügung, die 
 ## Grundlagen: `e()` und `r()`
 
 Grundsätzlich baut `esttab` auf die Postestimates `e()` auf.
-Bei jedem Befehl werden im Hintergrund Werte in Matrizen und Skalere (also Zahlenreihen) abgelegt, bspw. bei einem Regressionsmodell. Mit `ereturn list` können wir uns eine Liste der Postestimates ausgeben lassen:
+Bei jedem Befehl werden im Hintergrund Werte in Matrizen und Skalere (also Zahlen) abgelegt, bspw. bei einem Regressionsmodell. Mit `ereturn list` können wir uns eine Liste der Postestimates ausgeben lassen:
 ```{stata regF, eval = F}
 quietly reg F518_SUF zpalter
 ereturn list
@@ -60,6 +60,11 @@ qui use "D:\Datenspeicher\BIBB_BAuA/BIBBBAuA_2018_suf1.0_clean.dta", clear
 qui reg F518_SUF zpalter
 ereturn list
 ```
+
+Das Grundprinzip ist dann immer:
+(@) Auswertungsbefehl
+(@) Tabelle mit `esttab` erstellen
+
 
 Die Matrizen können wir mit `matrix list`, die `Skalare` mit `scalar list` + Name aufrufen, unter `e(b)` sind beispielsweise die Koeffizienten abgelegt:
 ```{stata reg2F, eval = F}

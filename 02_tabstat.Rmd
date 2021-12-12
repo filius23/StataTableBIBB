@@ -1,0 +1,564 @@
+# Deskriptionen {#desc} 
+
+```{r setup2, echo = F, message=F, warning = F}
+.libPaths("D:/R-library4")
+knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(dpi=800)
+# knitr::opts_chunk$set(collectcode = T)
+library(Statamarkdown)
+library(tidyverse)
+library(kableExtra)
+# stataexe <- "C:/Program Files (x86)/Stata13/StataSE-64.exe"
+stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+# baua <- readstata13::read.dta13("D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta",convert.factors = F)
+```
+
+
+
+## `summary` {#summary}
+
+Hier ein Bespielbefehl für die Berechnung des arith. Mittels, des Medians, der Varianz und des Varianzkoeffizienten mit `tabstat`:
+```{stata suF, eval = F}
+summarize zpalter
+```
+
+```{stata suT, echo = F}
+set linesize 80
+qui use "./data/BIBBBAuA_2018_short.dta", clear
+summarize zpalter
+```
+
+## `tabstat` {#tabstat}
+
+Mit `tabstat` können wir eine ganze Reihe statistischer Kennzahlen für metrische/kontinuierliche Merkmale berechnen. Die Syntax hat dabei das folgende Format: `tabstat varlist, s(*option*) c(stat|var)`
+
+Hier eine Übersicht der Kennzahlen:
+```{r, ft.align = "center",message=F,warning=F, echo = F}
+library(kableExtra)
+opts <- options(knitr.kable.NA = "")
+
+readxl::read_xlsx("03_tabstat.xlsx",sheet = 1) %>% 
+  select(-3) %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = "condensed", full_width = F,font_size = 12) %>% 
+  column_spec(1,monospace = TRUE)
+```
+
+Hier ein Bespielbefehl für die Berechnung des arith. Mittels, des Medians, der Varianz und des Varianzkoeffizienten mit `tabstat`:
+```{stata tabstatF, eval = F}
+tabstat zpalter, s(mean median var cv) c(stat)
+```
+
+```{stata tabstatT, echo = F}
+set linesize 80
+qui use "./data/BIBBBAuA_2018_short.dta", clear
+tabstat zpalter, s(mean sd min max n) c(stat)
+```
+
+
+Für Deskriptionsbefehle müssen wir immer zuerst ein `estpost` voranstellen:
+```{stata tabstat2, eval = F}
+estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
+esttab, cells("mean sd min max count")
+```
+
+
+```{stata tabstat2T, echo = F}
+set linesize 80
+qui use "./data/BIBBBAuA_2018_short.dta", clear
+estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
+esttab, cells("mean sd min max count")
+```
+
+
+Wenn wir jetzt den Median hinzufügen möchten, brauchen wir ein neues `estpost`:
+```{stata tabstat3F, eval = F}
+esttab, cells("mean p50 sd min max count")
+```
+
+```{stata tabstat3T, echo = F}
+set linesize 200
+qui use "./data/BIBBBAuA_2018_short.dta", clear
+qui estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
+esttab, cells("mean p50 sd min max count")
+```
+
+
+`tabstat` mit `p50` für Median:
+```{stata tstat4f, eval =F }
+estpost tabstat F518_SUF, c(stat) stat(mean p50 sd min max n)
+esttab, cells("mean p50 sd min max count")
+```
+
+```{stata tstat4t, echo = F}
+set linesize 200
+qui use "./data/BIBBBAuA_2018_short.dta", clear
+estpost tabstat F518_SUF, c(stat) stat(mean p50 sd min max n)
+esttab, cells("mean p50 sd min max count")
+```
+
+So oder so sieht diese Tabelle sieht natürlich noch überhaupt nicht so aus, wie wir sie haben möchten.
+Um das anzupassen, stehen uns eine ganze Reihe an Formatierungsbefehlen zur Verfügung.
+
++ `nonumber`  $\Rightarrow$ Zahl oben ausblenden
++ `nomtitle` $\Rightarrow$  Modelltitel oben ausblenden (hier die Leerzeile)
++ `noobs` $\Rightarrow$     Beobachtungszahl unten ausblenden
++ `label` $\Rightarrow$     Variablenlaben verwenden
+```{stata taform1, eval =F}
+esttab, ///
+	cells("mean p50 sd min max count") ///
+	nonumber nomtitle noobs label
+```
+
+
+```{stata taform2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost tabstat F518_SUF, c(stat) stat(mean p50 sd min max n)
+}
+esttab, ///
+	cells("mean p50 sd min max count") ///
+	nonumber nomtitle noobs label
+```
+
+Das label ist hier allerdings abgeschnitten, wäre aber die Frageformulierung.
+Stattdessen hätten wir gernen einen Variablennamen, dazu können wir mit `coeflabel()` den Variablennamen und in `""` ein Label angeben.
+Außerdem wollen wir die Spalten ansprechender beschriften, dazu geben wir mit `collabels` ebenfalls in `""` der Reihe nach Werte an:
+```{stata taform3, eval = F}
+esttab, ///
+	cells("mean sd min max count") ///
+	nonumber nomtitle nonote noobs label ///
+	collabels("Mean" "SD" "Median" "Min" "Max" "N") ///
+	coeflabel(F518_SUF "Bruttoverdienst")
+```
+```{stata taform4, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost tabstat F518_SUF, c(stat) stat(mean p50 sd min max n)
+}
+esttab, ///
+	cells("mean p50 sd min max count") ///
+		nonumber nomtitle nonote noobs label ///
+	collabels("Mean" "SD" "Median" "Min" "Max" "N") ///
+	coeflabel(F518_SUF "Bruttoverdienst")
+```
+
+Abschließend möchten wir noch die Kennzahlen formatieren.
+Dazu können wir auf die Zahlenformate in Stata zurückgreifen - [hier](#format) eine kurze Erklärung dazu.
+```{stata numbform, eval = F}
+esttab, ///
+	cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%13.0fc)) max(fmt(%13.0fc)) count(fmt(%6.0fc))")  ///
+	nonumber nomtitle nonote noobs label ///
+	collabels("Mean" "SD" "Min" "Max" "N") ///
+	coeflabel(F518_SUF "Bruttoverdienst")
+```
+
+```{stata numbform2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost tabstat F518_SUF, c(stat) stat(mean p50 sd min max n)
+}
+esttab, ///
+	cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%13.0fc)) max(fmt(%13.0fc)) count(fmt(%6.0fc))")  ///
+	nonumber nomtitle nonote noobs label ///
+	collabels("Mean" "SD" "Min" "Max" "N") ///
+	coeflabel(F518_SUF "Bruttoverdienst")
+```
+
+***
+
+**[Übung 1](#tabst1)**
+
+***
+
+## export 
+
+```{stata export, eval = F}
+esttab using "${word}/tab1.rtf", ///
+	cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%4.0fc)) max(fmt(%4.0fc)) count(fmt(%4.0fc))")  ///
+	nonumber nomtitle nonote noobs label ///
+	collabels("Mean" "SD" "Min" "Max" "N") ///
+	coeflabel(F518_SUF "Bruttoverdienst") ///
+	replace
+   
+esttab using "${tex}/tab1.tex", ///
+	cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%4.0fc)) max(fmt(%4.0fc)) count(fmt(%4.0fc))")  ///
+	nonumber nomtitle nonote noobs label ///
+	collabels("Mean" "SD" "Min" "Max" "N") ///
+	coeflabel(F518_SUF "Bruttoverdienst")  ///
+	replace booktabs
+```
+
+
+## Zusätzliche Kennzahlen hinzufügen
+
+Gelegentlich möchten wir aber unserer Tabelle auch noch weitere Kennzahlen hinzufügen, bspw. aus `mdesc` oder `fastgini`.
+```{stata sscinstall, eval= F}
+ssc install mdesc
+ssc install fastgini
+```
+
+Dazu können wir die `estadd`-Funktion nutzen.
+Um eine neue Spalte mit der gewünschten Kennzahl zu erhalten, müssen wir `estadd matrix` verwenden.
+Deswegen müssen wir ein klein bisschen in die `matrix`-Welt von Stata eintauchen, um die Werte richtig hinzufügen zu können.
+
+```{stata mdesc, eval = F}
+mdesc F518_SUF
+return list
+mat miss = r(miss)
+mat colname miss = F518_SUF
+mat list miss
+```
+
+
+```{stata mdesc2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+mdesc F518_SUF
+return list
+mat miss = r(miss)
+mat colname miss = F518_SUF
+mat list miss
+```
+
+Die so formatierte $1x1$ `matrix` können wir jetzt in unsere Tabelle einfügen, indem wir `estadd matrix miss` angeben:
+```{stata mdescadd1, eval = F}
+estadd mat miss
+```
+
+
+```{stata mdescadd2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  mdesc F518_SUF
+  return list
+  mat miss = r(miss)
+  mat colname miss = F518_SUF
+  mat list miss
+  estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
+  mdesc F518_SUF
+  mat miss = r(miss)
+  mat colname miss = F518_SUF
+}
+estadd mat miss
+```
+
+Anschließend können wir die Tabelle mit `esttab` erstellen und die Information aus `mdesc` unter dem Namen der hinzugefügten `matrix` aufrufen:
+```{stata mdescadd3, eval = F}
+esttab, cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc)) miss(fmt(%13.0fc))") ///
+		noobs nomtitle nonumber label collabels("Mean" "SD" "Min" "Max" "N" "Missings") ///
+    coeflabel(F518_SUF "Bruttoverdienst") 
+```
+
+```{stata mdescadd3b, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  mdesc F518_SUF
+  return list
+  mat miss = r(miss)
+  mat colname miss = F518_SUF
+  mat list miss
+  estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
+  mdesc F518_SUF
+  mat miss = r(miss)
+  mat colname miss = F518_SUF
+  estadd mat miss
+}
+esttab, cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc)) miss(fmt(%13.0fc))") noobs ///
+		nomtitle nonumber label collabels("Mean" "SD" "Min" "Max" "N" "Missings") ///
+    coeflabel(F518_SUF "Bruttoverdienst") 
+```
+
+***
+
+**[Übung 2](#tabst2)**
+
+***
+
+
+## mehrere Variablen 
+
+Wir können natürlich auch mehrere Variablen in `tabstat` und damit in `esttab` aufnehmen:
+
+```{stata morevar, eval = F}
+estpost tabstat zpalter F518_SUF, c(stat) stat(mean sd min max n)
+esttab, cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc))") noobs ///
+		nomtitle nonumber label collabels("Mean" "SD" "Min" "Max" "N") ///
+		coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter") 
+```
+```{stata morevar2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost tabstat zpalter F518_SUF, c(stat) stat(mean sd min max n)
+}
+  esttab, cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc))") noobs ///
+		nomtitle nonumber label collabels("Mean" "SD" "Min" "Max" "N") ///
+		coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter") 
+```
+
+Etwas tricky wird's aber, wenn wir auch hier eigene Kennzahlen miteinfügen möchten.
+Die `r()`-Skalare für `mdesc` (und auch `fastgini`) geben uns nämlich nur den Wert für die *letzte* Variable aus:
+```{stata mdes2var, eval = F}
+mdesc zpalter F518_SUF
+return list
+```
+
+
+```{stata mdes2va2r, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+mdesc zpalter F518_SUF
+return list
+```
+Daher müssen wir uns hier mit einer Schleife helfen:
+```{stata mdescloo1, eval = F}
+* matrix vorbereiten
+	glo x = "zpalter F518_SUF" // auszuwertende Variablen
+	glo len: word count ${x} 	// wie viele sind es?
+	mat m1 = J(1,${len},.)	   // entsprechend lange Matrix erstellen J(Zeilen,Spalten,Inhalt)
+	mat colname m1 = `x'		// spalten schon mal richtig benennen
+	mat list m1					// ansehen
+
+* Schleife über die angegebenen Variablen
+	forval y = 1/$len {
+		loc v: dis	word("${x}",`y') // y.tes Wort aus x in v ablegen
+		display "`v'"				// zur Kontrolle: v anzeigen
+		mdesc `v'					// missings in v berechnen
+		loc res_mat = r(miss)
+		mat m1[1,`y'] = `res_mat'
+	}
+	mat l m1
+```
+
+
+```{stata mdescloo2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+* matrix vorbereiten
+	glo x = "zpalter F518_SUF" // auszuwertende Variablen
+	glo len: word count ${x} 	// wie viele sind es?
+	mat m1 = J(1,${len},.)	   // entsprechend lange Matrix erstellen J(Zeilen,Spalten,Inhalt)
+	mat colname m1 = ${x}		// spalten schon mal richtig benennen
+	mat list m1					// ansehen
+
+* Schleife über die angegebenen Variablen
+	forval y = 1/$len {
+		loc v: dis	word("${x}",`y') // y.tes Wort aus x in v ablegen
+		display "`v'"				// zur Kontrolle: v anzeigen
+		mdesc `v'					// missings in v berechnen
+		loc res_mat = r(miss)
+		mat m1[1,`y'] = `res_mat'
+	}
+	mat l m1
+```
+
+...und dann können wir wieder zur gewohnten Routine zurück. `estpost` mit `quietly` unterdrückt den Output, den wir ja schon kennen.
+```{stata mdescaddl1, eval = F}
+quietly estpost tabstat zpalter F518_SUF, c(stat) stat(mean sd min max n)
+estadd mat m1
+esttab, cells("count(fmt(%13.0fc)) m1(fmt(%13.0fc))")  noobs ///
+		nomtitle nonumber label collabels("N" "Missings") ///
+  	coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")
+```
+
+
+```{stata mdescaddl2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+* matrix vorbereiten
+	glo x = "zpalter F518_SUF" // auszuwertende Variablen
+	glo len: word count ${x} 	// wie viele sind es?
+	mat m1 = J(1,${len},.)	   // entsprechend lange Matrix erstellen J(Zeilen,Spalten,Inhalt)
+	mat colname m1 = ${x}		// spalten schon mal richtig benennen
+	mat list m1					// ansehen
+
+* Schleife über die angegebenen Variablen
+	forval y = 1/$len {
+		loc v: dis	word("${x}",`y') // y.tes Wort aus x in v ablegen
+		display "`v'"				// zur Kontrolle: v anzeigen
+		mdesc `v'					// missings in v berechnen
+		loc res_mat = r(miss)
+		mat m1[1,`y'] = `res_mat'
+	}
+estpost tabstat zpalter F518_SUF, c(stat) stat(mean sd min max n)
+estadd mat m1
+}
+esttab, cells("count(fmt(%13.0fc)) m1(fmt(%13.0fc))")  noobs ///
+		nomtitle nonumber label collabels("N" "Missings") ///
+  	coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")
+```
+
+***
+
+**[Übung 3](#tabst3)**
+
+***
+
+## Gruppenvergleich	
+
+Mit `by(S1)` bekommen wir einen Gruppenvergleich - hier zwischen Männern und Frauen. 
+Die Option `nototal` unterdrückt dabei die `total`-Angabe
+```{stata tabgroup, eval = F}
+estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd)
+estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd) nototal	
+```
+
+
+```{stata tabgroupT, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd)
+estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd) nototal	
+```
+
+
+```{stata tabgroup2, eval = F}
+esttab, cells(mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)) nostar  nonumber unstack ///
+  nomtitle nonote noobs label  ///
+   collabels(none) gap   ///
+   eqlabels("Männer" "Frauen") /// 
+   nomtitles ///
+   coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")
+```
+
+
+```{stata tabgroup3, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd) nototal
+}
+esttab, cells(mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)) nostar  nonumber unstack ///
+  nomtitle nonote noobs label  ///
+   collabels(none) gap   ///
+   eqlabels("Männer" "Frauen") /// 
+   nomtitles ///
+   coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")
+```
+
+
+Um die in `cells()` angegebenen Werte in eine Zeile zu bringen, müssen wir sie in `""` setzen.  
+```{stata tabgroup4, eval = F}
+esttab, cells("mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)") nostar  nonumber unstack ///
+  nomtitle nonote noobs label  ///
+   collabels(none) gap   ///
+   eqlabels("Männer" "Frauen") /// 
+   nomtitles ///
+   coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")   
+```
+
+```{stata tabgroup5, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd) nototal
+}
+esttab, cells("mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)") nostar  nonumber unstack ///
+  nomtitle nonote noobs label  ///
+   collabels(none) gap   ///
+   eqlabels("Männer" "Frauen") /// 
+   nomtitles ///
+   coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")  
+```
+
+
+***
+
+**[Übung 4](#tabst4)**
+
+***
+
+
+## Übungen
+
+### Übung {#tabst1}
+
++ Erstellen Sie eine Überblickstabelle für `F200` mit Min, Mean, SD, 1. Quartil (`p25`), Median, 3. Quartil (`p75`) und der Anzahl der Beobachtungen.
+
+
+### Übung {#tabst2}
+
++ Ergänzen Sie die Tabelle von Übung 1 `F200` um `fastgini` - so kommen Sie an die abgelegte Info
+
+```{stata mdescaddgini, eval = F}
+ssc install fastgini // falls nicht schon installiert
+fastgini F518_SUF
+return list
+```
+
+### Übung {#tabst3}
+
++ Verändern Sie die oben gezeigte Schleife so, dass nicht mehr die *Anzahl*, sondern der *Anteil* der Missings eingefügt wird.
+
+```{stata mdescaddmdesc, eval = F}
+mdesc zpalter F518_SUF
+return list 
+```
+
+
+### Übung {#tabst4}
+
++ Erweitern Sie den Gruppenvergleich um die Variablen `az` (Wochenarbeitszeit) und `F1104` (Jahr des Schulabschlusses)
++ Wo könnten Sie die Nachkommastellen verändern? Verändern Sie die Anzeige für die Mittelwerte auf 3 Nachkommastellen
++ Lassen Sie sich in auch den Median ausgeben. Legen Sie dafür 0 Nachkommastellen als Format fest. Denken Sie daran, `estpost` neu zu konfigurieren.
++ Passen Sie die Syntax in `cells()` an, um die Werte neben- oder untereinander angezeigt zu bekommen.
+
+
+
+## Mehr zu `format` {#format}
+
+Hier eine kurze (unvollständige) Erklärung zu den `fmt()`-Optionen, mehr unter `help format` oder **[hier](https://wlm.userweb.mwn.de/Stata/wstatfor.htm)**
+
+### %w.df
+
++ Mit `w` geben wir die Gesamtbreite des Outputs an - die Vorzeichen und Dezimaltrenner mitgezählt
++ `d` gibt die Zahl der Dezimalstellen
++ Grundsätzlich wird von "rechts" gezählt - The result is right-justified.
+
+Aus der Stata-Hilfe:
+
+The number 5.139 in `%12.2f` format displays as
+```{r fm1,eval =F}
+----+----1--
+        5.14
+```
+
+*Beispiele*
+```{stata}
+help format
+	dis strlen("10789.1234")
+	display %10.2f 	10789.1234 // 0 Nachkommastellen
+	display %10.0f 	10789.1234 // 2 Nachkommastellen
+	display %11.5f 	10789.1234 // 0 hinzugefügt!
+```
+
+### %w.dfc
+    
+Analog zu `%w.df`, jedoch werden Kommata für bessere Lesbarkeit eingefügt. Auch die Kommata zählen für die Breite `w`.
+
+Während ``
+
+
+Mit `%`*w*`**,**`*d*`fc` können wir das Format für Dezimal- und Tausendertrenner ändern: Dezimalstellen werden mit einem `,` abgetrennt, 1000er mit `.`
+
+*Beispiele*: mit `fc` werden Tausendertrenner eingefügt
+```{stata}
+	display %10.2fc 	10789.1234
+	display %10,2fc 	10789.1234 // , und . tauschen -> "dt Format"
+```

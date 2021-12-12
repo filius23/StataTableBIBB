@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Korrelationsmatrix | Stata: Erzeugen von Deskriptions- und Regressionstabellen</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Korrelationsmatrix | Stata: Erzeugen von Deskriptions- und Regressionstabellen" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Korrelationsmatrix | Stata: Erzeugen von Deskriptions- und Regressionstabellen" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Andreas Filser" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tab.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Stata @ BIBB</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Herzlich Willkommen</a></li>
+<li class="chapter" data-level="1" data-path="base.html"><a href="base.html"><i class="fa fa-check"></i><b>1</b> Tabellenexport mit Stata: Grundlagen &amp; Pakete</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="base.html"><a href="base.html#grundlagen-e-und-r"><i class="fa fa-check"></i><b>1.1</b> Grundlagen: <code>e()</code> und <code>r()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="desc.html"><a href="desc.html"><i class="fa fa-check"></i><b>2</b> Deskriptionen</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="desc.html"><a href="desc.html#summary"><i class="fa fa-check"></i><b>2.1</b> <code>summary</code></a></li>
+<li class="chapter" data-level="2.2" data-path="desc.html"><a href="desc.html#tabstat"><i class="fa fa-check"></i><b>2.2</b> <code>tabstat</code></a></li>
+<li class="chapter" data-level="2.3" data-path="desc.html"><a href="desc.html#export"><i class="fa fa-check"></i><b>2.3</b> export</a></li>
+<li class="chapter" data-level="2.4" data-path="desc.html"><a href="desc.html#zusätzliche-kennzahlen-hinzufügen"><i class="fa fa-check"></i><b>2.4</b> Zusätzliche Kennzahlen hinzufügen</a></li>
+<li class="chapter" data-level="2.5" data-path="desc.html"><a href="desc.html#mehrere-variablen"><i class="fa fa-check"></i><b>2.5</b> mehrere Variablen</a></li>
+<li class="chapter" data-level="2.6" data-path="desc.html"><a href="desc.html#gruppenvergleich"><i class="fa fa-check"></i><b>2.6</b> Gruppenvergleich</a></li>
+<li class="chapter" data-level="2.7" data-path="desc.html"><a href="desc.html#übungen"><i class="fa fa-check"></i><b>2.7</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="desc.html"><a href="desc.html#tabst1"><i class="fa fa-check"></i><b>2.7.1</b> Übung</a></li>
+<li class="chapter" data-level="2.7.2" data-path="desc.html"><a href="desc.html#tabst2"><i class="fa fa-check"></i><b>2.7.2</b> Übung</a></li>
+<li class="chapter" data-level="2.7.3" data-path="desc.html"><a href="desc.html#tabst3"><i class="fa fa-check"></i><b>2.7.3</b> Übung</a></li>
+<li class="chapter" data-level="2.7.4" data-path="desc.html"><a href="desc.html#tabst4"><i class="fa fa-check"></i><b>2.7.4</b> Übung</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="desc.html"><a href="desc.html#format"><i class="fa fa-check"></i><b>2.8</b> Mehr zu <code>format</code></a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="desc.html"><a href="desc.html#w.df"><i class="fa fa-check"></i><b>2.8.1</b> <code>%</code><em>w</em><code>.</code><em>d</em><code>f</code></a></li>
+<li class="chapter" data-level="2.8.2" data-path="desc.html"><a href="desc.html#w.dfc"><i class="fa fa-check"></i><b>2.8.2</b> <code>%</code><em>w</em><code>.</code><em>d</em><code>fc</code></a></li>
+<li class="chapter" data-level="2.8.3" data-path="desc.html"><a href="desc.html#beispiele"><i class="fa fa-check"></i><b>2.8.3</b> Beispiele</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tab.html"><a href="tab.html"><i class="fa fa-check"></i><b>3</b> <code>table</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tab.html"><a href="tab.html#tab-x-one-way-frequency-table"><i class="fa fa-check"></i><b>3.1</b> <code>tab x</code>: One-way frequency table</a></li>
+<li class="chapter" data-level="3.2" data-path="tab.html"><a href="tab.html#tab-var1-var2-kontingenz-kreuztabelle"><i class="fa fa-check"></i><b>3.2</b> <code>tab var1 var2</code>: Kontingenz-/Kreuztabelle</a></li>
+<li class="chapter" data-level="3.3" data-path="tab.html"><a href="tab.html#gewichtete-tabelle-mit-svy"><i class="fa fa-check"></i><b>3.3</b> Gewichtete Tabelle mit <code>svy</code></a></li>
+<li class="chapter" data-level="3.4" data-path="tab.html"><a href="tab.html#übungen-1"><i class="fa fa-check"></i><b>3.4</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="tab.html"><a href="tab.html#table1"><i class="fa fa-check"></i><b>3.4.1</b> Übung</a></li>
+<li class="chapter" data-level="3.4.2" data-path="tab.html"><a href="tab.html#table2"><i class="fa fa-check"></i><b>3.4.2</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cormat.html"><a href="cormat.html"><i class="fa fa-check"></i><b>4</b> Korrelationsmatrix</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="cormat.html"><a href="cormat.html#corr-x"><i class="fa fa-check"></i><b>4.1</b> <code>corr x</code></a></li>
+<li class="chapter" data-level="4.2" data-path="cormat.html"><a href="cormat.html#spearmans-rho"><i class="fa fa-check"></i><b>4.2</b> Spearman’s Rho:</a></li>
+<li class="chapter" data-level="4.3" data-path="cormat.html"><a href="cormat.html#ttest"><i class="fa fa-check"></i><b>4.3</b> <code>ttest</code></a></li>
+<li class="chapter" data-level="4.4" data-path="cormat.html"><a href="cormat.html#übungen-2"><i class="fa fa-check"></i><b>4.4</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="cormat.html"><a href="cormat.html#corr1"><i class="fa fa-check"></i><b>4.4.1</b> Übung</a></li>
+<li class="chapter" data-level="4.4.2" data-path="cormat.html"><a href="cormat.html#ttest1"><i class="fa fa-check"></i><b>4.4.2</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stata: Erzeugen von Deskriptions- und Regressionstabellen</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cormat" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Korrelationsmatrix</h1>
+<p>Häufig ist eine Korrelationsmatrix ein Bestandteil einer Datendeskription.</p>
+<div id="corr-x" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> <code>corr x</code></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="cormat.html#cb1-1" aria-hidden="true" tabindex="-1"></a>correlate zpalter F518_SUF F200</span></code></pre></div>
+<pre><code>(obs=14,579)
+
+             |  zpalter F518_SUF     F200
+-------------+---------------------------
+     zpalter |   1.0000
+    F518_SUF |   0.0582   1.0000
+        F200 |  -0.0539   0.2922   1.0000</code></pre>
+<p>Wieder benötigen wir <code>estpost</code>, um dann die <code>esttab</code>-Tabelle zu erstellen:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb3-1"><a href="cormat.html#cb3-1" aria-hidden="true" tabindex="-1"></a>estpost correlate zpalter F518_SUF F200, <span class="fu">matrix</span></span>
+<span id="cb3-2"><a href="cormat.html#cb3-2" aria-hidden="true" tabindex="-1"></a>esttab ., <span class="kw">not</span> unstack <span class="kw">compress</span> <span class="kw">noobs</span> nonumber nomtitles <span class="co">///</span></span>
+<span id="cb3-3"><a href="cormat.html#cb3-3" aria-hidden="true" tabindex="-1"></a>         varlabels(zpalter <span class="st">&quot;(1) Alter&quot;</span> F518_SUF <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> F200 <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb3-4"><a href="cormat.html#cb3-4" aria-hidden="true" tabindex="-1"></a>         eqlabels(<span class="st">&quot;(1) Alter&quot;</span> <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb3-5"><a href="cormat.html#cb3-5" aria-hidden="true" tabindex="-1"></a>         varwidth(30)</span></code></pre></div>
+<pre><code>             |      e(b)     e(rho)       e(p)   e(count) 
+-------------+--------------------------------------------
+zpalter      |                                            
+     zpalter |         1          1                 19836 
+    F518_SUF |  .0795555   .0795555   1.21e-24      16543 
+        F200 | -.0557859  -.0557859   2.35e-13      17228 
+F518_SUF     |                                            
+    F518_SUF |         1          1                 16635 
+        F200 |  .2924452   .2924452   6.4e-287      14659 
+F200         |                                            
+        F200 |         1          1                 17376 
+
+
+---------------------------------------------------------------------
+                               (1) Alter    (2) Bru~n    (3) Woc~t   
+---------------------------------------------------------------------
+(1) Alter                              1                             
+(2) Bruttoeinkommen               0.0796***         1                
+(3) Wochenarbeitszeit            -0.0558***     0.292***         1   
+---------------------------------------------------------------------
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="cormat.html#cb5-1" aria-hidden="true" tabindex="-1"></a>esttab  <span class="kw">using</span> <span class="st">&quot;${word}/corrmat.rtf&quot;</span>, <span class="kw">not</span> unstack <span class="kw">compress</span> <span class="kw">noobs</span> nonumber nomtitles <span class="co">///</span></span>
+<span id="cb5-2"><a href="cormat.html#cb5-2" aria-hidden="true" tabindex="-1"></a>         varlabels(zpalter <span class="st">&quot;(1) Alter&quot;</span> F518_SUF <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> F200 <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb5-3"><a href="cormat.html#cb5-3" aria-hidden="true" tabindex="-1"></a>         eqlabels(<span class="st">&quot;(1) Alter&quot;</span> <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb5-4"><a href="cormat.html#cb5-4" aria-hidden="true" tabindex="-1"></a>         varwidth(30) <span class="co">///</span></span>
+<span id="cb5-5"><a href="cormat.html#cb5-5" aria-hidden="true" tabindex="-1"></a>         <span class="kw">replace</span></span>
+<span id="cb5-6"><a href="cormat.html#cb5-6" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb5-7"><a href="cormat.html#cb5-7" aria-hidden="true" tabindex="-1"></a>esttab  <span class="kw">using</span> <span class="st">&quot;${tex}/corrmat.tex&quot;</span>, <span class="kw">not</span> unstack <span class="kw">compress</span> <span class="kw">noobs</span> nonumber nomtitles <span class="co">///</span></span>
+<span id="cb5-8"><a href="cormat.html#cb5-8" aria-hidden="true" tabindex="-1"></a>         varlabels(zpalter <span class="st">&quot;(1) Alter&quot;</span> F518_SUF <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> F200 <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb5-9"><a href="cormat.html#cb5-9" aria-hidden="true" tabindex="-1"></a>         eqlabels(<span class="st">&quot;(1) Alter&quot;</span> <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb5-10"><a href="cormat.html#cb5-10" aria-hidden="true" tabindex="-1"></a>         varwidth(30) <span class="co">///</span></span>
+<span id="cb5-11"><a href="cormat.html#cb5-11" aria-hidden="true" tabindex="-1"></a>         <span class="kw">replace</span> booktabs</span></code></pre></div>
+</div>
+<div id="spearmans-rho" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Spearman’s Rho:</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb6-1"><a href="cormat.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">foreach</span> v <span class="kw">of</span> <span class="kw">varlist</span> zpalter F518_SUF F200 {</span>
+<span id="cb6-2"><a href="cormat.html#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">egen</span> rnk_<span class="ot">`v&#39;</span> = <span class="fu">rank</span> (<span class="ot">`v&#39;</span>), <span class="kw">unique</span></span>
+<span id="cb6-3"><a href="cormat.html#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-4"><a href="cormat.html#cb6-4" aria-hidden="true" tabindex="-1"></a>estpost correlate rnk_zpalter rnk_F518_SUF rnk_F200, <span class="fu">matrix</span></span></code></pre></div>
+<pre><code>             |      e(b)     e(rho)       e(p)   e(count) 
+-------------+--------------------------------------------
+rnk_zpalter  |                                            
+ rnk_zpalter |         1          1                 19836 
+rnk_F518_SUF |  .0971437   .0971437   5.57e-36      16543 
+    rnk_F200 | -.0654795  -.0654795   7.76e-18      17228 
+rnk_F518_SUF |                                            
+rnk_F518_SUF |         1          1                 16635 
+    rnk_F200 |  .4553877   .4553877          0      14659 
+rnk_F200     |                                            
+    rnk_F200 |         1          1                 17376 </code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb8-1"><a href="cormat.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">quietly</span>{</span>
+<span id="cb8-2"><a href="cormat.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">use</span> <span class="st">&quot;./data/BIBBBAuA_2018_short.dta&quot;</span>, <span class="kw">clear</span></span>
+<span id="cb8-3"><a href="cormat.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">set</span> <span class="dv">linesize</span> 200</span>
+<span id="cb8-4"><a href="cormat.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">foreach</span> v <span class="kw">of</span> <span class="kw">varlist</span> zpalter F518_SUF F200 {</span>
+<span id="cb8-5"><a href="cormat.html#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">egen</span> rnk_<span class="ot">`v&#39;</span> = <span class="fu">rank</span> (<span class="ot">`v&#39;</span>), <span class="kw">unique</span></span>
+<span id="cb8-6"><a href="cormat.html#cb8-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-7"><a href="cormat.html#cb8-7" aria-hidden="true" tabindex="-1"></a>  estpost correlate rnk_zpalter rnk_F518_SUF rnk_F200, <span class="fu">matrix</span></span>
+<span id="cb8-8"><a href="cormat.html#cb8-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-9"><a href="cormat.html#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="cormat.html#cb8-10" aria-hidden="true" tabindex="-1"></a>esttab ., <span class="kw">not</span> unstack <span class="kw">compress</span> <span class="kw">noobs</span> nonumber nomtitles <span class="co">///</span></span>
+<span id="cb8-11"><a href="cormat.html#cb8-11" aria-hidden="true" tabindex="-1"></a>         varlabels(zpalter <span class="st">&quot;(1) Alter&quot;</span> F518_SUF <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> F200 <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb8-12"><a href="cormat.html#cb8-12" aria-hidden="true" tabindex="-1"></a>         eqlabels(<span class="st">&quot;(1) Alter&quot;</span> <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb8-13"><a href="cormat.html#cb8-13" aria-hidden="true" tabindex="-1"></a>         varwidth(30) <span class="co">///</span></span>
+<span id="cb8-14"><a href="cormat.html#cb8-14" aria-hidden="true" tabindex="-1"></a>         <span class="bn">title</span>(<span class="st">&quot;Dies ist der Spearman-Rangkorrelationskoeffizient&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb9-1"><a href="cormat.html#cb9-1" aria-hidden="true" tabindex="-1"></a>esttab  <span class="kw">using</span> <span class="st">&quot;${word}/corrmat2.rtf&quot;</span>, <span class="kw">not</span> unstack <span class="kw">compress</span> <span class="kw">noobs</span> nonumber nomtitles <span class="co">///</span></span>
+<span id="cb9-2"><a href="cormat.html#cb9-2" aria-hidden="true" tabindex="-1"></a>         varlabels(zpalter <span class="st">&quot;(1) Alter&quot;</span> F518_SUF <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> F200 <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb9-3"><a href="cormat.html#cb9-3" aria-hidden="true" tabindex="-1"></a>         eqlabels(<span class="st">&quot;(1) Alter&quot;</span> <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb9-4"><a href="cormat.html#cb9-4" aria-hidden="true" tabindex="-1"></a>         varwidth(30) <span class="co">///</span></span>
+<span id="cb9-5"><a href="cormat.html#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="kw">replace</span> <span class="co">///</span></span>
+<span id="cb9-6"><a href="cormat.html#cb9-6" aria-hidden="true" tabindex="-1"></a>         <span class="bn">title</span>(<span class="st">&quot;Dies ist der Spearman-Rangkorrelationskoeffizient&quot;</span>)</span>
+<span id="cb9-7"><a href="cormat.html#cb9-7" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb9-8"><a href="cormat.html#cb9-8" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb9-9"><a href="cormat.html#cb9-9" aria-hidden="true" tabindex="-1"></a>esttab  <span class="kw">using</span> <span class="st">&quot;${tex}/corrmat2.tex&quot;</span>, <span class="kw">not</span> unstack <span class="kw">compress</span> <span class="kw">noobs</span> nonumber nomtitles <span class="co">///</span></span>
+<span id="cb9-10"><a href="cormat.html#cb9-10" aria-hidden="true" tabindex="-1"></a>         varlabels(zpalter <span class="st">&quot;(1) Alter&quot;</span> F518_SUF <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> F200 <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb9-11"><a href="cormat.html#cb9-11" aria-hidden="true" tabindex="-1"></a>         eqlabels(<span class="st">&quot;(1) Alter&quot;</span> <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb9-12"><a href="cormat.html#cb9-12" aria-hidden="true" tabindex="-1"></a>         varwidth(30) <span class="co">///</span></span>
+<span id="cb9-13"><a href="cormat.html#cb9-13" aria-hidden="true" tabindex="-1"></a>         <span class="kw">replace</span> booktabs <span class="co">///</span></span>
+<span id="cb9-14"><a href="cormat.html#cb9-14" aria-hidden="true" tabindex="-1"></a>         <span class="bn">title</span>(<span class="st">&quot;Dies ist der Spearman-Rangkorrelationskoeffizient&quot;</span>)</span></code></pre></div>
+<hr />
+<p><strong><a href="cormat.html#corr1">Übung 1</a></strong></p>
+<hr />
+</div>
+<div id="ttest" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> <code>ttest</code></h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb10-1"><a href="cormat.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ttest</span> az, <span class="kw">by</span>(S1) unequal</span>
+<span id="cb10-2"><a href="cormat.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="cormat.html#cb10-3" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">ttest</span> az F518_SUF, <span class="kw">by</span>(S1) unequal</span>
+<span id="cb10-4"><a href="cormat.html#cb10-4" aria-hidden="true" tabindex="-1"></a>esttab, <span class="kw">wide</span> nonumber <span class="kw">noobs</span></span>
+<span id="cb10-5"><a href="cormat.html#cb10-5" aria-hidden="true" tabindex="-1"></a>esttab,  cell(<span class="st">&quot;b(fmt(%13.3fc) star) N_1(fmt(%13.0fc)) mu_1 N_2(fmt(%13.0fc)) mu_2&quot;</span>) <span class="co">/// </span></span>
+<span id="cb10-6"><a href="cormat.html#cb10-6" aria-hidden="true" tabindex="-1"></a>    unstack <span class="kw">wide</span> nonumber <span class="kw">noobs</span> nomtitles <span class="co">///</span></span>
+<span id="cb10-7"><a href="cormat.html#cb10-7" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;t&quot;</span> <span class="st">&quot;N(M)&quot;</span> <span class="st">&quot;Mean(M)&quot;</span> <span class="st">&quot;N(W)&quot;</span> <span class="st">&quot;Mean(W)&quot;</span>)         </span>
+<span id="cb10-8"><a href="cormat.html#cb10-8" aria-hidden="true" tabindex="-1"></a>         </span></code></pre></div>
+<pre><code>             |      e(b)   e(count)      e(se)       e(t)    e(df_t)     e(p_l)       e(p)     e(p_u)     e(N_1)    e(mu_1)     e(N_2)    e(mu_2) 
+-------------+------------------------------------------------------------------------------------------------------------------------------------
+          az |  8.320936      20012    .155519   53.50431   19742.97          1          0          0      10074   42.43776       9938   34.11682 
+    F518_SUF |  1431.809      16635   53.27106   26.87781   15471.34          1   1.5e-155   7.3e-156       8495   4232.735       8140   2800.926 
+
+
+-----------------------------------------
+                                         
+-----------------------------------------
+az                  8.321***      (53.50)
+F518_SUF           1431.8***      (26.88)
+-----------------------------------------
+t statistics in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001
+
+
+--------------------------------------------------------------------------------
+                        t            N(M)      Mean(M)         N(W)      Mean(W)
+--------------------------------------------------------------------------------
+az                  8.321***       10,074       42.438        9,938       34.117
+F518_SUF        1,431.809***        8,495    4,232.735        8,140    2,800.926
+--------------------------------------------------------------------------------</code></pre>
+<hr />
+<p><strong><a href="cormat.html#ttest1">Übung 2</a></strong></p>
+<hr />
+</div>
+<div id="übungen-2" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Übungen</h2>
+<div id="corr1" class="section level3" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Übung</h3>
+<ul>
+<li>Erstellen Sie eine Korrelationstabelle für <code>zpalter</code> <code>F518_SUF</code> <code>F200</code> und <code>F1410_01</code></li>
+</ul>
+</div>
+<div id="ttest1" class="section level3" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Übung</h3>
+<ul>
+<li>Erstellen Sie eine t-Testtabelle für</li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tab.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Stata Tables BIBB.pdf", "Stata Tables BIBB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

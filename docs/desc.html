@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Deskriptionen | Stata: Erzeugen von Deskriptions- und Regressionstabellen</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Deskriptionen | Stata: Erzeugen von Deskriptions- und Regressionstabellen" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Deskriptionen | Stata: Erzeugen von Deskriptions- und Regressionstabellen" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Andreas Filser" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="base.html"/>
+<link rel="next" href="tab.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Stata @ BIBB</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Herzlich Willkommen</a></li>
+<li class="chapter" data-level="1" data-path="base.html"><a href="base.html"><i class="fa fa-check"></i><b>1</b> Tabellenexport mit Stata: Grundlagen &amp; Pakete</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="base.html"><a href="base.html#grundlagen-e-und-r"><i class="fa fa-check"></i><b>1.1</b> Grundlagen: <code>e()</code> und <code>r()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="desc.html"><a href="desc.html"><i class="fa fa-check"></i><b>2</b> Deskriptionen</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="desc.html"><a href="desc.html#summary"><i class="fa fa-check"></i><b>2.1</b> <code>summary</code></a></li>
+<li class="chapter" data-level="2.2" data-path="desc.html"><a href="desc.html#tabstat"><i class="fa fa-check"></i><b>2.2</b> <code>tabstat</code></a></li>
+<li class="chapter" data-level="2.3" data-path="desc.html"><a href="desc.html#export"><i class="fa fa-check"></i><b>2.3</b> export</a></li>
+<li class="chapter" data-level="2.4" data-path="desc.html"><a href="desc.html#zusätzliche-kennzahlen-hinzufügen"><i class="fa fa-check"></i><b>2.4</b> Zusätzliche Kennzahlen hinzufügen</a></li>
+<li class="chapter" data-level="2.5" data-path="desc.html"><a href="desc.html#mehrere-variablen"><i class="fa fa-check"></i><b>2.5</b> mehrere Variablen</a></li>
+<li class="chapter" data-level="2.6" data-path="desc.html"><a href="desc.html#gruppenvergleich"><i class="fa fa-check"></i><b>2.6</b> Gruppenvergleich</a></li>
+<li class="chapter" data-level="2.7" data-path="desc.html"><a href="desc.html#übungen"><i class="fa fa-check"></i><b>2.7</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="desc.html"><a href="desc.html#tabst1"><i class="fa fa-check"></i><b>2.7.1</b> Übung</a></li>
+<li class="chapter" data-level="2.7.2" data-path="desc.html"><a href="desc.html#tabst2"><i class="fa fa-check"></i><b>2.7.2</b> Übung</a></li>
+<li class="chapter" data-level="2.7.3" data-path="desc.html"><a href="desc.html#tabst3"><i class="fa fa-check"></i><b>2.7.3</b> Übung</a></li>
+<li class="chapter" data-level="2.7.4" data-path="desc.html"><a href="desc.html#tabst4"><i class="fa fa-check"></i><b>2.7.4</b> Übung</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="desc.html"><a href="desc.html#format"><i class="fa fa-check"></i><b>2.8</b> Mehr zu <code>format</code></a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="desc.html"><a href="desc.html#w.df"><i class="fa fa-check"></i><b>2.8.1</b> %w.df</a></li>
+<li class="chapter" data-level="2.8.2" data-path="desc.html"><a href="desc.html#w.dfc"><i class="fa fa-check"></i><b>2.8.2</b> %w.dfc</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tab.html"><a href="tab.html"><i class="fa fa-check"></i><b>3</b> <code>table</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tab.html"><a href="tab.html#tab-x-one-way-frequency-table"><i class="fa fa-check"></i><b>3.1</b> <code>tab x</code>: One-way frequency table</a></li>
+<li class="chapter" data-level="3.2" data-path="tab.html"><a href="tab.html#tab-var1-var2-kontingenz-kreuztabelle"><i class="fa fa-check"></i><b>3.2</b> <code>tab var1 var2</code>: Kontingenz-/Kreuztabelle</a></li>
+<li class="chapter" data-level="3.3" data-path="tab.html"><a href="tab.html#gewichtete-tabelle-mit-svy"><i class="fa fa-check"></i><b>3.3</b> Gewichtete Tabelle mit <code>svy</code></a></li>
+<li class="chapter" data-level="3.4" data-path="tab.html"><a href="tab.html#übungen-1"><i class="fa fa-check"></i><b>3.4</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="tab.html"><a href="tab.html#table1"><i class="fa fa-check"></i><b>3.4.1</b> Übung</a></li>
+<li class="chapter" data-level="3.4.2" data-path="tab.html"><a href="tab.html#table2"><i class="fa fa-check"></i><b>3.4.2</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cormat.html"><a href="cormat.html"><i class="fa fa-check"></i><b>4</b> Korrelationsmatrix</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="cormat.html"><a href="cormat.html#corr-x"><i class="fa fa-check"></i><b>4.1</b> <code>corr x</code></a></li>
+<li class="chapter" data-level="4.2" data-path="cormat.html"><a href="cormat.html#spearmans-rho"><i class="fa fa-check"></i><b>4.2</b> Spearman’s Rho:</a></li>
+<li class="chapter" data-level="4.3" data-path="cormat.html"><a href="cormat.html#ttest"><i class="fa fa-check"></i><b>4.3</b> <code>ttest</code></a></li>
+<li class="chapter" data-level="4.4" data-path="cormat.html"><a href="cormat.html#übungen-2"><i class="fa fa-check"></i><b>4.4</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="cormat.html"><a href="cormat.html#corr1"><i class="fa fa-check"></i><b>4.4.1</b> Übung</a></li>
+<li class="chapter" data-level="4.4.2" data-path="cormat.html"><a href="cormat.html#ttest1"><i class="fa fa-check"></i><b>4.4.2</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stata: Erzeugen von Deskriptions- und Regressionstabellen</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="desc" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Deskriptionen</h1>
+<div id="summary" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> <code>summary</code></h2>
+<p>Hier ein Bespielbefehl für die Berechnung des arith. Mittels, des Medians, der Varianz und des Varianzkoeffizienten mit <code>tabstat</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="desc.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span> zpalter</span></code></pre></div>
+<pre><code>    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     zpalter |     19,836    47.19228    11.33762         15         87</code></pre>
+</div>
+<div id="tabstat" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> <code>tabstat</code></h2>
+<p>Mit <code>tabstat</code> können wir eine ganze Reihe statistischer Kennzahlen für metrische/kontinuierliche Merkmale berechnen. Die Syntax hat dabei das folgende Format: <code>tabstat varlist, s(*option*) c(stat|var)</code></p>
+Hier eine Übersicht der Kennzahlen:
+<table class="table table-condensed" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Option
+</th>
+<th style="text-align:left;">
+Kennzahl
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+mean
+</td>
+<td style="text-align:left;">
+arithm. Mittel
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+median
+</td>
+<td style="text-align:left;">
+Median
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+count
+</td>
+<td style="text-align:left;">
+Anzahl der Beobachtungen ohne Missings
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+n
+</td>
+<td style="text-align:left;">
+entspricht count
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+sum
+</td>
+<td style="text-align:left;">
+Summe der Ausprägungen
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+max
+</td>
+<td style="text-align:left;">
+Maximum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+min
+</td>
+<td style="text-align:left;">
+Minimum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+range
+</td>
+<td style="text-align:left;">
+Spannweite = max - min
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+variance
+</td>
+<td style="text-align:left;">
+Varianz
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+sd
+</td>
+<td style="text-align:left;">
+Standardabweichung
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+cv
+</td>
+<td style="text-align:left;">
+Variationskoefficient (sd/mean)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+skewness
+</td>
+<td style="text-align:left;">
+Schiefe
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+kurtosis
+</td>
+<td style="text-align:left;">
+Wölbung
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+pX
+</td>
+<td style="text-align:left;">
+X. Perzentil (5,10,25,50,75,90,95,99)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+iqr
+</td>
+<td style="text-align:left;">
+Interquartilsdistanz = p75 - p25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+q
+</td>
+<td style="text-align:left;">
+Entspricht p25 p50 p75
+</td>
+</tr>
+</tbody>
+</table>
+<p>Hier ein Bespielbefehl für die Berechnung des arith. Mittels, des Medians, der Varianz und des Varianzkoeffizienten mit <code>tabstat</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb3-1"><a href="desc.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> zpalter, <span class="fu">s</span>(<span class="kw">mean</span> <span class="kw">median</span> <span class="kw">var</span> cv) c(stat)</span></code></pre></div>
+<pre><code>    variable |      mean        sd       min       max         N
+-------------+--------------------------------------------------
+     zpalter |  47.19228  11.33762        15        87     19836
+----------------------------------------------------------------</code></pre>
+<p>Für Deskriptionsbefehle müssen wir immer zuerst ein <code>estpost</code> voranstellen:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="desc.html#cb5-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> F518_SUF, c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
+<span id="cb5-2"><a href="desc.html#cb5-2" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean sd min max count&quot;</span>)</span></code></pre></div>
+<pre><code>Summary statistics: mean sd min max count
+     for variables: F518_SUF
+
+             |   e(mean)      e(sd)     e(min)     e(max)   e(count) 
+-------------+-------------------------------------------------------
+    F518_SUF |  3532.109   3530.928          1      72000      16635 
+
+
+-----------------------------------------------------------------------------
+                      (1)                                                    
+                                                                             
+                     mean           sd          min          max        count
+-----------------------------------------------------------------------------
+F518_SUF         3532.109     3530.928            1        72000        16635
+-----------------------------------------------------------------------------
+N                   16635                                                    
+-----------------------------------------------------------------------------</code></pre>
+<p>Wenn wir jetzt den Median hinzufügen möchten, brauchen wir ein neues <code>estpost</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb7-1"><a href="desc.html#cb7-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean p50 sd min max count&quot;</span>)</span></code></pre></div>
+<pre><code>                      (1)                                                                 
+                                                                                          
+                     mean          p50           sd          min          max        count
+------------------------------------------------------------------------------------------
+F518_SUF         3532.109                  3530.928            1        72000        16635
+------------------------------------------------------------------------------------------
+N                   16635                                                                 
+------------------------------------------------------------------------------------------</code></pre>
+<p><code>tabstat</code> mit <code>p50</code> für Median:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb9-1"><a href="desc.html#cb9-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> F518_SUF, c(stat) stat(<span class="kw">mean</span> p50 <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
+<span id="cb9-2"><a href="desc.html#cb9-2" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean p50 sd min max count&quot;</span>)</span></code></pre></div>
+<pre><code>Summary statistics: mean p50 sd min max count
+     for variables: F518_SUF
+
+             |   e(mean)     e(p50)      e(sd)     e(min)     e(max)   e(count) 
+-------------+------------------------------------------------------------------
+    F518_SUF |  3532.109       3000   3530.928          1      72000      16635 
+
+
+------------------------------------------------------------------------------------------
+                      (1)                                                                 
+                                                                                          
+                     mean          p50           sd          min          max        count
+------------------------------------------------------------------------------------------
+F518_SUF         3532.109         3000     3530.928            1        72000        16635
+------------------------------------------------------------------------------------------
+N                   16635                                                                 
+------------------------------------------------------------------------------------------</code></pre>
+<p>So oder so sieht diese Tabelle sieht natürlich noch überhaupt nicht so aus, wie wir sie haben möchten.
+Um das anzupassen, stehen uns eine ganze Reihe an Formatierungsbefehlen zur Verfügung.</p>
+<ul>
+<li><code>nonumber</code> <span class="math inline">\(\Rightarrow\)</span> Zahl oben ausblenden</li>
+<li><code>nomtitle</code> <span class="math inline">\(\Rightarrow\)</span> Modelltitel oben ausblenden (hier die Leerzeile)</li>
+<li><code>noobs</code> <span class="math inline">\(\Rightarrow\)</span> Beobachtungszahl unten ausblenden</li>
+<li><code>label</code> <span class="math inline">\(\Rightarrow\)</span> Variablenlaben verwenden</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb11-1"><a href="desc.html#cb11-1" aria-hidden="true" tabindex="-1"></a>esttab, <span class="co">///</span></span>
+<span id="cb11-2"><a href="desc.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean p50 sd min max count&quot;</span>) <span class="co">///</span></span>
+<span id="cb11-3"><a href="desc.html#cb11-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle <span class="kw">noobs</span> <span class="kw">label</span></span></code></pre></div>
+<pre><code>                             mean          p50           sd          min          max        count
+--------------------------------------------------------------------------------------------------
+Wie hoch ist Ih          3532.109         3000     3530.928            1        72000        16635
+--------------------------------------------------------------------------------------------------</code></pre>
+<p>Das label ist hier allerdings abgeschnitten, wäre aber die Frageformulierung.
+Stattdessen hätten wir gernen einen Variablennamen, dazu können wir mit <code>coeflabel()</code> den Variablennamen und in <code>""</code> ein Label angeben.
+Außerdem wollen wir die Spalten ansprechender beschriften, dazu geben wir mit <code>collabels</code> ebenfalls in <code>""</code> der Reihe nach Werte an:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb13-1"><a href="desc.html#cb13-1" aria-hidden="true" tabindex="-1"></a>esttab, <span class="co">///</span></span>
+<span id="cb13-2"><a href="desc.html#cb13-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean sd min max count&quot;</span>) <span class="co">///</span></span>
+<span id="cb13-3"><a href="desc.html#cb13-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
+<span id="cb13-4"><a href="desc.html#cb13-4" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Median&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
+<span id="cb13-5"><a href="desc.html#cb13-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>)</span></code></pre></div>
+<pre><code>                             Mean           SD       Median          Min          Max            N
+--------------------------------------------------------------------------------------------------
+Bruttoverdienst          3532.109         3000     3530.928            1        72000        16635
+--------------------------------------------------------------------------------------------------</code></pre>
+<p>Abschließend möchten wir noch die Kennzahlen formatieren.
+Dazu können wir auf die Zahlenformate in Stata zurückgreifen - <a href="desc.html#format">hier</a> eine kurze Erklärung dazu.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb15-1"><a href="desc.html#cb15-1" aria-hidden="true" tabindex="-1"></a>esttab, <span class="co">///</span></span>
+<span id="cb15-2"><a href="desc.html#cb15-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%13.0fc)) max(fmt(%13.0fc)) count(fmt(%6.0fc))&quot;</span>)  <span class="co">///</span></span>
+<span id="cb15-3"><a href="desc.html#cb15-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
+<span id="cb15-4"><a href="desc.html#cb15-4" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
+<span id="cb15-5"><a href="desc.html#cb15-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>)</span></code></pre></div>
+<pre><code>                             Mean           SD          Min          Max            N
+-------------------------------------------------------------------------------------
+Bruttoverdienst          3,532.11     3,530.93            1       72,000       16,635
+-------------------------------------------------------------------------------------</code></pre>
+<hr />
+<p><strong><a href="desc.html#tabst1">Übung 1</a></strong></p>
+<hr />
+</div>
+<div id="export" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> export</h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb17-1"><a href="desc.html#cb17-1" aria-hidden="true" tabindex="-1"></a>esttab <span class="kw">using</span> <span class="st">&quot;${word}/tab1.rtf&quot;</span>, <span class="co">///</span></span>
+<span id="cb17-2"><a href="desc.html#cb17-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%4.0fc)) max(fmt(%4.0fc)) count(fmt(%4.0fc))&quot;</span>)  <span class="co">///</span></span>
+<span id="cb17-3"><a href="desc.html#cb17-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
+<span id="cb17-4"><a href="desc.html#cb17-4" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
+<span id="cb17-5"><a href="desc.html#cb17-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>) <span class="co">///</span></span>
+<span id="cb17-6"><a href="desc.html#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span></span>
+<span id="cb17-7"><a href="desc.html#cb17-7" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb17-8"><a href="desc.html#cb17-8" aria-hidden="true" tabindex="-1"></a>esttab <span class="kw">using</span> <span class="st">&quot;${tex}/tab1.tex&quot;</span>, <span class="co">///</span></span>
+<span id="cb17-9"><a href="desc.html#cb17-9" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%4.0fc)) max(fmt(%4.0fc)) count(fmt(%4.0fc))&quot;</span>)  <span class="co">///</span></span>
+<span id="cb17-10"><a href="desc.html#cb17-10" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
+<span id="cb17-11"><a href="desc.html#cb17-11" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
+<span id="cb17-12"><a href="desc.html#cb17-12" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>)  <span class="co">///</span></span>
+<span id="cb17-13"><a href="desc.html#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> booktabs</span></code></pre></div>
+</div>
+<div id="zusätzliche-kennzahlen-hinzufügen" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Zusätzliche Kennzahlen hinzufügen</h2>
+<p>Gelegentlich möchten wir aber unserer Tabelle auch noch weitere Kennzahlen hinzufügen, bspw. aus <code>mdesc</code> oder <code>fastgini</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb18-1"><a href="desc.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install mdesc</span>
+<span id="cb18-2"><a href="desc.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install fastgini</span></code></pre></div>
+<p>Dazu können wir die <code>estadd</code>-Funktion nutzen.
+Um eine neue Spalte mit der gewünschten Kennzahl zu erhalten, müssen wir <code>estadd matrix</code> verwenden.
+Deswegen müssen wir ein klein bisschen in die <code>matrix</code>-Welt von Stata eintauchen, um die Werte richtig hinzufügen zu können.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb19-1"><a href="desc.html#cb19-1" aria-hidden="true" tabindex="-1"></a>mdesc F518_SUF</span>
+<span id="cb19-2"><a href="desc.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span>
+<span id="cb19-3"><a href="desc.html#cb19-3" aria-hidden="true" tabindex="-1"></a>mat miss = <span class="fu">r</span>(miss)</span>
+<span id="cb19-4"><a href="desc.html#cb19-4" aria-hidden="true" tabindex="-1"></a>mat colname miss = F518_SUF</span>
+<span id="cb19-5"><a href="desc.html#cb19-5" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">list</span> miss</span></code></pre></div>
+<pre><code>    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+       F518_SUF |       3,377         20,012          16.87
+----------------+-----------------------------------------------
+
+
+scalars:
+            r(percent) =  16.87487507495502
+              r(total) =  20012
+               r(miss) =  3377
+
+macros:
+          r(miss_vars) : &quot;F518_SUF&quot;
+
+
+
+
+symmetric miss[1,1]
+    F518_SUF
+r1      3377</code></pre>
+<p>Die so formatierte <span class="math inline">\(1x1\)</span> <code>matrix</code> können wir jetzt in unsere Tabelle einfügen, indem wir <code>estadd matrix miss</code> angeben:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb21-1"><a href="desc.html#cb21-1" aria-hidden="true" tabindex="-1"></a>estadd mat miss</span></code></pre></div>
+<pre><code>added matrix:
+               e(miss) :  1 x 1</code></pre>
+<p>Anschließend können wir die Tabelle mit <code>esttab</code> erstellen und die Information aus <code>mdesc</code> unter dem Namen der hinzugefügten <code>matrix</code> aufrufen:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="desc.html#cb23-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc)) miss(fmt(%13.0fc))&quot;</span>) <span class="co">///</span></span>
+<span id="cb23-2"><a href="desc.html#cb23-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">noobs</span> nomtitle nonumber <span class="kw">label</span> collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span> <span class="st">&quot;Missings&quot;</span>) <span class="co">///</span></span>
+<span id="cb23-3"><a href="desc.html#cb23-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>) </span></code></pre></div>
+<pre><code>                             Mean           SD          Min          Max            N     Missings
+--------------------------------------------------------------------------------------------------
+Bruttoverdienst          3,532.11     3,530.93         1.00    72,000.00       16,635        3,377
+--------------------------------------------------------------------------------------------------</code></pre>
+<hr />
+<p><strong><a href="desc.html#tabst2">Übung 2</a></strong></p>
+<hr />
+</div>
+<div id="mehrere-variablen" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> mehrere Variablen</h2>
+<p>Wir können natürlich auch mehrere Variablen in <code>tabstat</code> und damit in <code>esttab</code> aufnehmen:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb25-1"><a href="desc.html#cb25-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> zpalter F518_SUF, c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
+<span id="cb25-2"><a href="desc.html#cb25-2" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc))&quot;</span>) <span class="kw">noobs</span> <span class="co">///</span></span>
+<span id="cb25-3"><a href="desc.html#cb25-3" aria-hidden="true" tabindex="-1"></a>        nomtitle nonumber <span class="kw">label</span> collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
+<span id="cb25-4"><a href="desc.html#cb25-4" aria-hidden="true" tabindex="-1"></a>        coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>) </span></code></pre></div>
+<pre><code>                             Mean           SD          Min          Max            N
+-------------------------------------------------------------------------------------
+Alter                       47.19        11.34        15.00        87.00       19,836
+Bruttoverdienst          3,532.11     3,530.93         1.00    72,000.00       16,635
+-------------------------------------------------------------------------------------</code></pre>
+<p>Etwas tricky wird’s aber, wenn wir auch hier eigene Kennzahlen miteinfügen möchten.
+Die <code>r()</code>-Skalare für <code>mdesc</code> (und auch <code>fastgini</code>) geben uns nämlich nur den Wert für die <em>letzte</em> Variable aus:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb27-1"><a href="desc.html#cb27-1" aria-hidden="true" tabindex="-1"></a>mdesc zpalter F518_SUF</span>
+<span id="cb27-2"><a href="desc.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span></code></pre></div>
+<pre><code>    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+        zpalter |         176         20,012           0.88
+       F518_SUF |       3,377         20,012          16.87
+----------------+-----------------------------------------------
+
+
+scalars:
+            r(percent) =  16.87487507495502
+              r(total) =  20012
+               r(miss) =  3377
+
+macros:
+          r(miss_vars) : &quot;zpalter F518_SUF&quot;</code></pre>
+<p>Daher müssen wir uns hier mit einer Schleife helfen:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb29-1"><a href="desc.html#cb29-1" aria-hidden="true" tabindex="-1"></a>* <span class="fu">matrix</span> vorbereiten</span>
+<span id="cb29-2"><a href="desc.html#cb29-2" aria-hidden="true" tabindex="-1"></a>    glo x = <span class="st">&quot;zpalter F518_SUF&quot;</span> <span class="co">// auszuwertende Variablen</span></span>
+<span id="cb29-3"><a href="desc.html#cb29-3" aria-hidden="true" tabindex="-1"></a>    glo len: <span class="fu">word</span> <span class="fu">count</span> <span class="ot">${x}</span>    <span class="co">// wie viele sind es?</span></span>
+<span id="cb29-4"><a href="desc.html#cb29-4" aria-hidden="true" tabindex="-1"></a>    mat m1 = <span class="fu">J</span>(1,<span class="ot">${len}</span>,.)     <span class="co">// entsprechend lange Matrix erstellen J(Zeilen,Spalten,Inhalt)</span></span>
+<span id="cb29-5"><a href="desc.html#cb29-5" aria-hidden="true" tabindex="-1"></a>    mat colname m1 = <span class="ot">`x&#39;</span>        <span class="co">// spalten schon mal richtig benennen</span></span>
+<span id="cb29-6"><a href="desc.html#cb29-6" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">list</span> m1                 <span class="co">// ansehen</span></span>
+<span id="cb29-7"><a href="desc.html#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="desc.html#cb29-8" aria-hidden="true" tabindex="-1"></a>* Schleife über die angegebenen Variablen</span>
+<span id="cb29-9"><a href="desc.html#cb29-9" aria-hidden="true" tabindex="-1"></a>    forval <span class="fu">y</span> = 1/<span class="ot">$len</span> {</span>
+<span id="cb29-10"><a href="desc.html#cb29-10" aria-hidden="true" tabindex="-1"></a>        loc v: dis  <span class="fu">word</span>(<span class="st">&quot;${x}&quot;</span>,<span class="ot">`y&#39;</span>) <span class="co">// y.tes Wort aus x in v ablegen</span></span>
+<span id="cb29-11"><a href="desc.html#cb29-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">display</span> <span class="st">&quot;`v&#39;&quot;</span>               <span class="co">// zur Kontrolle: v anzeigen</span></span>
+<span id="cb29-12"><a href="desc.html#cb29-12" aria-hidden="true" tabindex="-1"></a>        mdesc <span class="ot">`v&#39;</span>                   <span class="co">// missings in v berechnen</span></span>
+<span id="cb29-13"><a href="desc.html#cb29-13" aria-hidden="true" tabindex="-1"></a>        loc res_mat = <span class="fu">r</span>(miss)</span>
+<span id="cb29-14"><a href="desc.html#cb29-14" aria-hidden="true" tabindex="-1"></a>        mat m1[1,<span class="ot">`y&#39;</span>] = <span class="ot">`res_mat&#39;</span></span>
+<span id="cb29-15"><a href="desc.html#cb29-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb29-16"><a href="desc.html#cb29-16" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">l</span> m1</span></code></pre></div>
+<pre><code>m1[1,2]
+     zpalter  F518_SUF
+r1         .         .
+
+zpalter
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+        zpalter |         176         20,012           0.88
+----------------+-----------------------------------------------
+F518_SUF
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+       F518_SUF |       3,377         20,012          16.87
+----------------+-----------------------------------------------
+
+
+m1[1,2]
+     zpalter  F518_SUF
+r1       176      3377</code></pre>
+<p>…und dann können wir wieder zur gewohnten Routine zurück. <code>estpost</code> mit <code>quietly</code> unterdrückt den Output, den wir ja schon kennen.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb31-1"><a href="desc.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">quietly</span> estpost <span class="kw">tabstat</span> zpalter F518_SUF, c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
+<span id="cb31-2"><a href="desc.html#cb31-2" aria-hidden="true" tabindex="-1"></a>estadd mat m1</span>
+<span id="cb31-3"><a href="desc.html#cb31-3" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;count(fmt(%13.0fc)) m1(fmt(%13.0fc))&quot;</span>)  <span class="kw">noobs</span> <span class="co">///</span></span>
+<span id="cb31-4"><a href="desc.html#cb31-4" aria-hidden="true" tabindex="-1"></a>        nomtitle nonumber <span class="kw">label</span> collabels(<span class="st">&quot;N&quot;</span> <span class="st">&quot;Missings&quot;</span>) <span class="co">///</span></span>
+<span id="cb31-5"><a href="desc.html#cb31-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)</span></code></pre></div>
+<pre><code>                                N     Missings
+----------------------------------------------
+Alter                      19,836          176
+Bruttoverdienst            16,635        3,377
+----------------------------------------------</code></pre>
+<hr />
+<p><strong><a href="desc.html#tabst3">Übung 3</a></strong></p>
+<hr />
+</div>
+<div id="gruppenvergleich" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Gruppenvergleich</h2>
+<p>Mit <code>by(S1)</code> bekommen wir einen Gruppenvergleich - hier zwischen Männern und Frauen.
+Die Option <code>nototal</code> unterdrückt dabei die <code>total</code>-Angabe</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb33-1"><a href="desc.html#cb33-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> zpalter F518_SUF, <span class="kw">by</span>(S1) c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span>)</span>
+<span id="cb33-2"><a href="desc.html#cb33-2" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> zpalter F518_SUF, <span class="kw">by</span>(S1) c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span>) <span class="kw">nototal</span>  </span></code></pre></div>
+<pre><code>Summary statistics: mean sd
+     for variables: zpalter F518_SUF
+  by categories of: S1
+
+          S1 |   e(mean)      e(sd) 
+-------------+----------------------
+mÃ¤nnlich     |                      
+     zpalter |  46.49079   11.87744 
+    F518_SUF |  4232.735   3951.324 
+-------------+----------------------
+weiblich     |                      
+     zpalter |  47.90402   10.71604 
+    F518_SUF |  2800.926   2852.935 
+-------------+----------------------
+Total        |                      
+     zpalter |  47.19228   11.33762 
+    F518_SUF |  3532.109   3530.928 
+
+
+Summary statistics: mean sd
+     for variables: zpalter F518_SUF
+  by categories of: S1
+
+          S1 |   e(mean)      e(sd) 
+-------------+----------------------
+mÃ¤nnlich     |                      
+     zpalter |  46.49079   11.87744 
+    F518_SUF |  4232.735   3951.324 
+-------------+----------------------
+weiblich     |                      
+     zpalter |  47.90402   10.71604 
+    F518_SUF |  2800.926   2852.935 </code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb35-1"><a href="desc.html#cb35-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="kw">mean</span>(fmt(%10.1fc)) <span class="fu">sd</span>(fmt(%13.3fc) par)) nostar  nonumber unstack <span class="co">///</span></span>
+<span id="cb35-2"><a href="desc.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span>  <span class="co">///</span></span>
+<span id="cb35-3"><a href="desc.html#cb35-3" aria-hidden="true" tabindex="-1"></a>   collabels(<span class="kw">none</span>) gap   <span class="co">///</span></span>
+<span id="cb35-4"><a href="desc.html#cb35-4" aria-hidden="true" tabindex="-1"></a>   eqlabels(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>) <span class="co">/// </span></span>
+<span id="cb35-5"><a href="desc.html#cb35-5" aria-hidden="true" tabindex="-1"></a>   nomtitles <span class="co">///</span></span>
+<span id="cb35-6"><a href="desc.html#cb35-6" aria-hidden="true" tabindex="-1"></a>   coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)</span></code></pre></div>
+<pre><code>                           Männer       Frauen
+----------------------------------------------
+Alter                        46.5         47.9
+                         (11.877)     (10.716)
+
+Bruttoverdienst           4,232.7      2,800.9
+                      (3,951.324)  (2,852.935)
+----------------------------------------------</code></pre>
+<p>Um die in <code>cells()</code> angegebenen Werte in eine Zeile zu bringen, müssen wir sie in <code>""</code> setzen.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb37-1"><a href="desc.html#cb37-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)&quot;</span>) nostar  nonumber unstack <span class="co">///</span></span>
+<span id="cb37-2"><a href="desc.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span>  <span class="co">///</span></span>
+<span id="cb37-3"><a href="desc.html#cb37-3" aria-hidden="true" tabindex="-1"></a>   collabels(<span class="kw">none</span>) gap   <span class="co">///</span></span>
+<span id="cb37-4"><a href="desc.html#cb37-4" aria-hidden="true" tabindex="-1"></a>   eqlabels(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>) <span class="co">/// </span></span>
+<span id="cb37-5"><a href="desc.html#cb37-5" aria-hidden="true" tabindex="-1"></a>   nomtitles <span class="co">///</span></span>
+<span id="cb37-6"><a href="desc.html#cb37-6" aria-hidden="true" tabindex="-1"></a>   coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)   </span></code></pre></div>
+<pre><code>                           Männer                    Frauen             
+------------------------------------------------------------------------
+Alter                        46.5     (11.877)         47.9     (10.716)
+
+Bruttoverdienst           4,232.7  (3,951.324)      2,800.9  (2,852.935)
+------------------------------------------------------------------------</code></pre>
+<hr />
+<p><strong><a href="desc.html#tabst4">Übung 4</a></strong></p>
+<hr />
+</div>
+<div id="übungen" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Übungen</h2>
+<div id="tabst1" class="section level3" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Übung</h3>
+<ul>
+<li>Erstellen Sie eine Überblickstabelle für <code>F200</code> mit Min, Mean, SD, 1. Quartil (<code>p25</code>), Median, 3. Quartil (<code>p75</code>) und der Anzahl der Beobachtungen.</li>
+</ul>
+</div>
+<div id="tabst2" class="section level3" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Übung</h3>
+<ul>
+<li>Ergänzen Sie die Tabelle von Übung 1 <code>F200</code> um <code>fastgini</code> - so kommen Sie an die abgelegte Info</li>
+</ul>
+<div class="sourceCode" id="cb39"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb39-1"><a href="desc.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install fastgini <span class="co">// falls nicht schon installiert</span></span>
+<span id="cb39-2"><a href="desc.html#cb39-2" aria-hidden="true" tabindex="-1"></a>fastgini F518_SUF</span>
+<span id="cb39-3"><a href="desc.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span></code></pre></div>
+</div>
+<div id="tabst3" class="section level3" number="2.7.3">
+<h3><span class="header-section-number">2.7.3</span> Übung</h3>
+<ul>
+<li>Verändern Sie die oben gezeigte Schleife so, dass nicht mehr die <em>Anzahl</em>, sondern der <em>Anteil</em> der Missings eingefügt wird.</li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb40-1"><a href="desc.html#cb40-1" aria-hidden="true" tabindex="-1"></a>mdesc zpalter F518_SUF</span>
+<span id="cb40-2"><a href="desc.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span> </span></code></pre></div>
+</div>
+<div id="tabst4" class="section level3" number="2.7.4">
+<h3><span class="header-section-number">2.7.4</span> Übung</h3>
+<ul>
+<li>Erweitern Sie den Gruppenvergleich um die Variablen <code>az</code> (Wochenarbeitszeit) und <code>F1104</code> (Jahr des Schulabschlusses)</li>
+<li>Wo könnten Sie die Nachkommastellen verändern? Verändern Sie die Anzeige für die Mittelwerte auf 3 Nachkommastellen</li>
+<li>Lassen Sie sich in auch den Median ausgeben. Legen Sie dafür 0 Nachkommastellen als Format fest. Denken Sie daran, <code>estpost</code> neu zu konfigurieren.</li>
+<li>Passen Sie die Syntax in <code>cells()</code> an, um die Werte neben- oder untereinander angezeigt zu bekommen.</li>
+</ul>
+</div>
+</div>
+<div id="format" class="section level2" number="2.8">
+<h2><span class="header-section-number">2.8</span> Mehr zu <code>format</code></h2>
+<p>Hier eine kurze (unvollständige) Erklärung zu den <code>fmt()</code>-Optionen, mehr unter <code>help format</code> oder <strong><a href="https://wlm.userweb.mwn.de/Stata/wstatfor.htm">hier</a></strong></p>
+<div id="w.df" class="section level3" number="2.8.1">
+<h3><span class="header-section-number">2.8.1</span> %w.df</h3>
+<ul>
+<li>Mit <code>w</code> geben wir die Gesamtbreite des Outputs an - die Vorzeichen und Dezimaltrenner mitgezählt</li>
+<li><code>d</code> gibt die Zahl der Dezimalstellen</li>
+<li>Grundsätzlich wird von “rechts” gezählt - The result is right-justified.</li>
+</ul>
+<p>Aus der Stata-Hilfe:</p>
+<p>The number 5.139 in <code>%12.2f</code> format displays as</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="desc.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="sc">----+----</span><span class="dv">1</span><span class="sc">--</span></span>
+<span id="cb41-2"><a href="desc.html#cb41-2" aria-hidden="true" tabindex="-1"></a>        <span class="fl">5.14</span></span></code></pre></div>
+<p><em>Beispiele</em></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb42-1"><a href="desc.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> <span class="kw">format</span></span>
+<span id="cb42-2"><a href="desc.html#cb42-2" aria-hidden="true" tabindex="-1"></a>    dis <span class="fu">strlen</span>(<span class="st">&quot;10789.1234&quot;</span>)</span>
+<span id="cb42-3"><a href="desc.html#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10.2f  10789.1234 <span class="co">// 0 Nachkommastellen</span></span>
+<span id="cb42-4"><a href="desc.html#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10.0f  10789.1234 <span class="co">// 2 Nachkommastellen</span></span>
+<span id="cb42-5"><a href="desc.html#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %11.5f  10789.1234 <span class="co">// 0 hinzugefügt!</span></span>
+<span id="cb42-6"><a href="desc.html#cb42-6" aria-hidden="true" tabindex="-1"></a>10</span>
+<span id="cb42-7"><a href="desc.html#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="desc.html#cb42-8" aria-hidden="true" tabindex="-1"></a>     10789</span>
+<span id="cb42-9"><a href="desc.html#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="desc.html#cb42-10" aria-hidden="true" tabindex="-1"></a>10789.12340</span></code></pre></div>
+</div>
+<div id="w.dfc" class="section level3" number="2.8.2">
+<h3><span class="header-section-number">2.8.2</span> %w.dfc</h3>
+<p>Analog zu <code>%w.df</code>, jedoch werden Kommata für bessere Lesbarkeit eingefügt. Auch die Kommata zählen für die Breite <code>w</code>.</p>
+<p>Während ``</p>
+<p>Mit <code>%</code><em>w</em><code>**,**</code><em>d</em><code>fc</code> können wir das Format für Dezimal- und Tausendertrenner ändern: Dezimalstellen werden mit einem <code>,</code> abgetrennt, 1000er mit <code>.</code></p>
+<p><em>Beispiele</em>: mit <code>fc</code> werden Tausendertrenner eingefügt</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb43-1"><a href="desc.html#cb43-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10.2fc     10789.1234</span>
+<span id="cb43-2"><a href="desc.html#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10,2fc     10789.1234 <span class="co">// , und . tauschen -&gt; &quot;dt Format&quot;</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="base.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tab.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Stata Tables BIBB.pdf", "Stata Tables BIBB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
