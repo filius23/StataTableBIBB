@@ -90,7 +90,7 @@ ttest az, by(S1) unequal
 
 estpost ttest az F518_SUF, by(S1) unequal
 esttab, wide nonumber noobs
-esttab,  cell("b(fmt(%8.3fc)) t(fmt(%8.3fc) star) N_1(fmt(%8.0fc)) mu_1 N_2(fmt(%8.0fc)) mu_2") /// 
+esttab,  cell("b(fmt(%8.3fc)) t(fmt(%8.3fc) star) N_1(fmt(%8.0fc)) mu_1(fmt(%8.3fc)) N_2(fmt(%8.0fc)) mu_2") /// 
 	unstack wide nonumber noobs nomtitles ///
 	collabels("Diff" "t" "N(M)" "Mean(M)" "N(W)" "Mean(W)")		 
 		 

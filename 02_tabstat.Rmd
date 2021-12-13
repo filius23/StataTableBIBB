@@ -327,7 +327,7 @@ Daher müssen wir uns hier mit einer Schleife helfen:
 	glo x = "zpalter F518_SUF" // auszuwertende Variablen
 	glo len: word count ${x} 	// wie viele sind es?
 	mat m1 = J(1,${len},.)	   // entsprechend lange Matrix erstellen J(Zeilen,Spalten,Inhalt)
-	mat colname m1 = `x'		// spalten schon mal richtig benennen
+	mat colname m1 = ${x}		// spalten schon mal richtig benennen
 	mat list m1					// ansehen
 
 * Schleife über die angegebenen Variablen

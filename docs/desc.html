@@ -24,7 +24,7 @@
 <meta name="author" content="Andreas Filser" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -561,7 +561,7 @@ macros:
 <span id="cb29-2"><a href="desc.html#cb29-2" aria-hidden="true" tabindex="-1"></a>    glo x = <span class="st">&quot;zpalter F518_SUF&quot;</span> <span class="co">// auszuwertende Variablen</span></span>
 <span id="cb29-3"><a href="desc.html#cb29-3" aria-hidden="true" tabindex="-1"></a>    glo len: <span class="fu">word</span> <span class="fu">count</span> <span class="ot">${x}</span>    <span class="co">// wie viele sind es?</span></span>
 <span id="cb29-4"><a href="desc.html#cb29-4" aria-hidden="true" tabindex="-1"></a>    mat m1 = <span class="fu">J</span>(1,<span class="ot">${len}</span>,.)     <span class="co">// entsprechend lange Matrix erstellen J(Zeilen,Spalten,Inhalt)</span></span>
-<span id="cb29-5"><a href="desc.html#cb29-5" aria-hidden="true" tabindex="-1"></a>    mat colname m1 = <span class="ot">`x&#39;</span>        <span class="co">// spalten schon mal richtig benennen</span></span>
+<span id="cb29-5"><a href="desc.html#cb29-5" aria-hidden="true" tabindex="-1"></a>    mat colname m1 = <span class="ot">${x}</span>       <span class="co">// spalten schon mal richtig benennen</span></span>
 <span id="cb29-6"><a href="desc.html#cb29-6" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">list</span> m1                 <span class="co">// ansehen</span></span>
 <span id="cb29-7"><a href="desc.html#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-8"><a href="desc.html#cb29-8" aria-hidden="true" tabindex="-1"></a>* Schleife über die angegebenen Variablen</span>
