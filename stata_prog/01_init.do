@@ -59,7 +59,7 @@ mvdecode Mig, mv(-4)
 
 save "${data}/BIBBBAuA_2018_short.dta", replace 
 
-***
+/***
 
 use "${data}/BIBBBAuA_2018_suf1.0.dta", clear
 d  int_jahr F1104 F1408 F1408_01 F1410_01

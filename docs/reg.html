@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Regressionstabellen | Stata: Erzeugen von Deskriptions- und Regressionstabellen</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Regressionstabellen | Stata: Erzeugen von Deskriptions- und Regressionstabellen" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Regressionstabellen | Stata: Erzeugen von Deskriptions- und Regressionstabellen" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Andreas Filser" />
+
+
+<meta name="date" content="2021-12-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cormat.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Stata @ BIBB</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Herzlich Willkommen</a></li>
+<li class="chapter" data-level="1" data-path="base.html"><a href="base.html"><i class="fa fa-check"></i><b>1</b> Tabellenexport mit Stata: Grundlagen &amp; Pakete</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="base.html"><a href="base.html#grundlagen-e-und-r"><i class="fa fa-check"></i><b>1.1</b> Grundlagen: <code>e()</code> und <code>r()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="desc.html"><a href="desc.html"><i class="fa fa-check"></i><b>2</b> Deskriptionen</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="desc.html"><a href="desc.html#summary"><i class="fa fa-check"></i><b>2.1</b> <code>summary</code></a></li>
+<li class="chapter" data-level="2.2" data-path="desc.html"><a href="desc.html#tabstat"><i class="fa fa-check"></i><b>2.2</b> <code>tabstat</code></a></li>
+<li class="chapter" data-level="2.3" data-path="desc.html"><a href="desc.html#export"><i class="fa fa-check"></i><b>2.3</b> export</a></li>
+<li class="chapter" data-level="2.4" data-path="desc.html"><a href="desc.html#zusätzliche-kennzahlen-hinzufügen"><i class="fa fa-check"></i><b>2.4</b> Zusätzliche Kennzahlen hinzufügen</a></li>
+<li class="chapter" data-level="2.5" data-path="desc.html"><a href="desc.html#mehrere-variablen"><i class="fa fa-check"></i><b>2.5</b> mehrere Variablen</a></li>
+<li class="chapter" data-level="2.6" data-path="desc.html"><a href="desc.html#gruppenvergleich"><i class="fa fa-check"></i><b>2.6</b> Gruppenvergleich</a></li>
+<li class="chapter" data-level="2.7" data-path="desc.html"><a href="desc.html#übungen"><i class="fa fa-check"></i><b>2.7</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="desc.html"><a href="desc.html#tabst1"><i class="fa fa-check"></i><b>2.7.1</b> Übung</a></li>
+<li class="chapter" data-level="2.7.2" data-path="desc.html"><a href="desc.html#tabst2"><i class="fa fa-check"></i><b>2.7.2</b> Übung</a></li>
+<li class="chapter" data-level="2.7.3" data-path="desc.html"><a href="desc.html#tabst3"><i class="fa fa-check"></i><b>2.7.3</b> Übung</a></li>
+<li class="chapter" data-level="2.7.4" data-path="desc.html"><a href="desc.html#tabst4"><i class="fa fa-check"></i><b>2.7.4</b> Übung</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="desc.html"><a href="desc.html#format"><i class="fa fa-check"></i><b>2.8</b> Mehr zu <code>format</code></a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="desc.html"><a href="desc.html#w.df"><i class="fa fa-check"></i><b>2.8.1</b> %w.df</a></li>
+<li class="chapter" data-level="2.8.2" data-path="desc.html"><a href="desc.html#w.dfc"><i class="fa fa-check"></i><b>2.8.2</b> %w.dfc</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tab.html"><a href="tab.html"><i class="fa fa-check"></i><b>3</b> <code>table</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tab.html"><a href="tab.html#tab-x-one-way-frequency-table"><i class="fa fa-check"></i><b>3.1</b> <code>tab x</code>: One-way frequency table</a></li>
+<li class="chapter" data-level="3.2" data-path="tab.html"><a href="tab.html#tab-var1-var2-kontingenz-kreuztabelle"><i class="fa fa-check"></i><b>3.2</b> <code>tab var1 var2</code>: Kontingenz-/Kreuztabelle</a></li>
+<li class="chapter" data-level="3.3" data-path="tab.html"><a href="tab.html#gewichtete-tabelle-mit-svy"><i class="fa fa-check"></i><b>3.3</b> Gewichtete Tabelle mit <code>svy</code></a></li>
+<li class="chapter" data-level="3.4" data-path="tab.html"><a href="tab.html#übungen-1"><i class="fa fa-check"></i><b>3.4</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="tab.html"><a href="tab.html#table1"><i class="fa fa-check"></i><b>3.4.1</b> Übung</a></li>
+<li class="chapter" data-level="3.4.2" data-path="tab.html"><a href="tab.html#table2"><i class="fa fa-check"></i><b>3.4.2</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cormat.html"><a href="cormat.html"><i class="fa fa-check"></i><b>4</b> Korrelationsmatrix</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="cormat.html"><a href="cormat.html#corr-x"><i class="fa fa-check"></i><b>4.1</b> <code>corr x</code></a></li>
+<li class="chapter" data-level="4.2" data-path="cormat.html"><a href="cormat.html#spearmans-rho"><i class="fa fa-check"></i><b>4.2</b> Spearman’s Rho:</a></li>
+<li class="chapter" data-level="4.3" data-path="cormat.html"><a href="cormat.html#ttest"><i class="fa fa-check"></i><b>4.3</b> <code>ttest</code></a></li>
+<li class="chapter" data-level="4.4" data-path="cormat.html"><a href="cormat.html#übungen-2"><i class="fa fa-check"></i><b>4.4</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="cormat.html"><a href="cormat.html#corr1"><i class="fa fa-check"></i><b>4.4.1</b> Übung</a></li>
+<li class="chapter" data-level="4.4.2" data-path="cormat.html"><a href="cormat.html#ttest1"><i class="fa fa-check"></i><b>4.4.2</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="reg.html"><a href="reg.html"><i class="fa fa-check"></i><b>5</b> Regressionstabellen</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="reg.html"><a href="reg.html#regression"><i class="fa fa-check"></i><b>5.1</b> <code>regression</code></a></li>
+<li class="chapter" data-level="5.2" data-path="reg.html"><a href="reg.html#eine-tabelle-ein-modell"><i class="fa fa-check"></i><b>5.2</b> Eine Tabelle, ein Modell</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="reg.html"><a href="reg.html#neben--statt-untereinander"><i class="fa fa-check"></i><b>5.2.1</b> Neben- statt untereinander</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="reg.html"><a href="reg.html#mehrere-regressionsmodelle-nebeneinander"><i class="fa fa-check"></i><b>5.3</b> mehrere Regressionsmodelle nebeneinander</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="reg.html"><a href="reg.html#nur-ein-koeffizient"><i class="fa fa-check"></i><b>5.3.1</b> Nur ein Koeffizient</a></li>
+<li class="chapter" data-level="5.3.2" data-path="reg.html"><a href="reg.html#mehrere-modellgruppen"><i class="fa fa-check"></i><b>5.3.2</b> mehrere Modellgruppen</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="reg.html"><a href="reg.html#einmal-mit-allem"><i class="fa fa-check"></i><b>5.4</b> Einmal mit allem</a></li>
+<li class="chapter" data-level="5.5" data-path="reg.html"><a href="reg.html#übungen-3"><i class="fa fa-check"></i><b>5.5</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="reg.html"><a href="reg.html#reg1"><i class="fa fa-check"></i><b>5.5.1</b> Übung</a></li>
+<li class="chapter" data-level="5.5.2" data-path="reg.html"><a href="reg.html#reg2"><i class="fa fa-check"></i><b>5.5.2</b> Übung</a></li>
+<li class="chapter" data-level="5.5.3" data-path="reg.html"><a href="reg.html#reg3"><i class="fa fa-check"></i><b>5.5.3</b> Übung</a></li>
+<li class="chapter" data-level="5.5.4" data-path="reg.html"><a href="reg.html#reg4"><i class="fa fa-check"></i><b>5.5.4</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stata: Erzeugen von Deskriptions- und Regressionstabellen</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reg" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Regressionstabellen</h1>
+<div id="regression" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> <code>regression</code></h2>
+<p>Regressionstabellen sind wohl <em>der</em> Klassiker des Tabellenexports.</p>
+<p>Das grundsätzliche Vorgehen für das Erstellen von Regressionstabellen mit <code>esttab</code> ist etwas anders als bei den Deskriptionstabellen:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="reg.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> F518_SUF c.zpalter <span class="co">// einfaches Regressionsmodell</span></span>
+<span id="cb1-2"><a href="reg.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> reg1     <span class="co">// Ergebnisse speichern</span></span>
+<span id="cb1-3"><a href="reg.html#cb1-3" aria-hidden="true" tabindex="-1"></a>esttab reg1 <span class="co">// (ausgeblendet)</span></span></code></pre></div>
+<p>Mit <code>ereturn list</code> bekommen wir alle abrufbaren Informationen angezeigt:</p>
+<pre><code>      Source |       SS           df       MS      Number of obs   =    16,543
+-------------+----------------------------------   F(1, 16541)     =    105.36
+       Model |  1.3092e+09         1  1.3092e+09   Prob &gt; F        =    0.0000
+    Residual |  2.0555e+11    16,541    12426773   R-squared       =    0.0063
+-------------+----------------------------------   Adj R-squared   =    0.0063
+       Total |  2.0686e+11    16,542    12505168   Root MSE        =    3525.2
+
+------------------------------------------------------------------------------
+    F518_SUF |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+     zpalter |   24.62253   2.398848    10.26   0.000     19.92053    29.32453
+       _cons |    2381.28    115.577    20.60   0.000     2154.736    2607.823
+------------------------------------------------------------------------------
+
+
+
+scalars:
+               e(rank) =  2
+               e(ll_0) =  -158642.9792418738
+                 e(ll) =  -158590.4618746699
+               e(r2_a) =  .0062690083366028
+                e(rss) =  205551251614.9366
+                e(mss) =  1309236899.97876
+               e(rmse) =  3525.162828161657
+                 e(r2) =  .0063290815436915
+                  e(F) =  105.3561454498825
+               e(df_r) =  16541
+               e(df_m) =  1
+                  e(N) =  16543
+
+macros:
+            e(cmdline) : &quot;regress F518_SUF c.zpalter&quot;
+              e(title) : &quot;Linear regression&quot;
+          e(marginsok) : &quot;XB default&quot;
+                e(vce) : &quot;ols&quot;
+             e(depvar) : &quot;F518_SUF&quot;
+                e(cmd) : &quot;regress&quot;
+         e(properties) : &quot;b V&quot;
+            e(predict) : &quot;regres_p&quot;
+              e(model) : &quot;ols&quot;
+          e(estat_cmd) : &quot;regress_estat&quot;
+
+matrices:
+                  e(b) :  1 x 2
+                  e(V) :  2 x 2
+
+functions:
+             e(sample)   </code></pre>
+<p>Alle unter <code>e()</code> abgespeicherten Informationen können wir direkt in unsere <code>esttab</code> einfügen.
+Los geht’s:</p>
+</div>
+<div id="eine-tabelle-ein-modell" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Eine Tabelle, ein Modell</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb3-1"><a href="reg.html#cb3-1" aria-hidden="true" tabindex="-1"></a>esttab reg1 <span class="co">// Tabelle mit Standard-Einstellungen</span></span></code></pre></div>
+<pre><code>                      (1)   
+                 F518_SUF   
+----------------------------
+zpalter             24.62***
+                  (10.26)   
+
+_cons              2381.3***
+                  (20.60)   
+----------------------------
+N                   16543   
+----------------------------
+t statistics in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Das ist noch sehr <em>basic</em>.
+U.a. sind häufig statt der t-Werte die Standardfehler in Klammern genannt.
+Grundsätzlich können wir folgende Kennzahlen anfordern:
++ <code>b</code> Regressionskoeffizienten
++ <code>se</code> Standardfehler
++ <code>t</code> t-Werte
++ <code>p</code> p-Werte
++ <code>ci</code> 95%-Konfidenzintervalle
++ <code>beta</code> standardisierte Koeffizienten</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="reg.html#cb5-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="kw">label</span> <span class="co">// Formatierung, SE statt t + Variablen Labels</span></span></code></pre></div>
+<pre><code>                              (1)   
+                     Wie hoch i~h   
+------------------------------------
+Alter der Zielp             24.62***
+                          (2.399)   
+
+Constant                   2381.3***
+                        (115.577)   
+------------------------------------
+Observations                16543   
+------------------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Außerdem wollen wir in der Regel nicht nur die Fallzahl, sondern auch weitere Informationen zum Modell angeben.
+Dabei können wir auf die Liste, die wir vorhin bei <code>ereturn list</code> gesehen haben, zurückgreifen.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb7-1"><a href="reg.html#cb7-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="kw">stats</span>(<span class="kw">N</span>  r2 ll <span class="fu">F</span>) <span class="co">// Modellkennzahlen angeben (volle Liste oben bei ereturn list)</span></span></code></pre></div>
+<pre><code>                      (1)   
+                 F518_SUF   
+----------------------------
+zpalter             24.62***
+                  (2.399)   
+
+_cons              2381.3***
+                (115.577)   
+----------------------------
+N                   16543   
+r2                0.00633   
+ll              -158590.5   
+F                   105.4   
+----------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Diese Informationen können wir natürlich auch labeln und formatieren wie wir es schon kennengelernt haben.
+Auch <code>coeflabel</code> funktioniert hier so wie bei <code>tabstat</code> zuvor:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb9-1"><a href="reg.html#cb9-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
+<span id="cb9-2"><a href="reg.html#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 r2_a <span class="kw">N</span>, fmt(%9.4f %9.4f %9.0fc) labels(<span class="st">&quot;R²&quot;</span> <span class="st">&quot;adj. R²&quot;</span> <span class="st">&quot;Observations&quot;</span>)) <span class="co">/// N und R² labeln</span></span>
+<span id="cb9-3"><a href="reg.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>)  <span class="co">// Koeffizienten links labeln</span></span></code></pre></div>
+<pre><code>                      (1)   
+                 F518_SUF   
+----------------------------
+Alter               24.62***
+                  (2.399)   
+
+Konstante          2381.3***
+                (115.577)   
+----------------------------
+R²                 0.0063   
+adj. R²            0.0063   
+Observations       16,543   
+----------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Außerdem können wir mit <code>mtitles</code> die Beschrifung anpassen und mit <code>nonumbers</code> die Zahl oben ausblenden.
+Mit <code>title</code> können wir einen Tabellentitel und mit <code>note</code> eine Notiz unten hinzufügen.
+Wenn wir mehrere Zeilen möchten, dann geben wir einfach <code>"Text in 1. Zeile" "Text in 2. Zeile"</code> an:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb11-1"><a href="reg.html#cb11-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
+<span id="cb11-2"><a href="reg.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb11-3"><a href="reg.html#cb11-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb11-4"><a href="reg.html#cb11-4" aria-hidden="true" tabindex="-1"></a>    mtitles(<span class="st">&quot;1. Modell&quot;</span>) <span class="co">/// </span></span>
+<span id="cb11-5"><a href="reg.html#cb11-5" aria-hidden="true" tabindex="-1"></a>    nonumbers <span class="co">///</span></span>
+<span id="cb11-6"><a href="reg.html#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="bn">title</span>(Tabellentitel)    <span class="co">/// Titel für die Tabelle</span></span>
+<span id="cb11-7"><a href="reg.html#cb11-7" aria-hidden="true" tabindex="-1"></a>    addnotes(<span class="st">&quot;erste Anmerkung&quot;</span> <span class="st">&quot;zweite Anmerkung darunter&quot;</span>) <span class="co">// Notizen ganz unten</span></span></code></pre></div>
+<pre><code>Tabellentitel
+----------------------------
+                1. Modell   
+----------------------------
+Alter               24.62***
+                  (2.399)   
+
+Konstante          2381.3***
+                (115.577)   
+----------------------------
+R²                  0.006   
+Observations        16543   
+----------------------------
+Standard errors in parentheses
+erste Anmerkung
+zweite Anmerkung darunter
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Auch Signifikanzsterne anpassen, mit <code>star()</code></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb13-1"><a href="reg.html#cb13-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
+<span id="cb13-2"><a href="reg.html#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb13-3"><a href="reg.html#cb13-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb13-4"><a href="reg.html#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">star</span>(+ 0.10 * 0.05 ** 0.01 *** 0.001 **** 0.0001)</span></code></pre></div>
+<pre><code>                      (1)    
+                 F518_SUF    
+-----------------------------
+Alter               24.62****
+                  (2.399)    
+
+Konstante          2381.3****
+                (115.577)    
+-----------------------------
+R²                  0.006    
+Observations        16543    
+-----------------------------
+Standard errors in parentheses
++ p&lt;0.10, * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001, **** p&lt;0.0001</code></pre>
+<p>Die Klammern können wir mit <code>noparentheses</code> unterdrücken oder mit <code>brackets</code> auf <code>[]</code> ändern.</p>
+<div id="neben--statt-untereinander" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Neben- statt untereinander</h3>
+<p>Dafür steht uns <code>wide</code> zur Verfügung:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb15-1"><a href="reg.html#cb15-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
+<span id="cb15-2"><a href="reg.html#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">wide</span> <span class="co">///</span></span>
+<span id="cb15-3"><a href="reg.html#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb15-4"><a href="reg.html#cb15-4" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb15-5"><a href="reg.html#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="bn">title</span>(Modelltitel)  <span class="co">///</span></span>
+<span id="cb15-6"><a href="reg.html#cb15-6" aria-hidden="true" tabindex="-1"></a>    addnotes(<span class="st">&quot;erste Anmerkung&quot;</span> <span class="st">&quot;zweite Anmerkung darunter&quot;</span>)</span></code></pre></div>
+<pre><code>Modelltitel
+-----------------------------------------
+                      (1)                
+                 F518_SUF                
+-----------------------------------------
+Alter               24.62***      (2.399)
+Konstante          2381.3***    (115.577)
+-----------------------------------------
+R²                  0.006                
+Observations        16543                
+-----------------------------------------
+Standard errors in parentheses
+erste Anmerkung
+zweite Anmerkung darunter
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Leider funktioniert das nicht für mehr als zwei Kennzahlen:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb17-1"><a href="reg.html#cb17-1" aria-hidden="true" tabindex="-1"></a>esttab reg1,b se(%9.3f) <span class="kw">ci</span>(%9.3f) <span class="kw">p</span>(%9.3f) <span class="co">/// </span></span>
+<span id="cb17-2"><a href="reg.html#cb17-2" aria-hidden="true" tabindex="-1"></a>            <span class="kw">wide</span> <span class="co">///</span></span>
+<span id="cb17-3"><a href="reg.html#cb17-3" aria-hidden="true" tabindex="-1"></a>            <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb17-4"><a href="reg.html#cb17-4" aria-hidden="true" tabindex="-1"></a>            coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb17-5"><a href="reg.html#cb17-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">star</span>(+ 0.10 * 0.05 ** 0.01 *** 0.001 **** 0.0001) <span class="co">///</span></span>
+<span id="cb17-6"><a href="reg.html#cb17-6" aria-hidden="true" tabindex="-1"></a>            <span class="bn">title</span>(Modelltitel)      <span class="co">///</span></span>
+<span id="cb17-7"><a href="reg.html#cb17-7" aria-hidden="true" tabindex="-1"></a>            addnotes(<span class="st">&quot;erste Anmerkung&quot;</span> <span class="st">&quot;zweite Anmerkung darunter&quot;</span>)</span></code></pre></div>
+<pre><code>only one allowed of z, se, p, ci, and aux()
+r(198);
+
+end of do-file
+r(198);</code></pre>
+<p>Hier müssen wir dann auf <code>cells()</code> und <code>""</code> zurückgreifen.
+Mit <code>ci_l</code> und <code>ci_u</code> statt <code>ci</code> bekommen wir außerdem die untere und obere KI-Grenze in separaten Spalten angezeigt, was das Ganze etwas übersichtlicher macht:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb19-1"><a href="reg.html#cb19-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, cells(<span class="st">&quot;b se(fmt(%9.3f)) ci(fmt(%9.2f)) p(fmt(%9.3f))&quot;</span>)</span>
+<span id="cb19-2"><a href="reg.html#cb19-2" aria-hidden="true" tabindex="-1"></a>esttab reg1, cells(<span class="st">&quot;b se(fmt(%9.3f)) ci_l(fmt(%9.2f)) ci_u(fmt(%9.2f)) p(fmt(%9.3f))&quot;</span>) <span class="co">// Übersichtlicher: KIs aufteilen in zwei Spalten</span></span></code></pre></div>
+<pre><code>                      (1)                                       
+                 F518_SUF                                       
+                        b           se         ci95            p
+----------------------------------------------------------------
+zpalter          24.62253        2.399  19.92,29.32        0.000
+_cons             2381.28      115.577 2154.74,2607.82        0.000
+----------------------------------------------------------------
+N                   16543                                       
+----------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------
+                      (1)                                                    
+                 F518_SUF                                                    
+                        b           se        min95        max95            p
+-----------------------------------------------------------------------------
+zpalter          24.62253        2.399        19.92        29.32        0.000
+_cons             2381.28      115.577      2154.74      2607.82        0.000
+-----------------------------------------------------------------------------
+N                   16543                                                    
+-----------------------------------------------------------------------------</code></pre>
+<p>Auch das können wir labeln - mit <code>collabels</code>:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb21-1"><a href="reg.html#cb21-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, cells(<span class="st">&quot;b se(fmt(%9.3f)) ci_l(fmt(%9.2f)) ci_u(fmt(%9.2f)) p(fmt(%9.3f))&quot;</span>) <span class="co">///</span></span>
+<span id="cb21-2"><a href="reg.html#cb21-2" aria-hidden="true" tabindex="-1"></a>            collabels(<span class="st">&quot;B&quot;</span> <span class="st">&quot;SE&quot;</span> <span class="st">&quot;u.KI&quot;</span> <span class="st">&quot;o.KI&quot;</span> <span class="st">&quot;p&quot;</span>)       <span class="co">// labels</span></span></code></pre></div>
+<pre><code>                      (1)                                                    
+                 F518_SUF                                                    
+                        B           SE         u.KI         o.KI            p
+-----------------------------------------------------------------------------
+zpalter          24.62253        2.399        19.92        29.32        0.000
+_cons             2381.28      115.577      2154.74      2607.82        0.000
+-----------------------------------------------------------------------------
+N                   16543                                                    
+-----------------------------------------------------------------------------</code></pre>
+<hr />
+<p><strong><a href="reg.html#reg1">Übung 1</a></strong></p>
+<hr />
+</div>
+</div>
+<div id="mehrere-regressionsmodelle-nebeneinander" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> mehrere Regressionsmodelle nebeneinander</h2>
+<p>Häufig haben wir aber mehrere Regressionsmodelle, die aufeinander aufbauen und sich alle auf die gleiche abhängige Variable beziehen.
+Für eine Übersicht werden solche Modelle häufig nebeneinander gestellt in einer Tabelle gezeigt.
+Auch das geht mit <code>esttab</code>.</p>
+<p>Wir können nämlich mit <code>estimates store</code> (<code>est store</code>) auch mehrere Modelle speichern und dann namentlich aufrufen.</p>
+<p>Dafür könnnen wir auch “wild cards” verwenden - also <code>*</code> als Platzhalter für “alles oder nichts” und <code>?</code> für “irgendein Zeichen.”
+Mit <code>est dir</code> bekommen wir eine Liste alle gespeicherten Ergebnisse ausgegeben.
+<code>estimates clear</code> löst alle Ergebnisse, <code>est drop name</code> nur das Modell <code>name</code>.</p>
+<p>Genestete Modelle lassen sich mit einer Schleife elegant erstellen.
+Wir können dafür in <code>global</code>s die Kontrollvariablen angeben und anschließend die Modelle nacheinander schätzen lassen.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="reg.html#cb23-1" aria-hidden="true" tabindex="-1"></a>glo mod1 <span class="st">&quot; &quot;</span></span>
+<span id="cb23-2"><a href="reg.html#cb23-2" aria-hidden="true" tabindex="-1"></a>glo mod2 <span class="st">&quot;c.zpalter&quot;</span></span>
+<span id="cb23-3"><a href="reg.html#cb23-3" aria-hidden="true" tabindex="-1"></a>glo mod3 <span class="st">&quot;c.zpalter##c.zpalter&quot;</span></span>
+<span id="cb23-4"><a href="reg.html#cb23-4" aria-hidden="true" tabindex="-1"></a>glo mod4 <span class="st">&quot;c.zpalter##c.zpalter i.m1202&quot;</span></span>
+<span id="cb23-5"><a href="reg.html#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="reg.html#cb23-6" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
+<span id="cb23-7"><a href="reg.html#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1 <span class="ot">${mod`i&#39;</span>}</span>
+<span id="cb23-8"><a href="reg.html#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regm<span class="ot">`i&#39;</span></span>
+<span id="cb23-9"><a href="reg.html#cb23-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-10"><a href="reg.html#cb23-10" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f)</span></code></pre></div>
+<pre><code>                      (1)             (2)             (3)             (4)   
+                 F518_SUF        F518_SUF        F518_SUF        F518_SUF   
+----------------------------------------------------------------------------
+_IS1_2            -1431.8***      -1471.7***      -1496.8***      -1458.5***
+                 (53.630)        (53.722)        (53.768)        (52.124)   
+
+zpalter                             28.45***        146.5***        130.8***
+                                  (2.350)        (17.208)        (16.839)   
+
+c.zpalter#~r                                       -1.317***       -1.193***
+                                                  (0.190)         (0.186)   
+
+_Im1202_2                                                           470.2***
+                                                                (119.627)   
+
+_Im1202_3                                                          1114.5***
+                                                                (143.641)   
+
+_Im1202_4                                                          2322.9***
+                                                                (120.657)   
+
+_cons              4232.7***       2922.0***        467.3          -334.3   
+                 (37.515)       (114.755)       (372.647)       (364.132)   
+----------------------------------------------------------------------------
+N                   16635           16543           16543           16521   
+----------------------------------------------------------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Auch hier lohnt sich aber natürlich etwas label-Arbeit:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb25-1"><a href="reg.html#cb25-1" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="co">///</span></span>
+<span id="cb25-2"><a href="reg.html#cb25-2" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span> <span class="co">///</span></span>
+<span id="cb25-3"><a href="reg.html#cb25-3" aria-hidden="true" tabindex="-1"></a>              c.zpalter#c.zpalter <span class="st">&quot;Alter²&quot;</span> <span class="co">///</span></span>
+<span id="cb25-4"><a href="reg.html#cb25-4" aria-hidden="true" tabindex="-1"></a>              _Im1202_2  <span class="st">&quot;dual/schul. Abs.&quot;</span> <span class="co">///    </span></span>
+<span id="cb25-5"><a href="reg.html#cb25-5" aria-hidden="true" tabindex="-1"></a>              _Im1202_3  <span class="st">&quot;Meister/Techniker&quot;</span> <span class="co">///</span></span>
+<span id="cb25-6"><a href="reg.html#cb25-6" aria-hidden="true" tabindex="-1"></a>              _Im1202_4  <span class="st">&quot;Hochschule/Uni&quot;</span> <span class="co">///</span></span>
+<span id="cb25-7"><a href="reg.html#cb25-7" aria-hidden="true" tabindex="-1"></a>              <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb25-8"><a href="reg.html#cb25-8" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span> <span class="co">///</span></span>
+<span id="cb25-9"><a href="reg.html#cb25-9" aria-hidden="true" tabindex="-1"></a>           _Im1202_2 <span class="st">&quot;kein Abs.&quot;</span>)   <span class="co">///</span></span>
+<span id="cb25-10"><a href="reg.html#cb25-10" aria-hidden="true" tabindex="-1"></a>           nomtitle <span class="co">///</span></span>
+<span id="cb25-11"><a href="reg.html#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb25-12"><a href="reg.html#cb25-12" aria-hidden="true" tabindex="-1"></a>    varwidth(20)</span></code></pre></div>
+<pre><code>                              (1)             (2)             (3)             (4)   
+------------------------------------------------------------------------------------
+Männer                       ref.            ref.            ref.            ref.   
+
+Frauen                    -1431.8***      -1471.7***      -1496.8***      -1458.5***
+                         (53.630)        (53.722)        (53.768)        (52.124)   
+
+Alter                                       28.45***        146.5***        130.8***
+                                          (2.350)        (17.208)        (16.839)   
+
+Alter²                                                     -1.317***       -1.193***
+                                                          (0.190)         (0.186)   
+
+kein Abs.                                                                    ref.   
+
+dual/schul. Abs.                                                            470.2***
+                                                                        (119.627)   
+
+Meister/Techniker                                                          1114.5***
+                                                                        (143.641)   
+
+Hochschule/Uni                                                             2322.9***
+                                                                        (120.657)   
+
+Konstante                  4232.7***       2922.0***        467.3          -334.3   
+                         (37.515)       (114.755)       (372.647)       (364.132)   
+------------------------------------------------------------------------------------
+R²                          0.041           0.049           0.052           0.117   
+Observations                16635           16543           16543           16521   
+------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<div id="nur-ein-koeffizient" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Nur ein Koeffizient</h3>
+<p>Manchmal möchten wir die Tabelle etwas entrümpeln und nur den interessierenden Koeffizienten behalten, das geht mit <code>keep()</code>:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb27-1"><a href="reg.html#cb27-1" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2)</span>
+<span id="cb27-2"><a href="reg.html#cb27-2" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2 zpalter) <span class="co">// mehrere mit Leerzeichen</span></span></code></pre></div>
+<pre><code>                      (1)             (2)             (3)             (4)   
+                 F518_SUF        F518_SUF        F518_SUF        F518_SUF   
+----------------------------------------------------------------------------
+_IS1_2            -1431.8***      -1471.7***      -1496.8***      -1458.5***
+                 (53.630)        (53.722)        (53.768)        (52.124)   
+----------------------------------------------------------------------------
+N                   16635           16543           16543           16521   
+----------------------------------------------------------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001
+
+
+----------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)   
+                 F518_SUF        F518_SUF        F518_SUF        F518_SUF   
+----------------------------------------------------------------------------
+_IS1_2            -1431.8***      -1471.7***      -1496.8***      -1458.5***
+                 (53.630)        (53.722)        (53.768)        (52.124)   
+
+zpalter                             28.45***        146.5***        130.8***
+                                  (2.350)        (17.208)        (16.839)   
+----------------------------------------------------------------------------
+N                   16635           16543           16543           16521   
+----------------------------------------------------------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Allerdings fehlt hier jetzt die Information, welche Kontrollvariablen jeweils im Modell waren.
+Da kann uns <code>estadd local</code> weiter helfen. Damit können wir einen Text zu jedem <code>estimate</code> hinzufügen und den dann unten in der Tabelle ausgeben lassen.
+Wir erweitern unsere Schleife also und lassen sie nochmal laufen.
+Mit <code>scalars("note Kontrollvariablen")</code> werden die vorher abgelegten <code>note</code>s dann als Zeile <code>Kontrollvariablen</code> in der Tabelle angezeigt.
+Mit <code>modelwidth()</code> können wir die Breite der Spalten erhöhen.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb29-1"><a href="reg.html#cb29-1" aria-hidden="true" tabindex="-1"></a>glo mod1 <span class="st">&quot; &quot;</span></span>
+<span id="cb29-2"><a href="reg.html#cb29-2" aria-hidden="true" tabindex="-1"></a>glo mod2 <span class="st">&quot;c.zpalter&quot;</span></span>
+<span id="cb29-3"><a href="reg.html#cb29-3" aria-hidden="true" tabindex="-1"></a>glo mod3 <span class="st">&quot;c.zpalter##c.zpalter&quot;</span></span>
+<span id="cb29-4"><a href="reg.html#cb29-4" aria-hidden="true" tabindex="-1"></a>glo mod4 <span class="st">&quot;c.zpalter##c.zpalter i.m1202&quot;</span></span>
+<span id="cb29-5"><a href="reg.html#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="reg.html#cb29-6" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
+<span id="cb29-7"><a href="reg.html#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1 <span class="ot">${mod`i&#39;</span>}</span>
+<span id="cb29-8"><a href="reg.html#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regm<span class="ot">`i&#39;</span></span>
+<span id="cb29-9"><a href="reg.html#cb29-9" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;${mod`i&#39;}&quot;</span></span>
+<span id="cb29-10"><a href="reg.html#cb29-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-11"><a href="reg.html#cb29-11" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2) scalars(<span class="st">&quot;note Kontrollvariablen&quot;</span>)</span>
+<span id="cb29-12"><a href="reg.html#cb29-12" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2) scalars(<span class="st">&quot;note Kontrollvariablen&quot;</span>) <span class="co">///</span></span>
+<span id="cb29-13"><a href="reg.html#cb29-13" aria-hidden="true" tabindex="-1"></a>    modelwidth(25) <span class="co">///</span></span>
+<span id="cb29-14"><a href="reg.html#cb29-14" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span>) <span class="co">///</span></span>
+<span id="cb29-15"><a href="reg.html#cb29-15" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span>)</span></code></pre></div>
+<pre><code>                      (1)             (2)             (3)             (4)   
+                 F518_SUF        F518_SUF        F518_SUF        F518_SUF   
+----------------------------------------------------------------------------
+_IS1_2            -1431.8***      -1471.7***      -1496.8***      -1458.5***
+                 (53.630)        (53.722)        (53.768)        (52.124)   
+----------------------------------------------------------------------------
+N                   16635           16543           16543           16521   
+Kontrollva~n                    c.zpalter    c.zpalter##c.zpalter    c.zpalter##c.zpalter i.m1202   
+----------------------------------------------------------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+                                   (1)                          (2)                          (3)                          (4)   
+                              F518_SUF                     F518_SUF                     F518_SUF                     F518_SUF   
+--------------------------------------------------------------------------------------------------------------------------------
+Männer                            ref.                         ref.                         ref.                         ref.   
+
+Frauen                         -1431.8***                   -1471.7***                   -1496.8***                   -1458.5***
+                              (53.630)                     (53.722)                     (53.768)                     (52.124)   
+--------------------------------------------------------------------------------------------------------------------------------
+N                                16635                        16543                        16543                        16521   
+Kontrollva~n                                              c.zpalter         c.zpalter##c.zpalter    c.zpalter##c.zpalter i.m1202   
+--------------------------------------------------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Mit der <code>regex</code>-Funktion <code>ustrregexra("","Suchtext", "Ersetztext")</code> können wir aus den Variablenangaben auch noch sprechendere Bezeichnungen machen.
+Die Option <code>quietly</code> vor dem <code>reg</code>-Befehl unterdrückt die Standard-Regressionstabelle von Stata.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb31-1"><a href="reg.html#cb31-1" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
+<span id="cb31-2"><a href="reg.html#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">quietly</span> <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1 <span class="ot">${mod`i&#39;</span>}</span>
+<span id="cb31-3"><a href="reg.html#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regm<span class="ot">`i&#39;</span></span>
+<span id="cb31-4"><a href="reg.html#cb31-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-5"><a href="reg.html#cb31-5" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> <span class="st">&quot;${mod`i&#39;}&quot;</span></span>
+<span id="cb31-6"><a href="reg.html#cb31-6" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot;^\s&quot;</span>, <span class="st">&quot;-&quot;</span>) <span class="co">// ^\s = &quot;an Anfang Leerzeichen&quot;</span></span>
+<span id="cb31-7"><a href="reg.html#cb31-7" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot;c.zpalter##c.zpalter&quot;</span>, <span class="st">&quot;Alter &amp; Alter^2&quot;</span>) </span>
+<span id="cb31-8"><a href="reg.html#cb31-8" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot;c.zpalter&quot;</span>, <span class="st">&quot;Alter&quot;</span>)</span>
+<span id="cb31-9"><a href="reg.html#cb31-9" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot; i.m1202&quot;</span>, <span class="st">&quot;, Ausbildung&quot;</span>)</span>
+<span id="cb31-10"><a href="reg.html#cb31-10" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;`note&#39;&quot;</span></span>
+<span id="cb31-11"><a href="reg.html#cb31-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb31-12"><a href="reg.html#cb31-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-13"><a href="reg.html#cb31-13" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2) scalars(<span class="st">&quot;note Kontrollvariablen&quot;</span>) <span class="co">///</span></span>
+<span id="cb31-14"><a href="reg.html#cb31-14" aria-hidden="true" tabindex="-1"></a>    modelwidth(25) <span class="co">///</span></span>
+<span id="cb31-15"><a href="reg.html#cb31-15" aria-hidden="true" tabindex="-1"></a>    varwidth(17) <span class="co">///</span></span>
+<span id="cb31-16"><a href="reg.html#cb31-16" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span>) <span class="co">///</span></span>
+<span id="cb31-17"><a href="reg.html#cb31-17" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span>) <span class="co">///</span></span>
+<span id="cb31-18"><a href="reg.html#cb31-18" aria-hidden="true" tabindex="-1"></a>    nomtitle</span></code></pre></div>
+<pre><code>                                        (1)                          (2)                          (3)                          (4)   
+-------------------------------------------------------------------------------------------------------------------------------------
+Männer                                 ref.                         ref.                         ref.                         ref.   
+
+Frauen                              -1431.8***                   -1471.7***                   -1496.8***                   -1458.5***
+                                   (53.630)                     (53.722)                     (53.768)                     (52.124)   
+-------------------------------------------------------------------------------------------------------------------------------------
+N                                     16635                        16543                        16543                        16521   
+Kontrollvariablen                         -                        Alter              Alter &amp; Alter^2    Alter &amp; Alter^2, Ausbildung   
+-------------------------------------------------------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+</div>
+<div id="mehrere-modellgruppen" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> mehrere Modellgruppen</h3>
+<p>Manchmal möchten wir auch getrennte Modelle nebeneinander stellen. Auch das geht natürlich. Hier also eine Schleife über die Werte <code>1</code> und <code>2</code> von <code>S1</code>, also getrennte Modelle für Männer und Frauen durch die Bedingung <code>if S1 == s</code> am Ende des <code>reg</code>-Befehls:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb33-1"><a href="reg.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> <span class="fu">s</span> = 1/2 {</span>
+<span id="cb33-2"><a href="reg.html#cb33-2" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb33-3"><a href="reg.html#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter <span class="kw">if</span> S1 == <span class="ot">`s&#39;</span></span>
+<span id="cb33-4"><a href="reg.html#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_1</span>
+<span id="cb33-5"><a href="reg.html#cb33-5" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2&quot;</span></span>
+<span id="cb33-6"><a href="reg.html#cb33-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb33-7"><a href="reg.html#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter i.m1202  <span class="kw">if</span> S1 == <span class="ot">`s&#39;</span></span>
+<span id="cb33-8"><a href="reg.html#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_2</span>
+<span id="cb33-9"><a href="reg.html#cb33-9" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2, Ausbildung&quot;</span></span>
+<span id="cb33-10"><a href="reg.html#cb33-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-11"><a href="reg.html#cb33-11" aria-hidden="true" tabindex="-1"></a>esttab reg_*</span></code></pre></div>
+<pre><code>                      (1)             (2)             (3)             (4)   
+                 F518_SUF        F518_SUF        F518_SUF        F518_SUF   
+----------------------------------------------------------------------------
+zpalter             213.0***        192.2***        42.43           33.35   
+                   (8.44)          (7.78)          (1.88)          (1.51)   
+
+c.zpalter#~r       -1.930***       -1.810***       -0.326          -0.217   
+                  (-6.90)         (-6.63)         (-1.31)         (-0.89)   
+
+1.m1202                                 0                               0   
+                                      (.)                             (.)   
+
+2.m1202                             390.5*                          524.5***
+                                   (2.12)                          (3.56)   
+
+3.m1202                            1172.5***                       1020.9***
+                                   (5.45)                          (5.55)   
+
+4.m1202                            2549.6***                       2046.7***
+                                  (13.72)                         (13.76)   
+
+_cons             -1210.6*        -1824.9***       1560.8**         606.5   
+                  (-2.22)         (-3.43)          (3.15)          (1.25)   
+----------------------------------------------------------------------------
+N                    8451            8442            8092            8079   
+----------------------------------------------------------------------------
+t statistics in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Mit <code>mgroups</code> können wir dann mehrere Spalten überschreiben.
+<code>pattern</code> gibt dabei die Gruppierung an: <code>1</code> steht für “(nächstes) Label,” <code>0</code> für “unter vorheriges einordnen.”</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb35-1"><a href="reg.html#cb35-1" aria-hidden="true" tabindex="-1"></a>esttab reg_*, r2 <span class="co">///</span></span>
+<span id="cb35-2"><a href="reg.html#cb35-2" aria-hidden="true" tabindex="-1"></a>     mgroups(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>, pattern(1 0 1 0))</span>
+<span id="cb35-3"><a href="reg.html#cb35-3" aria-hidden="true" tabindex="-1"></a>esttab reg_*, r2 <span class="co">///</span></span>
+<span id="cb35-4"><a href="reg.html#cb35-4" aria-hidden="true" tabindex="-1"></a>     mgroups(<span class="st">&quot;&quot;</span> <span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>, pattern(1 1 0 1 ))</span></code></pre></div>
+<pre><code>                   Männer                          Frauen                   
+                      (1)             (2)             (3)             (4)   
+                 F518_SUF        F518_SUF        F518_SUF        F518_SUF   
+----------------------------------------------------------------------------
+zpalter             213.0***        192.2***        42.43           33.35   
+                   (8.44)          (7.78)          (1.88)          (1.51)   
+
+c.zpalter#~r       -1.930***       -1.810***       -0.326          -0.217   
+                  (-6.90)         (-6.63)         (-1.31)         (-0.89)   
+
+1.m1202                                 0                               0   
+                                      (.)                             (.)   
+
+2.m1202                             390.5*                          524.5***
+                                   (2.12)                          (3.56)   
+
+3.m1202                            1172.5***                       1020.9***
+                                   (5.45)                          (5.55)   
+
+4.m1202                            2549.6***                       2046.7***
+                                  (13.72)                         (13.76)   
+
+_cons             -1210.6*        -1824.9***       1560.8**         606.5   
+                  (-2.22)         (-3.43)          (3.15)          (1.25)   
+----------------------------------------------------------------------------
+N                    8451            8442            8092            8079   
+R-sq                0.021           0.089           0.003           0.072   
+----------------------------------------------------------------------------
+t statistics in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001
+
+
+----------------------------------------------------------------------------
+                                   Männer                          Frauen   
+                      (1)             (2)             (3)             (4)   
+                 F518_SUF        F518_SUF        F518_SUF        F518_SUF   
+----------------------------------------------------------------------------
+zpalter             213.0***        192.2***        42.43           33.35   
+                   (8.44)          (7.78)          (1.88)          (1.51)   
+
+c.zpalter#~r       -1.930***       -1.810***       -0.326          -0.217   
+                  (-6.90)         (-6.63)         (-1.31)         (-0.89)   
+
+1.m1202                                 0                               0   
+                                      (.)                             (.)   
+
+2.m1202                             390.5*                          524.5***
+                                   (2.12)                          (3.56)   
+
+3.m1202                            1172.5***                       1020.9***
+                                   (5.45)                          (5.55)   
+
+4.m1202                            2549.6***                       2046.7***
+                                  (13.72)                         (13.76)   
+
+_cons             -1210.6*        -1824.9***       1560.8**         606.5   
+                  (-2.22)         (-3.43)          (3.15)          (1.25)   
+----------------------------------------------------------------------------
+N                    8451            8442            8092            8079   
+R-sq                0.021           0.089           0.003           0.072   
+----------------------------------------------------------------------------
+t statistics in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+</div>
+</div>
+<div id="einmal-mit-allem" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Einmal mit allem</h2>
+<p>All diese Formatierungen sind natürlich kombinierbar:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb37-1"><a href="reg.html#cb37-1" aria-hidden="true" tabindex="-1"></a>esttab reg_* , <span class="co">///</span></span>
+<span id="cb37-2"><a href="reg.html#cb37-2" aria-hidden="true" tabindex="-1"></a>        b se(%9.3f)  <span class="co">///</span></span>
+<span id="cb37-3"><a href="reg.html#cb37-3" aria-hidden="true" tabindex="-1"></a>        nomtitle <span class="co">///</span></span>
+<span id="cb37-4"><a href="reg.html#cb37-4" aria-hidden="true" tabindex="-1"></a>        coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span> <span class="co">///</span></span>
+<span id="cb37-5"><a href="reg.html#cb37-5" aria-hidden="true" tabindex="-1"></a>              c.zpalter#c.zpalter <span class="st">&quot;Alter²&quot;</span> <span class="co">///</span></span>
+<span id="cb37-6"><a href="reg.html#cb37-6" aria-hidden="true" tabindex="-1"></a>              _Im1202_2  <span class="st">&quot;dual/schul. Abs.&quot;</span> <span class="co">///    </span></span>
+<span id="cb37-7"><a href="reg.html#cb37-7" aria-hidden="true" tabindex="-1"></a>              _Im1202_3  <span class="st">&quot;Meister/Techniker&quot;</span> <span class="co">///</span></span>
+<span id="cb37-8"><a href="reg.html#cb37-8" aria-hidden="true" tabindex="-1"></a>              _Im1202_4  <span class="st">&quot;Hochschule/Uni&quot;</span> <span class="co">///</span></span>
+<span id="cb37-9"><a href="reg.html#cb37-9" aria-hidden="true" tabindex="-1"></a>              <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb37-10"><a href="reg.html#cb37-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb37-11"><a href="reg.html#cb37-11" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span> <span class="co">///</span></span>
+<span id="cb37-12"><a href="reg.html#cb37-12" aria-hidden="true" tabindex="-1"></a>           _Im1202_2 <span class="st">&quot;kein Abs.&quot;</span>) <span class="co">///</span></span>
+<span id="cb37-13"><a href="reg.html#cb37-13" aria-hidden="true" tabindex="-1"></a>     mgroups(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>, pattern(1 0 1 0)) <span class="co">///</span></span>
+<span id="cb37-14"><a href="reg.html#cb37-14" aria-hidden="true" tabindex="-1"></a>  varwidth(20)</span></code></pre></div>
+<pre><code>                           Männer                          Frauen                   
+                              (1)             (2)             (3)             (4)   
+------------------------------------------------------------------------------------
+Alter                       213.0***        192.2***        42.43           33.35   
+                         (25.236)        (24.688)        (22.611)        (22.120)   
+
+Alter²                     -1.930***       -1.810***       -0.326          -0.217   
+                          (0.280)         (0.273)         (0.249)         (0.243)   
+
+kein Abs.                                    ref.                            ref.   
+
+dual/schul. Abs.                            390.5*                          524.5***
+                                        (183.930)                       (147.488)   
+
+Meister/Techniker                          1172.5***                       1020.9***
+                                        (215.289)                       (183.784)   
+
+Hochschule/Uni                             2549.6***                       2046.7***
+                                        (185.774)                       (148.792)   
+
+Konstante                 -1210.6*        -1824.9***       1560.8**         606.5   
+                        (544.709)       (532.431)       (494.799)       (483.370)   
+------------------------------------------------------------------------------------
+R²                          0.021           0.089           0.003           0.072   
+Observations                 8451            8442            8092            8079   
+------------------------------------------------------------------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+</div>
+<div id="übungen-3" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Übungen</h2>
+<div id="reg1" class="section level3" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> Übung</h3>
+</div>
+<div id="reg2" class="section level3" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> Übung</h3>
+</div>
+<div id="reg3" class="section level3" number="5.5.3">
+<h3><span class="header-section-number">5.5.3</span> Übung</h3>
+<ul>
+<li>Erstellen Sie ein Regressionsmodell, welches</li>
+</ul>
+<div class="sourceCode" id="cb39"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb39-1"><a href="reg.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> mig01 = Mig != 0</span></code></pre></div>
+<p>In <code>mig01</code> steht dann <code>0</code> für keinen Migrationshintergrund und <code>1</code> für Migrationshintergrund.</p>
+</div>
+<div id="reg4" class="section level3" number="5.5.4">
+<h3><span class="header-section-number">5.5.4</span> Übung</h3>
+<ul>
+<li><p>Schätzen Sie getrennte Modelle für <code>mig01=0</code> und <code>mig01=1</code> mit den Kontrollvariablen aus Übung 3</p></li>
+<li><p>Erstellen Sie eine Korrelationstabelle für <code>zpalter</code> <code>F518_SUF</code> <code>F200</code> und <code>F1410_01</code></p></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cormat.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Stata Tables BIBB.pdf", "Stata Tables BIBB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

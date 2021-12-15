@@ -24,7 +24,7 @@
 <meta name="author" content="Andreas Filser" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -159,9 +159,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.8" data-path="desc.html"><a href="desc.html#format"><i class="fa fa-check"></i><b>2.8</b> Mehr zu <code>format</code></a>
 <ul>
-<li class="chapter" data-level="2.8.1" data-path="desc.html"><a href="desc.html#w.df"><i class="fa fa-check"></i><b>2.8.1</b> <code>%</code><em>w</em><code>.</code><em>d</em><code>f</code></a></li>
-<li class="chapter" data-level="2.8.2" data-path="desc.html"><a href="desc.html#w.dfc"><i class="fa fa-check"></i><b>2.8.2</b> <code>%</code><em>w</em><code>.</code><em>d</em><code>fc</code></a></li>
-<li class="chapter" data-level="2.8.3" data-path="desc.html"><a href="desc.html#beispiele"><i class="fa fa-check"></i><b>2.8.3</b> Beispiele</a></li>
+<li class="chapter" data-level="2.8.1" data-path="desc.html"><a href="desc.html#w.df"><i class="fa fa-check"></i><b>2.8.1</b> %w.df</a></li>
+<li class="chapter" data-level="2.8.2" data-path="desc.html"><a href="desc.html#w.dfc"><i class="fa fa-check"></i><b>2.8.2</b> %w.dfc</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="tab.html"><a href="tab.html"><i class="fa fa-check"></i><b>3</b> <code>table</code></a>
@@ -289,20 +288,11 @@ rnk_F200     |
 <span id="cb8-12"><a href="cormat.html#cb8-12" aria-hidden="true" tabindex="-1"></a>         eqlabels(<span class="st">&quot;(1) Alter&quot;</span> <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
 <span id="cb8-13"><a href="cormat.html#cb8-13" aria-hidden="true" tabindex="-1"></a>         varwidth(30) <span class="co">///</span></span>
 <span id="cb8-14"><a href="cormat.html#cb8-14" aria-hidden="true" tabindex="-1"></a>         <span class="bn">title</span>(<span class="st">&quot;Dies ist der Spearman-Rangkorrelationskoeffizient&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb9-1"><a href="cormat.html#cb9-1" aria-hidden="true" tabindex="-1"></a>esttab  <span class="kw">using</span> <span class="st">&quot;${word}/corrmat2.rtf&quot;</span>, <span class="kw">not</span> unstack <span class="kw">compress</span> <span class="kw">noobs</span> nonumber nomtitles <span class="co">///</span></span>
-<span id="cb9-2"><a href="cormat.html#cb9-2" aria-hidden="true" tabindex="-1"></a>         varlabels(zpalter <span class="st">&quot;(1) Alter&quot;</span> F518_SUF <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> F200 <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
-<span id="cb9-3"><a href="cormat.html#cb9-3" aria-hidden="true" tabindex="-1"></a>         eqlabels(<span class="st">&quot;(1) Alter&quot;</span> <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
-<span id="cb9-4"><a href="cormat.html#cb9-4" aria-hidden="true" tabindex="-1"></a>         varwidth(30) <span class="co">///</span></span>
-<span id="cb9-5"><a href="cormat.html#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="kw">replace</span> <span class="co">///</span></span>
-<span id="cb9-6"><a href="cormat.html#cb9-6" aria-hidden="true" tabindex="-1"></a>         <span class="bn">title</span>(<span class="st">&quot;Dies ist der Spearman-Rangkorrelationskoeffizient&quot;</span>)</span>
-<span id="cb9-7"><a href="cormat.html#cb9-7" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb9-8"><a href="cormat.html#cb9-8" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb9-9"><a href="cormat.html#cb9-9" aria-hidden="true" tabindex="-1"></a>esttab  <span class="kw">using</span> <span class="st">&quot;${tex}/corrmat2.tex&quot;</span>, <span class="kw">not</span> unstack <span class="kw">compress</span> <span class="kw">noobs</span> nonumber nomtitles <span class="co">///</span></span>
-<span id="cb9-10"><a href="cormat.html#cb9-10" aria-hidden="true" tabindex="-1"></a>         varlabels(zpalter <span class="st">&quot;(1) Alter&quot;</span> F518_SUF <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> F200 <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
-<span id="cb9-11"><a href="cormat.html#cb9-11" aria-hidden="true" tabindex="-1"></a>         eqlabels(<span class="st">&quot;(1) Alter&quot;</span> <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
-<span id="cb9-12"><a href="cormat.html#cb9-12" aria-hidden="true" tabindex="-1"></a>         varwidth(30) <span class="co">///</span></span>
-<span id="cb9-13"><a href="cormat.html#cb9-13" aria-hidden="true" tabindex="-1"></a>         <span class="kw">replace</span> booktabs <span class="co">///</span></span>
-<span id="cb9-14"><a href="cormat.html#cb9-14" aria-hidden="true" tabindex="-1"></a>         <span class="bn">title</span>(<span class="st">&quot;Dies ist der Spearman-Rangkorrelationskoeffizient&quot;</span>)</span></code></pre></div>
+<pre><code>last estimates (.) not found
+r(301);
+
+end of do-file
+r(301);</code></pre>
 <hr />
 <p><strong><a href="cormat.html#corr1">Übung 1</a></strong></p>
 <hr />
@@ -330,15 +320,15 @@ az                  8.321***      (53.50)
 F518_SUF           1431.8***      (26.88)
 -----------------------------------------
 t statistics in parentheses
-* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001
-
-
---------------------------------------------------------------------------------
-                        t            N(M)      Mean(M)         N(W)      Mean(W)
---------------------------------------------------------------------------------
-az                  8.321***       10,074       42.438        9,938       34.117
-F518_SUF        1,431.809***        8,495    4,232.735        8,140    2,800.926
---------------------------------------------------------------------------------</code></pre>
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb12-1"><a href="cormat.html#cb12-1" aria-hidden="true" tabindex="-1"></a>esttab,  cell(<span class="st">&quot;b(fmt(%13.3fc)) t(fmt(%13.3fc) star) N_1(fmt(%13.0fc)) mu_1 N_2(fmt(%13.0fc)) mu_2&quot;</span>) <span class="co">/// </span></span>
+<span id="cb12-2"><a href="cormat.html#cb12-2" aria-hidden="true" tabindex="-1"></a>    unstack <span class="kw">wide</span> nonumber <span class="kw">noobs</span> nomtitles <span class="co">///</span></span>
+<span id="cb12-3"><a href="cormat.html#cb12-3" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Difference&quot;</span> <span class="st">&quot;t&quot;</span> <span class="st">&quot;N(M)&quot;</span> <span class="st">&quot;Mean(M)&quot;</span> <span class="st">&quot;N(W)&quot;</span> <span class="st">&quot;Mean(W)&quot;</span>)                </span></code></pre></div>
+<pre><code>               Difference            t            N(M)      Mean(M)         N(W)      Mean(W)
+---------------------------------------------------------------------------------------------
+az                  8.321       53.504***       10,074       42.438        9,938       34.117
+F518_SUF        1,431.809       26.878***        8,495    4,232.735        8,140    2,800.926
+---------------------------------------------------------------------------------------------</code></pre>
 <hr />
 <p><strong><a href="cormat.html#ttest1">Übung 2</a></strong></p>
 <hr />
@@ -354,8 +344,10 @@ F518_SUF        1,431.809***        8,495    4,232.735        8,140    2,800.926
 <div id="ttest1" class="section level3" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> Übung</h3>
 <ul>
-<li>Erstellen Sie eine t-Testtabelle für</li>
+<li>Erstellen Sie eine t-Testtabelle für Gruppenunterschiede zwischen Menschen mit und ohne Migrationshintergrund für die Variablen <code>az</code> und <code>F518_SUF</code>. Die Variablen zum Migrationshintergrund können Sie so erstellen:</li>
 </ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb14-1"><a href="cormat.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> mig01 = Mig != 0</span></code></pre></div>
+<p>In <code>mig01</code> steht dann <code>0</code> für keinen Migrationshintergrund und <code>1</code> für Migrationshintergrund.</p>
 
 </div>
 </div>

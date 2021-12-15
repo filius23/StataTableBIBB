@@ -39,11 +39,11 @@ which estout // check versions
 which esttab // check version
 ```
 
-Mit `estout`/`esttab` können wir Tabellen mit zusammenfassenden Statistiken und Regressionsergebnissen zu erstellen, die leicht in LaTeX oder importiert werden können oder in Word verwendet werden können.
+Mit `estout`/`esttab` können wir Tabellen mit zusammenfassenden Statistiken und Regressionsergebnissen zu erstellen, die leicht in \LaTeX oder importiert werden können oder in Word verwendet werden können.
 Für die Latex-Verion ergibt sich der Vorteil, dass das ganze System dynamisch ist. 
 Wenn wir etwas in unserem Do-File ändern (z. B. eine bestimmte Gruppe weglassen, eine neue Variabe aufnehmen), dann werden die Ergebnisse automatisch in LaTeX aktualisiert. 
 Das kann eine Menge Zeit sparen, aber die Einrichtung in Latex ist sehr zeitintensiv und deren Details würden den Rahmen unseres Kurses sprengen.
-Ich stelle daher [hier]() eine (sehr einfache) Latexvorlage zur Verfügung, die versierte Latex-Nutzer*innen gerne an Ihre Bedürfnisse anpassen können.
+Ich stelle daher [hier](https://www.overleaf.com/read/cfjbtghnxrcn) eine (sehr einfache) Latexvorlage zur Verfügung, die versierte Latex-Nutzer*innen gerne an Ihre Bedürfnisse anpassen können.
 <!-- https://www.overleaf.com/read/zgnvgxdzzptg -->
 
 ## Grundlagen: `e()` und `r()`

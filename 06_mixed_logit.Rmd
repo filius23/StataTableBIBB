@@ -1,0 +1,80 @@
+# Multilevel- und logit Modelle  {#ml_log} 
+
+```{r setup6, echo = F, message=F, warning = F}
+.libPaths("D:/R-library4")
+knitr::opts_chunk$set(collapse = TRUE)
+knitr::opts_chunk$set(dpi=800)
+# knitr::opts_chunk$set(collectcode = T)
+library(Statamarkdown)
+library(tidyverse)
+library(kableExtra)
+# stataexe <- "C:/Program Files (x86)/Stata13/StataSE-64.exe"
+stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
+knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+# baua <- readstata13::read.dta13("D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta",convert.factors = F)
+```
+
+
+
+## `logit` 
+
+```{stata logit1, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+}
+```
+
+
+```{stata logit2, echo = F}
+noisily estout, /// 
+  label mlabel("(1)" "(2)" "(3)" "(4)" "(5)" "(6)" "(7)" "(8)") style(tex) collabels(none) varwidth(52) ///
+  cells(b(star fmt(4)) se(par fmt(3))) starlevels(*** 0.00000000000000001)/*(* 0.10 ** 0.05 *** 0.01)*/ ///
+  keep($xvar) ///
+  stats(ShiftShareSE pval N r2, fmt(3 3 0 3) label("Shift Share s.e." "p-value" "N" "R$^2$"))
+
+esttab iv_fem0_5 iv_fem1_5 using "$output/FD_Wages_WZWGxtime-FE_laggedDAS_Mindestlohn_2014+15.tex", se /*booktabs*/ nonum /*label*/ append keep(L2.del_refg_av_b13) scalar("N Observations" widstat) ///
+	star(* 0.10 ** 0.05 *** 0.01) fragment prehead( "\toprule" "\multicolumn{3}{l}{Wages in Tradable Sectors}\\")
+```
+
+
+
+## `mixed` 
+
+
+http://repec.org/bocode/e/estout/advanced.html#advanced402
+
+```{stata groups, eval = F}
+stats(N_g, labels("N")) // anzahl der Cluster/Gruppen
+```
+
+### ICC hinzufügen
+
+
+
+```{stata mixed1, eval = F}
+webuse pig
+xtmixed weight week || id: week
+estat icc
+estadd scalar icc2 = r(icc2) // Use 'return list' to check for other scalars from 'estaticc' you might want
+esttab, se wide nostar transform(ln*: exp(@) exp(@)) ///
+    eqlabels("" "sd(week)" "sd(_cons)" "sd(Residual)", none) ///
+    varlabels(,elist(weight:_cons "{break}{hline @width}")) ///
+    varwidth(13) scalars(icc2)
+```
+
+
+
+***
+
+**[Übung 1](#corr1)**
+
+***
+
+
+## Übungen
+
+### Übung {#corr1}
+
++ Erstellen Sie eine Korrelationstabelle für  `zpalter` `F518_SUF` `F200` und `F1410_01`
+

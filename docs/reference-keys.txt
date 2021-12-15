@@ -30,3 +30,16 @@ spearmans-rho
 corr1
 ttest
 ttest1
+reg
+regression
+eine-tabelle-ein-modell
+neben--statt-untereinander
+mehrere-regressionsmodelle-nebeneinander
+übungen-3
+nur-ein-koeffizient
+mehrere-modellgruppen
+reg1
+reg2
+reg3
+reg4
+einmal-mit-allem

@@ -16,13 +16,49 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 
 
 
+## Excel-Export
+
+- `csv`
+- `nostar`
+- `scsv`
+
+
+
+
+## Formatierungsoptionen
+
+ + `alignment(string)  set alignment within columns (LaTeX, HTML, RTF)`
+
+In LaTeX mode string should be a LaTeX column specifier. 
+The default is to center the columns. 
+To produce right-aligned columns, for example, type alignment(r). 
+If the table contains multiple columns per model/equation, the alignment specification should define all columns. 
+For example, if the wide option is specified, you could type alignment(cr) to, say, center the point estimates and right-align the t-statistics. Note that more sophisticated column definitions are often needed to produce appealing results. 
+In particular, LaTeX's dcolumn package proves useful to align columns on the decimal point.
+
+
+In RTF mode string should be one of l, c, r, and j. 
+The default is to center the columns. To produce right-aligned columns, for example, type alignment(r). 
+The same alignment is used for all columns if the table contains multiple columns per model/equation in the RTF mode.
+
+
++ `fragment` 
+
+## Schriftart
 `fonttbl(string)    set custom font table (RTF)`
 
 
 `title({\b Table 1.} {\i This is the 1{\super st} table})`
 [Formatierung anpassen](http://repec.org/bocode/e/estout/esttab011d.do)
 
- 
-`alignment(string)  set alignment within columns (LaTeX, HTML, RTF)`
+  fonttbl(string) defines a custom font table in RTF. The default is
+        "\f0\fnil Times New Roman;". For example, typing
+
+            . esttab using example.rtf, ti("\f1 The Auto Data") ///
+                fonttbl(\f0\fnil Times New Roman;\f1\fnil Arial;)
+
+        would add a title in Arial.
+
+## any matrix
 
 [esttab any matrix](http://repec.org/bocode/e/estout/advanced.html#advanced905)

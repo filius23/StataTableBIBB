@@ -1,6 +1,6 @@
 # Korrelationsmatrix  {#cormat} 
 
-```{r setup2, echo = F, message=F, warning = F}
+```{r setup4, echo = F, message=F, warning = F}
 .libPaths("D:/R-library4")
 knitr::opts_chunk$set(collapse = TRUE)
 knitr::opts_chunk$set(dpi=800)
@@ -71,6 +71,8 @@ esttab  using "${tex}/corrmat.tex", not unstack compress noobs nonumber nomtitle
 
 ## Spearman's Rho:
 
+Für den Rangkorrelationskoeffizienten müssen wir einen kleinen Umweg gehen und die Variablen mit Hilfe von `egen` in Ränge umwandeln:
+
 ```{stata rho1, eval = F}
 foreach v of varlist zpalter F518_SUF F200 {
 	egen rnk_`v' = rank (`v'), unique
@@ -91,6 +93,7 @@ estpost correlate rnk_zpalter rnk_F518_SUF rnk_F200, matrix
 
 ```
 
+Danach können wir die Korrelationsmatrix auch für den Rangkorrelationskoeffizienten wie oben erstellen:
 
 ```{stata rho4, eval = F}
 quietly{
@@ -110,7 +113,7 @@ esttab ., not unstack compress noobs nonumber nomtitles ///
 ```
 
 
-```{stata rho5, eval = F}
+```{stata rho5, echo = F}
 esttab  using "${word}/corrmat2.rtf", not unstack compress noobs nonumber nomtitles ///
 		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
 		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
@@ -137,6 +140,10 @@ esttab  using "${tex}/corrmat2.tex", not unstack compress noobs nonumber nomtitl
 ***
 
 ## `ttest` {#ttest}
+
+
+t-Test sind ebenfalls ein Klassiker.
+Mit `ttest az, by(S1) unequal` können wir einen Signifikanztest zwischen 
 
 ```{stata ttest1, eval = F}
 ttest az, by(S1) unequal

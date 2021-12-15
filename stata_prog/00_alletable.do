@@ -14,7 +14,7 @@ which esttab
 * ------------------ *
 clear all
 cd "D:\Datenspeicher\BIBB_BAuA" // wo liegt der Datensatz?
-use "BIBBBAuA_2018_suf1.0_Kopie.dta", clear
+use "BIBBBAuA_2018_suf1.0.dta", clear
 mvdecode zpalter, mv(9999)
 mvdecode F518_SUF, mv( 99998/ 99999)
 mvdecode F200, mv( 97/99)
@@ -52,7 +52,7 @@ estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
 esttab, cells("mean sd min max count")
 
 // Median hinzufügen braucht neues estpost:
-esttab, cells("mean p50 sd min max count")
+esttab m1, cells("mean p50 sd min max count")
 
 // mit p50 für Median
 estpost tabstat F518_SUF, c(stat) stat(mean p50 sd min max n)
@@ -276,6 +276,93 @@ esttab,  cell("b(fmt(%13.3fc) star) N_1(fmt(%13.0fc)) mu_1 N_2(fmt(%13.0fc)) mu_
 
 * ------------------ *
 * regression
+
+reg F518_SUF c.zpalter
+estimates store reg1
+ereturn list
+
+esttab reg1, b se(%9.3f) label
+esttab reg1, b se(%9.3f) stats(N  r2 ll F) 
+esttab reg1, b se(%9.3f) /// 
+	stats(r2 r2_a N, fmt(%9.4f %9.4f %9.0fc) labels("R²" "adj. R²" "Observations")) ///
+	coeflabel(zpalter "Alter" _cons "Konstante") 
+
+esttab reg1, b se(%9.3f) /// 
+	stats(r2 N, fmt(%9.4f %9.0fc) labels("R²" "Observations")) ///
+	coeflabel(zpalter "Alter" _cons "Konstante") ///
+	mtitles("1. Modell") ///
+	nonumbers
+	
+esttab reg1, b se(%9.3f) /// 
+	stats(r2 N, fmt(%9.3f %9.0g) labels(R² Observations)) ///
+	coeflabel(zpalter "Alter" _cons "Konstante") ///
+	mtitles("1. Modell") ///
+	nonumbers ///
+	title(Modelltitel) 	///
+	addnotes("erste Anmerkung" "zweite Anmerkung darunter")
+	
+	
+esttab reg1, b se(%9.3f) /// 
+	stats(r2 N, fmt(%9.3f %9.0g) labels(R² Observations)) ///
+	coeflabel(zpalter "Alter" _cons "Konstante") ///
+	star(+ 0.10 * 0.05 ** 0.01 *** 0.001 **** 0.0001)
+
+
+esttab reg1, b se(%9.3f) /// 
+	wide ///
+	stats(r2 N, fmt(%9.3f %9.0g) labels(R² Observations)) ///
+	coeflabel(zpalter "Alter" _cons "Konstante") ///
+	title(Modelltitel) 	///
+	addnotes("erste Anmerkung" "zweite Anmerkung darunter")
+	
+	
+* noparentheses  oder brackets []	
+	
+* funktioniert nicht
+esttab reg1,b se(%9.3f) ci(%9.3f) p(%9.3f) /// 
+			wide ///
+			stats(r2 N, fmt(%9.3f %9.0g) labels(R² Observations)) ///
+			coeflabel(zpalter "Alter" _cons "Konstante") ///
+			star(+ 0.10 * 0.05 ** 0.01 *** 0.001 **** 0.0001) ///
+			title(Modelltitel)      ///
+			addnotes("erste Anmerkung" "zweite Anmerkung darunter")
+	
+esttab reg1, cells("b se(fmt(%9.3f)) ci(fmt(%9.2f)) p(fmt(%9.3f))")
+	
+	
+	
+* kategoriale UV	
+reg F518_SUF i.S1
+estimates store reg2
+	
+esttab reg2,  b se(%9.3f)	///
+	coeflabel(1.S1 "Maenner" 2.S1 "Frauen" _cons "Konstante")
+	
+	
+* um Referenzkategorie zu labeln, muss diese mit xi erstellt werden	
+xi: reg F518_SUF i.S1
+estimates store reg2b
+
+esttab reg2b,  b se(%9.3f)	///	
+	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
+	refcat(S1 "Männer")
+
+esttab reg2b,  b se(%9.3f)	///	
+	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
+	refcat(_IS1_2 "Männer", label("Referenzkategorie"))	
+
+esttab reg2b,  b se(%9.3f)	///	
+	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
+	refcat(_IS1_2 "Männer", label("Referenzkategorie") below)	
+	
+
+	
+	
+	
+	
+
+
+
 reg F518_SUF c.zpalter##c.zpalter i.m1202 
 est store reg1
 estadd local note "Mod1"
@@ -331,7 +418,14 @@ esttab reg1 reg2 using "${tab_dir}/regtab.rtf", replace r2 scalar(note) se nonum
 
 		keep(1L10.policy#c.date)
 		  estadd local RFE  "Yes"
-		
+
+* . est store
+estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
+est store m1
+estpost tabstat zpalter, c(stat) stat(mean sd min max n)
+est store m2
+esttab m1 m2, cells("mean sd min max count")		  
+		  
 * ------------------ *
 * logit
 
