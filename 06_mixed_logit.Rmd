@@ -134,7 +134,7 @@ esttab pred_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fm
 ```
 
 
-## `mixed`
+## Mehrebenenmodelle
 
 `transform(ln*: exp(@) exp(@))` um die Werte im Random Part richtig anzuzeigen:
 ```{stata mixed1, eval = F}
