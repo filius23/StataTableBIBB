@@ -49,3 +49,131 @@ quietly{
 esttab logm1, b se(%9.3f) eform // eform für Odds Ratios
 ```
 
+
+
+Außerdem können wir mit `estadd lrtest` direkt den LR-Test in die Tabelle aufnehmen:
+```{stata logit2, eval = F}
+logit nt i.S1  if !missing(zpalter)
+est store logm1b
+logit nt i.S1 zpalter 
+est store logm2
+estadd lrtest logm1b
+esttab logm*, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p)
+```
+
+```{stata logit2T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  logit nt i.S1  if !missing(zpalter)
+  est store logm1b
+  logit nt i.S1 zpalter 
+  est store logm2
+  estadd lrtest logm1b
+}
+esttab logm?, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p) 
+```
+
+Mit `pr2` `aic` `bic` können wir Modellkennzahlen ausgeben lassen.
+
+```{stata logit02, eval = F}
+esttab logm*, b se(%9.3f)  pr2 aic bic
+```
+
+```{stata logit02T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  logit nt i.S1  if !missing(zpalter)
+  est store logm1b
+  logit nt i.S1 zpalter 
+  est store logm2
+  estadd lrtest logm1b
+}
+esttab logm?, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p) 
+```
+
+Bei `margins` müssen wir darauf achten, die Option `, post` zu verwenden:
+```{stata logit3, eval = F}
+logit nt i.S1 zpalter 
+margins, dydx(*) post
+est store mar_mod2
+esttab mar_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") nonumbers
+```
+
+
+```{stata logit3T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  logit nt i.S1 zpalter 
+  margins, dydx(*) post
+  est store mar_mod2
+  }
+esttab mar_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") nonumbers
+```
+
+Das funktioniert natürlich auch für die predictions mit `,at()`:
+```{stata logit4, eval = F}
+est restore logm2
+margins, at(zpalter = (18 20(5)65) ) post
+est store pred_mod2
+esttab pred_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") nonumbers
+```
+
+
+```{stata logit4T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  logit nt i.S1 zpalter 
+  margins, at(zpalter = (18 20(5)65) ) post
+  est store pred_mod2
+  }
+esttab pred_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") nonumbers
+```
+
+
+## `mixed`
+
+`transform(ln*: exp(@) exp(@))` um die Werte im Random Part richtig anzuzeigen:
+```{stata mixed1, eval = F}
+xtmixed F518_SUF i.S1 ||Bula:
+est store mmodel
+esttab mmodel ,	transform(ln*: exp(@) exp(@))
+```
+
+
+```{stata mixed1T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+xtmixed F518_SUF i.S1 ||Bula:
+est store mmodel
+  }
+esttab mmodel ,	transform(ln*: exp(@) exp(@))
+```
+
+
+So können wir die `ICC` hinzufügen:
+
+```{stata mixed01, eval = F}
+xtmixed F518_SUF i.S1 ||Bula:
+estat icc
+estadd scalar icc2 = r(icc2) 
+esttab, se wide transform(ln*: exp(@) exp(@)) ///
+    varwidth(13) scalars(icc2)	 
+```
+
+
+```{stata mixed01T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  xtmixed F518_SUF i.S1 ||Bula:
+  estat icc
+  estadd scalar icc2 = r(icc2) 
+  }
+esttab, se wide transform(ln*: exp(@) exp(@)) ///
+    varwidth(13) scalars(icc2)
+```
