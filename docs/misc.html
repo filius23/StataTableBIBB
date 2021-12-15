@@ -217,8 +217,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#excel-export"><i class="fa fa-check"></i><b>7.1</b> Excel-Export</a></li>
 <li class="chapter" data-level="7.2" data-path="misc.html"><a href="misc.html#formatierungsoptionen"><i class="fa fa-check"></i><b>7.2</b> Formatierungsoptionen</a></li>
-<li class="chapter" data-level="7.3" data-path="misc.html"><a href="misc.html#schriftart"><i class="fa fa-check"></i><b>7.3</b> Schriftart</a></li>
-<li class="chapter" data-level="7.4" data-path="misc.html"><a href="misc.html#any-matrix"><i class="fa fa-check"></i><b>7.4</b> any matrix</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -269,22 +267,17 @@ The same alignment is used for all columns if the table contains multiple column
 <ul>
 <li><code>fragment</code></li>
 </ul>
-</div>
-<div id="schriftart" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> Schriftart</h2>
-<p><code>fonttbl(string)    set custom font table (RTF)</code></p>
-<p><code>title({\b Table 1.} {\i This is the 1{\super st} table})</code>
-<a href="http://repec.org/bocode/e/estout/esttab011d.do">Formatierung anpassen</a></p>
-<p>fonttbl(string) defines a custom font table in RTF. The default is
-“Times New Roman;” For example, typing</p>
-<pre><code>        . esttab using example.rtf, ti(&quot;\f1 The Auto Data&quot;) ///
-            fonttbl(\f0\fnil Times New Roman;\f1\fnil Arial;)
-
-    would add a title in Arial.</code></pre>
-</div>
-<div id="any-matrix" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> any matrix</h2>
-<p><a href="http://repec.org/bocode/e/estout/advanced.html#advanced905">esttab any matrix</a></p>
+<!-- ## Schriftart -->
+<!-- `fonttbl(string)    set custom font table (RTF)` -->
+<!-- `title({\b Table 1.} {\i This is the 1{\super st} table})` -->
+<!-- [Formatierung anpassen](http://repec.org/bocode/e/estout/esttab011d.do) -->
+<!--   fonttbl(string) defines a custom font table in RTF. The default is -->
+<!--         "\f0\fnil Times New Roman;". For example, typing -->
+<!--             . esttab using example.rtf, ti("\f1 The Auto Data") /// -->
+<!--                 fonttbl(\f0\fnil Times New Roman;\f1\fnil Arial;) -->
+<!--         would add a title in Arial. -->
+<!-- ## any matrix -->
+<!-- [esttab any matrix](http://repec.org/bocode/e/estout/advanced.html#advanced905) -->
 
 </div>
 </div>

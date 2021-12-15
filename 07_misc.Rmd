@@ -49,22 +49,22 @@ The same alignment is used for all columns if the table contains multiple column
 
 + `fragment` 
 
-## Schriftart
-`fonttbl(string)    set custom font table (RTF)`
+<!-- ## Schriftart -->
+<!-- `fonttbl(string)    set custom font table (RTF)` -->
 
 
-`title({\b Table 1.} {\i This is the 1{\super st} table})`
-[Formatierung anpassen](http://repec.org/bocode/e/estout/esttab011d.do)
+<!-- `title({\b Table 1.} {\i This is the 1{\super st} table})` -->
+<!-- [Formatierung anpassen](http://repec.org/bocode/e/estout/esttab011d.do) -->
 
-  fonttbl(string) defines a custom font table in RTF. The default is
-        "\f0\fnil Times New Roman;". For example, typing
+<!--   fonttbl(string) defines a custom font table in RTF. The default is -->
+<!--         "\f0\fnil Times New Roman;". For example, typing -->
 
-            . esttab using example.rtf, ti("\f1 The Auto Data") ///
-                fonttbl(\f0\fnil Times New Roman;\f1\fnil Arial;)
+<!--             . esttab using example.rtf, ti("\f1 The Auto Data") /// -->
+<!--                 fonttbl(\f0\fnil Times New Roman;\f1\fnil Arial;) -->
 
-        would add a title in Arial.
+<!--         would add a title in Arial. -->
 
-## any matrix
+<!-- ## any matrix -->
 
 
-[esttab any matrix](http://repec.org/bocode/e/estout/advanced.html#advanced905)
+<!-- [esttab any matrix](http://repec.org/bocode/e/estout/advanced.html#advanced905) -->
