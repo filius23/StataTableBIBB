@@ -265,13 +265,13 @@ esttab . using "${tex}/svy_desc.tex",  cell(b(fmt(%13.2fc))) ///
 ### Übung {#table1}
 
 + Erstellen Sie eine Häufigkeitstabelle für von `gkpol`. 
-+ Lassen Sie sich die Labels für `gkpol` anzeigen und passen Sie die Tabelle nach Ihren Vorstellungen an.
++ Lassen Sie sich die Labels für `gkpol` anzeigen und passen Sie die Tabelle nach Ihren Vorstellungen an.Wie würden Sie die kumulierten Anteile aus Ihrer Tabelle ausblenden?
 + Passen Sie die Labels für die Spalten (bspw. `N` statt `freq` und `%` statt `pct`) an und blenden Sie die kumulierte relative Häufigkeit aus.
 
 ### Übung {#table2}
 
 + Erstellen Sie eine Kreuztabelle für `gkpol` und `mobil`. 
-+ Passen Sie die Beschriftung der Tabelle nach Ihren Vorstellungen an.
++ Passen Sie die Beschriftung der Tabelle nach Ihren Vorstellungen an. 
 + Was müssten Sie ändern, um die Zeilen- oder Spaltenprozente anzeigen zu lassen?
 + Fügen Sie auch eine Notiz ein und einen Titel ein
 

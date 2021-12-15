@@ -275,11 +275,87 @@ esttab reg1, cells("b se(fmt(%9.3f)) ci_l(fmt(%9.2f)) ci_u(fmt(%9.2f)) p(fmt(%9.
 
 ***
 
-**[Übung 1](#reg1)**
+**[Übung](#reg1)**
 
 ***
 
+## kategoriale unabhängige Variable
 
+Für kategoriale unabhängige Variablen stellt sich noch die Herausforderung, dass wir die Referenzkategorie richtig angeben möchten.
+
+```{stata reg001, eval = F}
+reg F518_SUF i.S1
+estimates store reg2
+esttab reg2,  b se(%9.3f)	///
+	coeflabel(1.S1 "Maenner" 2.S1 "Frauen" _cons "Konstante")
+```
+
+
+```{stata reg001T, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  reg F518_SUF i.S1
+  estimates store reg2
+}
+esttab reg2,  b se(%9.3f)	///
+	coeflabel(1.S1 "Maenner" 2.S1 "Frauen" _cons "Konstante")
+```
+
+
+Um Referenzkategorie in der Tabelle kennzuzeichnen, muss die Regression mit `xi:` erstellt werden. Der Koeffizienten für `S1` = 2 ist dann `_IS1_2`:
+```{stata reg002, eval = F}
+xi: reg F518_SUF i.S1
+estimates store reg2b
+esttab reg2b,  b se(%9.3f)	///	
+	coeflabel(_IS1_2 "Frauen" _cons "Konstante")
+```
+
+
+```{stata reg002T, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  xi: reg F518_SUF i.S1
+  estimates store reg2b
+}
+  esttab reg2b,  b se(%9.3f)	///	
+	coeflabel(_IS1_2 "Frauen" _cons "Konstante")
+```
+
+Mit `refcat()` können wir jetzt eine Zeile in die Tabelle einfüge. 
+Dazu geben wir die Variable an, überhalb derer die Zeile eingefügt werden soll (hier also `_IS1_2`) und den Text, der links in der Beschriftung angezeigt werden soll:
+```{stata reg003, eval = F}
+esttab reg2b,  b se(%9.3f)	///	
+	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
+	refcat(_IS1_2 "Männer")
+```
+
+```{stata reg003T, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  xi: reg F518_SUF i.S1
+  estimates store reg2b
+}
+esttab reg2b,  b se(%9.3f)	///	
+	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
+	refcat(_IS1_2 "Männer")
+```
+
+Mit `label("Referenzkategorie")` können wir `ref.` ersetzen.
+Mit `below` wird die Zeile unter der angegebenen Variable eingefügt.
+```{stata reg003b, eval = F}
+esttab reg2b,  b se(%9.3f)	///	
+	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
+	refcat(_IS1_2 "Männer", label("Referenzkategorie") below)	
+```
+
+***
+
+**[Übung](#reg2)**
+
+***
 
 ## mehrere Regressionsmodelle nebeneinander 
 
@@ -371,8 +447,13 @@ quietly{
 	varwidth(20)
 ```
 
+***
 
-### Nur ein Koeffizient
+**[Übung](#reg3)**
+
+***
+
+## Nur ein Koeffizient
 
 Manchmal möchten wir die Tabelle etwas entrümpeln und nur den interessierenden Koeffizienten behalten, das geht mit `keep()`:
 ```{stata reg22, eval = F}
@@ -405,7 +486,7 @@ Allerdings fehlt hier jetzt die Information, welche Kontrollvariablen jeweils im
 Da kann uns `estadd local` weiter helfen. Damit können wir einen Text zu jedem `estimate` hinzufügen und den dann unten in der Tabelle ausgeben lassen.
 Wir erweitern unsere Schleife also und lassen sie nochmal laufen.
 Mit `scalars("note Kontrollvariablen")` werden die vorher abgelegten `note`s dann als Zeile `Kontrollvariablen` in der Tabelle angezeigt.
-Mit `modelwidth()` können wir die Breite der Spalten erhöhen.
+Mit `modelwidth()` können wir die Breite der Spalten steuern.
 ```{stata reg23, eval = F}
 glo mod1 " "
 glo mod2 "c.zpalter"
@@ -506,8 +587,13 @@ esttab regm*,  b se(%9.3f) keep(_IS1_2) scalars("note Kontrollvariablen") ///
 	nomtitle
 ```
 
+***
 
-### mehrere Modellgruppen
+**[Übung](#reg4)**
+
+***
+
+## mehrere Modellgruppen {#mgroups}
 
 Manchmal möchten wir auch getrennte Modelle nebeneinander stellen. Auch das geht natürlich. Hier also eine Schleife über die Werte `1` und `2` von `S1`, also getrennte Modelle für Männer und Frauen durch die Bedingung `if S1 == s` am Ende des `reg`-Befehls:
 ```{stata reg25, eval = F}
@@ -593,6 +679,22 @@ esttab reg_*, r2 ///
 All diese Formatierungen sind natürlich kombinierbar:
 
 ```{stata 27, eval = F}
+  glo mod1 " "
+  glo mod2 "c.zpalter"
+  glo mod3 "c.zpalter##c.zpalter"
+  glo mod4 "c.zpalter##c.zpalter i.m1202"
+
+    forvalues s = 1/2 {
+    		
+    	xi: reg F518_SUF c.zpalter##c.zpalter if S1 == `s'
+    	est store reg_`s'_1
+    	estadd local note "Alter & Alter^2"
+    	
+    	xi:  reg F518_SUF c.zpalter##c.zpalter i.m1202  if S1 == `s'
+    	est store reg_`s'_2
+    	estadd local note "Alter & Alter^2, Ausbildung"
+    }
+
 esttab reg_* , ///
 		b se(%9.3f)  ///
 		nomtitle ///
@@ -603,8 +705,7 @@ esttab reg_* , ///
 			  _Im1202_4  "Hochschule/Uni" ///
 			  _cons "Konstante") ///
 		stats(r2 N, fmt(%9.3f %9.0g) labels(R² Observations)) ///
-	refcat(_IS1_2 "Männer" ///
-		   _Im1202_2 "kein Abs.") ///
+	refcat(_Im1202_2 "kein Abs.") ///
 	 mgroups("Männer" "Frauen", pattern(1 0 1 0)) ///
   varwidth(20)
 ```
@@ -641,8 +742,7 @@ quietly{
 			  _Im1202_4  "Hochschule/Uni" ///
 			  _cons "Konstante") ///
 		stats(r2 N, fmt(%9.3f %9.0g) labels(R² Observations)) ///
-	refcat(_IS1_2 "Männer" ///
-		   _Im1202_2 "kein Abs.") ///
+	refcat(Im1202_2 "kein Abs.") ///
 	 mgroups("Männer" "Frauen", pattern(1 0 1 0)) ///
   varwidth(20)
 ```
@@ -653,24 +753,85 @@ quietly{
 ## Übungen
 
 ### Übung {#reg1}
+
+
++ Erstellen Sie ein bivariates Regressionsmodell mit `F518_SUF` als abhängiger und `az` als unabhängiger Variable.
+```{stata regbsp01, eval = F}
+reg F518_SUF az
+```
+
++ Speichern Sie die Ergebnisse mit `estimates store` und erstellen Sie eine Tabelle mit `esttab`
++ Wie können Sie die Standardfehler statt der t-Werte anzeigen lassen?
++ Lassen Sie sich auch das R² und die Fallzahl ausgeben.
++ Labeln Sie die Variablen links in der Tabelle.
++ Verändern Sie das Signifikanzniveau
++ Lassen Sie sich den Koeffizienten, den SE, die 95%-KI-Grenzen, den t-Wert und den p-Wert für die Variable und die Konstante neben- statt untereinander anzeigen.
+
 ### Übung {#reg2}
+
++ Erstellen Sie ein bivariates Regressionsmodell mit `F518_SUF` als abhängiger und `mig` als unabhängiger Variable.
+In `mig01` steht dann `0` für keinen Migrationshintergrund und `1` für Migrationshintergrund (siehe auch `01_init.do`):
+```{stata, eval = F}
+gen mig01 = Mig != 0  if !missing(Mig)
+```
+
+```{stata regbsp1, eval = F}
+reg F518_SUF i.mig01
+```
+
++ Erstellen Sie das Modell mit Hilfe von `xi` so, dass Sie die Referenzkategorie beschriften können.
++ FÜgen Sie die Beschriftung für die Referenzkategorie ein.
+
 
 ### Übung {#reg3}
 
-+ Erstellen Sie ein Regressionsmodell, welches 
-
++ Erstellen Sie ein Regressionsmodell, welches schrittweise mehrere Variablen aufnimmt:
 ```{stata, eval = F}
-gen mig01 = Mig != 0
+est dir // liste alle gespeicherten Ergebnisse
+estimates clear
+
+glo mod1 " "
+glo mod2 "c.zpalter"
+glo mod3 "c.zpalter##c.zpalter"
+glo mod4 "c.zpalter##c.zpalter i.m1202"
+
+forval i = 1/4 {
+	xi: reg az i.S1 ${mod`i'}
+	est store regmx`i'
+}
+
+est dir
+esttab regmx*,  b se(%9.3f)
 ```
-In `mig01` steht dann `0` für keinen Migrationshintergrund und `1` für Migrationshintergrund.
+
++ Stellen Sie die Ergebnisse in einer Tabelle nebeneinander dar.
++ Labeln Sie Variablen und wie oben gezeigt und verändern Sie die labels 
 
 
 ### Übung {#reg4}
 
-+ Schätzen Sie getrennte Modelle für `mig01=0` und `mig01=1` mit den Kontrollvariablen aus Übung 3
++ Verwenden Sie die Modellserie von gerade eben (Übung 3), behalten Sie aber den Koeffizienten für das Geschlecht in ihrer Tabelle.
++ Wie müssen Sie die Schleife für die Modellserie aus Übung 3 anpassen, um die Kontrollvariablen in einer Zeile unten einzufügen?
 
 
 
+### Übung {#reg5}
 
-+ Erstellen Sie eine Korrelationstabelle für  `zpalter` `F518_SUF` `F200` und `F1410_01`
++ Schätzen Sie getrennte Modelle für `mig01=0` und `mig01=1` mit den Kontrollvariablen aus Übung 3. Passen Sie also die Schleife von [oben](#mgroups) an, sodass jeweils zwei Modelle für die Gruppen  `mig01=0` und `mig01=1` geschätzt werden:
 
+```{stata reggrpx, eval = F}
+forvalues m = 0/1 {
+        
+    xi: reg F518_SUF c.zpalter##c.zpalter if mig01 == `m'
+    est store reg_`s'_1
+    estadd local note "Alter & Alter^2"
+    
+    xi: reg F518_SUF c.zpalter##c.zpalter i.m1202  if mig01 == `m'
+    est store reg_`s'_2
+    estadd local note "Alter & Alter^2, Ausbildung"
+}
+esttab reg_*
+```
+
+
++ Fügen Sie jetzt Gruppenlabels ein und labeln Sie die Tabelle entsprechend der kennengelernten Optionen.

@@ -2,27 +2,10 @@
 * Tabellenexport mit Stata
 * Kapitel 5: Regressionstabellen
 * --------------------------------- *
-clear all
-mac list
-set trace off
-clear matrix
-estimates clear
-set linesize 250
 
-* Pfade setzen
-if ("`c(username)'" == "Filser") {
-
-glo pfad 		"D:\oCloud\Home-Cloud\Lehre\BIBB\StataBIBB3"		// projekt
-
-}
-glo data		"${pfad}/data"		// wo liegen die Datensätze?
-glo word		"${pfad}/word"		// Word-Ordner
-glo tex 		"${pfad}/tex"		// tex-Ordner
-glo prog		"${pfad}/prog"		// wo liegen die doFiles?
-
-
+do "01_init.do"
 * einlesen 
-use "${data}/BIBBBAuA_2018_short.dta", clear
+use "${data}/BIBBBAuA_2018_suf1.0_clean.dta", clear
 
 * ------------------ *
 * Ein Regressionsmodell
@@ -96,6 +79,9 @@ esttab reg1, cells("b se(fmt(%9.3f)) ci_l(fmt(%9.2f)) ci_u(fmt(%9.2f)) p(fmt(%9.
 esttab reg1, cells("b se(fmt(%9.3f)) ci_l(fmt(%9.2f)) ci_u(fmt(%9.2f)) p(fmt(%9.3f))") ///
 			collabels("B" "SE" "u.KI" "o.KI" "p")		// labels
 	
+	
+
+	
 * ------------------------------------------------------ *
 * kategoriale UV	
 reg F518_SUF i.S1
@@ -110,12 +96,11 @@ xi: reg F518_SUF i.S1
 estimates store reg2b
 
 esttab reg2b,  b se(%9.3f)	///	
-	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
-	refcat(S1 "Männer")
+	coeflabel(_IS1_2 "Frauen" _cons "Konstante") 
 
 esttab reg2b,  b se(%9.3f)	///	
 	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
-	refcat(_IS1_2 "Männer", label("Referenzkategorie"))	
+	refcat(_IS1_2 "Männer")	
 
 esttab reg2b,  b se(%9.3f)	///	
 	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
@@ -192,7 +177,7 @@ forval i = 1/4 {
 	est store regm`i'
 	
 	loc note "${mod`i'}"
-	loc note = ustrregexra("`note'","^\s", "-") // ^\s = "an Anfang Leerzeichen"
+	loc note = ustrregexra("`note'","^\s", "-") // ^\s = "am Anfang Leerzeichen"
 	loc note = ustrregexra("`note'","c.zpalter##c.zpalter", "Alter & Alter^2") 
 	loc note = ustrregexra("`note'","c.zpalter", "Alter")
 	loc note = ustrregexra("`note'"," i.m1202", ", Ausbildung")
@@ -244,30 +229,6 @@ esttab reg_*, b se(%9.3f)  ///
 		   _Im1202_2 "kein Abs.") ///
 	 mgroups("Männer" "Frauen", pattern(1 0 1 0))
 	 
-
-* latex:
-
-forvalues s = 1/2 {
-		
-	quietly  xi: reg F518_SUF c.zpalter##c.zpalter if S1 == `s'
-	est store reg_`s'_1
-	estadd local note "Alter & Alter^2"
-	
-	quietly xi:  reg F518_SUF c.zpalter##c.zpalter i.m1202  if S1 == `s'
-	est store reg_`s'_2
-	estadd local note "Alter & Alter^2, Ausbildung"
-}
-
-
-esttab reg_*, r2 
-
-esttab reg_*, r2 ///
-	 mgroups("Männer" "Frauen", pattern(1 0 1 0))
-	 
-esttab reg_*, r2 ///
-	 mgroups("" "Männer" "Frauen", pattern(1 1 0 1 ))	 
-
-
 * ------------------------------------------------------ * 
 * volle Formatierung
 	 

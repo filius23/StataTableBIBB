@@ -32,12 +32,14 @@ correlate zpalter F518_SUF F200
 ```
 
 Wieder benötigen wir `estpost`, um dann die `esttab`-Tabelle zu erstellen:
+Mit `modelwidth()` können wir die Breite der Spalten steuern.
 ```{stata cor3, eval = F}
 estpost correlate zpalter F518_SUF F200, matrix
 esttab ., not unstack compress noobs nonumber nomtitles ///
 		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
 		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
-		 varwidth(30)
+		 varwidth(30) ///
+     modelwidth(30)
 ```
 
 
@@ -193,7 +195,7 @@ esttab,  cell("b(fmt(%13.3fc)) t(fmt(%13.3fc) star) N_1(fmt(%13.0fc)) mu_1 N_2(f
 
 ### Übung {#corr1}
 
-+ Erstellen Sie eine Korrelationstabelle für  `zpalter` `F518_SUF` `F200` und `F1410_01`
++ Erstellen Sie eine Korrelationstabelle für  `zpalter` `F518_SUF` `F200` und `F1410_01` (Jahre berufstätig in D)
 
 ### Übung {#ttest1}
 

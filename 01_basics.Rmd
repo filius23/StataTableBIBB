@@ -96,7 +96,13 @@ Das bringt mit sich, dass wir für Deskriptionen meist mit dem Hilfsbefehl `estp
 Grundsätzlich sind aber die Ergebnisse aus `e()` und `r()` alle in Tabellen mit `esttab` exportierbar.
 
 
+## Kurs-Setup
 
+```{r index_illustration, echo = F,out.width = "80%",fig.height= 3, fig.align="center"}
+knitr::include_graphics("pics/01_pfade.png")
+```
 
+## Übung
 
++ Testen Sie einmal `return list` nach `su zpalter` und `erturn list` nach `reg F518_SUF zpalter`
 

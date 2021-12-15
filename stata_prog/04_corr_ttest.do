@@ -1,28 +1,13 @@
 * --------------------------------- *
 * Tabellenexport mit Stata
-* Kapitel 4: Korrelationsmatrix
+* Kapitel 4: Korrelationsmatrix & t-Test
 * --------------------------------- *
-clear all
-mac list
-set trace off
-clear matrix
-estimates clear
-set linesize 250
 
-* Pfade setzen
-if ("`c(username)'" == "Filser") {
-
-glo pfad 		"D:\oCloud\Home-Cloud\Lehre\BIBB\StataBIBB3"		// projekt
-
-}
-glo data		"${pfad}/data"		// wo liegen die Datensätze?
-glo word		"${pfad}/word"		// Word-Ordner
-glo tex 		"${pfad}/tex"		// tex-Ordner
-glo prog		"${pfad}/prog"		// wo liegen die doFiles?
-
+* Pfade setzen -> 
+do "01_init.do"
 
 * einlesen 
-use "${data}/BIBBBAuA_2018_short.dta", clear
+use "${data}/BIBBBAuA_2018_suf1.0_clean.dta", clear
 
 * ------------------ *
 * correlate
@@ -34,7 +19,9 @@ estpost correlate zpalter F518_SUF F200, matrix
 esttab ., not unstack compress noobs nonumber nomtitles ///
 		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
 		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
-		 varwidth(30)
+		 varwidth(30) ///
+		 modelwidth(30)
+ 
  
  
 esttab  using "${word}/corrmat.rtf", not unstack compress noobs nonumber nomtitles ///

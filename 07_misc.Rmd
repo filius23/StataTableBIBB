@@ -22,6 +22,11 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 - `nostar`
 - `scsv`
 
+Für den Excel-Export können wir einfach `using ...csv` nutzen. Für deutschsprachige Systeme empfiehlt sich dabei aber, statt `,` ein `;` als Spaltentrenner zu verwenden. Das können wir mit der Option `scsv` erreichen:
+
+```{stata, eval = F}
+esttab mod* using "${results}\tabelle1.csv", cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") scsv
+```
 
 
 
@@ -60,5 +65,6 @@ The same alignment is used for all columns if the table contains multiple column
         would add a title in Arial.
 
 ## any matrix
+
 
 [esttab any matrix](http://repec.org/bocode/e/estout/advanced.html#advanced905)

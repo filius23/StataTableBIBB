@@ -2,27 +2,12 @@
 * Tabellenexport mit Stata
 * Kapitel 3: table & gewichtete table
 * --------------------------------- *
-clear all
-mac list
-set trace off
-clear matrix
-estimates clear
-set linesize 250
 
-* Pfade setzen
-if ("`c(username)'" == "Filser") {
-
-glo pfad 		"D:\oCloud\Home-Cloud\Lehre\BIBB\StataBIBB3"		// projekt
-
-}
-glo data		"${pfad}/data"		// wo liegen die Datensätze?
-glo word		"${pfad}/word"		// Word-Ordner
-glo tex 		"${pfad}/tex"		// tex-Ordner
-glo prog		"${pfad}/prog"		// wo liegen die doFiles?
-
+* Pfade setzen -> 
+do "01_init.do"
 
 * einlesen 
-use "${data}/BIBBBAuA_2018_short.dta", clear
+use "${data}/BIBBBAuA_2018_suf1.0_clean.dta", clear
 
 * ------------------ *
 * tab
@@ -42,6 +27,13 @@ esttab, cells("b(label(freq)) pct(fmt(2)) cumpct(fmt(2))") ///
 	nonumber nomtitle noobs ///
 	varlabels(`e(labels)') ///	
 	varwidth(40) 
+
+esttab, cells("b(label(freq)) pct(fmt(2)) cumpct(fmt(2))") ///	 
+	nonumber nomtitle noobs ///
+	varlabels(`e(labels)') ///
+	collabels("n" "Anteil" "kum. Anteil") ///
+	varwidth(40) 	
+	
 	
 * export 
 esttab using "${word}/03_tab1.rtf", cells("b(label(freq)) pct(fmt(2)) cumpct(fmt(2))") ///

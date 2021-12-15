@@ -1,6 +1,6 @@
 # Multilevel- und logit Modelle  {#ml_log} 
 
-```{r setup6, echo = F, message=F, warning = F}
+```{r setup6, eval = F, message=F, warning = F}
 .libPaths("D:/R-library4")
 knitr::opts_chunk$set(collapse = TRUE)
 knitr::opts_chunk$set(dpi=800)
@@ -8,7 +8,6 @@ knitr::opts_chunk$set(dpi=800)
 library(Statamarkdown)
 library(tidyverse)
 library(kableExtra)
-# stataexe <- "C:/Program Files (x86)/Stata13/StataSE-64.exe"
 stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
 knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 # baua <- readstata13::read.dta13("D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta",convert.factors = F)
@@ -18,63 +17,163 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 
 ## `logit` 
 
-```{stata logit1, echo = F}
+Um die Odds Ratios zu erhalten, müssen wir `eform` verwenden:
+```{stata logit1, eval = F}
+logit nt i.S1 
+est store logm1
+esttab logm1, b se(%9.3f) 
+```
+
+
+```{stata logit1T, echo = F}
 quietly{
   use "./data/BIBBBAuA_2018_short.dta", clear
   set linesize 200
 }
+logit nt i.S1 
+est store logm1
+esttab logm1, b se(%9.3f)
+```
+
+```{stata logit01F, eval = F}
+esttab logm1, b se(%9.3f) eform // eform für Odds Ratios
+```
+
+```{stata logit01T, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  logit nt i.S1 
+  est store logm1
+}
+esttab logm1, b se(%9.3f) eform // eform für Odds Ratios
 ```
 
 
-```{stata logit2, echo = F}
-noisily estout, /// 
-  label mlabel("(1)" "(2)" "(3)" "(4)" "(5)" "(6)" "(7)" "(8)") style(tex) collabels(none) varwidth(52) ///
-  cells(b(star fmt(4)) se(par fmt(3))) starlevels(*** 0.00000000000000001)/*(* 0.10 ** 0.05 *** 0.01)*/ ///
-  keep($xvar) ///
-  stats(ShiftShareSE pval N r2, fmt(3 3 0 3) label("Shift Share s.e." "p-value" "N" "R$^2$"))
+Außerdem können wir mit `estadd lrtest` direkt den LR-Test in die Tabelle aufnehmen:
+```{stata logit2, eval = F}
+logit nt i.S1  if !missing(zpalter)
+est store logm1b
+logit nt i.S1 zpalter 
+est store logm2
+estadd lrtest logm1b
+esttab logm*, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p)
+```
 
-esttab iv_fem0_5 iv_fem1_5 using "$output/FD_Wages_WZWGxtime-FE_laggedDAS_Mindestlohn_2014+15.tex", se /*booktabs*/ nonum /*label*/ append keep(L2.del_refg_av_b13) scalar("N Observations" widstat) ///
-	star(* 0.10 ** 0.05 *** 0.01) fragment prehead( "\toprule" "\multicolumn{3}{l}{Wages in Tradable Sectors}\\")
+```{stata logit2T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  logit nt i.S1  if !missing(zpalter)
+  est store logm1b
+  logit nt i.S1 zpalter 
+  est store logm2
+  estadd lrtest logm1b
+}
+esttab logm?, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p) 
+```
+
+Mit `pr2` `aic` `bic` können wir Modellkennzahlen ausgeben lassen.
+
+```{stata logit02, eval = F}
+esttab logm*, b se(%9.3f)  pr2 aic bic
+```
+
+```{stata logit02T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  logit nt i.S1  if !missing(zpalter)
+  est store logm1b
+  logit nt i.S1 zpalter 
+  est store logm2
+  estadd lrtest logm1b
+}
+esttab logm?, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p) 
+```
+
+Bei `margins` müssen wir darauf achten, die Option `, post` zu verwenden:
+```{stata logit3, eval = F}
+logit nt i.S1 zpalter 
+margins, dydx(*) post
+est store mar_mod2
+esttab mar_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") nonumbers
 ```
 
 
-
-## `mixed` 
-
-
-http://repec.org/bocode/e/estout/advanced.html#advanced402
-
-```{stata groups, eval = F}
-stats(N_g, labels("N")) // anzahl der Cluster/Gruppen
+```{stata logit3T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  logit nt i.S1 zpalter 
+  margins, dydx(*) post
+  est store mar_mod2
+  }
+esttab mar_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") nonumbers
 ```
 
-### ICC hinzufügen
+Das funktioniert natürlich auch für die predictions mit `,at()`:
+```{stata logit4, eval = F}
+est restore logm2
+margins, at(zpalter = (18 20(5)65) ) post
+est store pred_mod2
+esttab pred_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") nonumbers
+```
 
 
+```{stata logit4T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  logit nt i.S1 zpalter 
+  margins, dydx(*) post
+  margins, at(zpalter = (18 20(5)65) ) post
+  est store pred_mod2
+  }
+esttab pred_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") nonumbers
+```
 
+
+## `mixed`
+
+`transform(ln*: exp(@) exp(@))` um die Werte im Random Part richtig anzuzeigen:
 ```{stata mixed1, eval = F}
-webuse pig
-xtmixed weight week || id: week
+xtmixed F518_SUF i.S1 ||Bula:
+est store mmodel
+esttab mmodel ,	transform(ln*: exp(@) exp(@))
+```
+
+
+```{stata mixed1T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+xtmixed F518_SUF i.S1 ||Bula:
+est store mmodel
+  }
+esttab mmodel ,	transform(ln*: exp(@) exp(@))
+```
+
+
+So können wir die `ICC` hinzufügen:
+
+```{stata mixed01, eval = F}
+xtmixed F518_SUF i.S1 ||Bula:
 estat icc
-estadd scalar icc2 = r(icc2) // Use 'return list' to check for other scalars from 'estaticc' you might want
-esttab, se wide nostar transform(ln*: exp(@) exp(@)) ///
-    eqlabels("" "sd(week)" "sd(_cons)" "sd(Residual)", none) ///
-    varlabels(,elist(weight:_cons "{break}{hline @width}")) ///
+estadd scalar icc2 = r(icc2) 
+esttab, se wide transform(ln*: exp(@) exp(@)) ///
+    varwidth(13) scalars(icc2)	 
+```
+
+
+```{stata mixed01T, echo = F}
+quietly{
+    use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  xtmixed F518_SUF i.S1 ||Bula:
+  estat icc
+  estadd scalar icc2 = r(icc2) 
+  }
+esttab, se wide transform(ln*: exp(@) exp(@)) ///
     varwidth(13) scalars(icc2)
 ```
-
-
-
-***
-
-**[Übung 1](#corr1)**
-
-***
-
-
-## Übungen
-
-### Übung {#corr1}
-
-+ Erstellen Sie eine Korrelationstabelle für  `zpalter` `F518_SUF` `F200` und `F1410_01`
-

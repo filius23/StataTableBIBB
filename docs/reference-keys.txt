@@ -43,3 +43,16 @@ reg2
 reg3
 reg4
 einmal-mit-allem
+kurs-setup
+übung
+kategoriale-unabhängige-variable
+mgroups
+reg5
+ml_log
+logit
+mixed
+misc
+excel-export
+formatierungsoptionen
+schriftart
+any-matrix

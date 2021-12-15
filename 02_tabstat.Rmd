@@ -427,11 +427,12 @@ estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd)
 estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd) nototal	
 ```
 
+Mit `par` bekommen wir den entsprechenden Wert in Klammern angezeigt:
 
 ```{stata tabgroup2, eval = F}
 esttab, cells(mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)) nostar  nonumber unstack ///
-  nomtitle nonote noobs label  ///
-   collabels(none) gap   ///
+  nomtitle nonote noobs  ///
+   collabels(none)  ///
    eqlabels("Männer" "Frauen") /// 
    nomtitles ///
    coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")
@@ -445,8 +446,8 @@ quietly{
   estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd) nototal
 }
 esttab, cells(mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)) nostar  nonumber unstack ///
-  nomtitle nonote noobs label  ///
-   collabels(none) gap   ///
+  nomtitle nonote noobs  ///
+   collabels(none)  ///
    eqlabels("Männer" "Frauen") /// 
    nomtitles ///
    coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")
@@ -457,7 +458,7 @@ Um die in `cells()` angegebenen Werte in eine Zeile zu bringen, müssen wir sie 
 ```{stata tabgroup4, eval = F}
 esttab, cells("mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)") nostar  nonumber unstack ///
   nomtitle nonote noobs label  ///
-   collabels(none) gap   ///
+   collabels(none)  ///
    eqlabels("Männer" "Frauen") /// 
    nomtitles ///
    coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")   
@@ -477,6 +478,30 @@ esttab, cells("mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)") nostar  nonumber unstac
    coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")  
 ```
 
+Mit `collabels()` können wir die Werte auch beschriften.  
+```{stata tabgroup6, eval = F}
+esttab, cells("mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)") nostar  nonumber unstack ///
+  nomtitle nonote noobs label  ///
+   collabels("Mean" "SD" "Mean" "SD") ///
+   eqlabels("Männer" "Frauen") /// 
+   nomtitles ///
+   coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")   
+```
+
+```{stata tabgroup7, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd) nototal
+}
+esttab, cells("mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)") nostar  nonumber unstack ///
+  nomtitle nonote noobs label  ///
+   collabels("Mean" "SD" "Mean" "SD") ///
+   eqlabels("Männer" "Frauen") /// 
+   nomtitles ///
+   coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")   
+```
+
 
 ***
 
@@ -489,12 +514,13 @@ esttab, cells("mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)") nostar  nonumber unstac
 
 ### Übung {#tabst1}
 
-+ Erstellen Sie eine Überblickstabelle für `F200` mit Min, Mean, SD, 1. Quartil (`p25`), Median, 3. Quartil (`p75`) und der Anzahl der Beobachtungen.
++ Erstellen Sie eine Überblickstabelle für `F200` (Wochenarbeitszeit) mit Min, Mean, SD, 1. Quartil (`p25`), Median, 3. Quartil (`p75`) und der Anzahl der Beobachtungen.
++ Labeln Sie die Spalten mit den Kennzahlen und auch die Variable.
 
 
 ### Übung {#tabst2}
 
-+ Ergänzen Sie die Tabelle von Übung 1 `F200` um `fastgini` - so kommen Sie an die abgelegte Info
++ Ergänzen Sie die Tabelle von Übung 1 `F200` um `fastgini` - so kommen Sie an die abgelegte Info:
 
 ```{stata mdescaddgini, eval = F}
 ssc install fastgini // falls nicht schon installiert

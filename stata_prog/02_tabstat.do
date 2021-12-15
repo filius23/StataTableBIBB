@@ -4,21 +4,11 @@
 * --------------------------------- *
 
 
-* Pfade setzen
-if ("`c(username)'" == "Filser") {
-
-glo pfad 		"D:\oCloud\Home-Cloud\Lehre\BIBB\StataBIBB3"		// projekt
-
-}
-glo data		"${pfad}/data"		// wo liegen die original Datensätze?
-glo word		"${pfad}/word"		// Word-Ordner
-glo tex 		"${pfad}/tex"		// tex-Ordner
-glo prog		"${pfad}/prog"		// wo liegen die doFiles?
-
-
+* Pfade setzen -> 
+do "01_init.do"
 
 * einlesen 
-use "${data}/BIBBBAuA_2018_short.dta", clear
+use "${data}/BIBBBAuA_2018_suf1.0_clean.dta", clear
 
 * ------------------ *
 * tabstat
@@ -56,7 +46,7 @@ esttab, ///
 	coeflabel(F518_SUF "Bruttoverdienst")
 
 	
-/// format erklären
+/// format 
 	help format
 	dis strlen("10789.1234")
 	display %10.2f 	10789.1234 // 0 Nachkommastellen
@@ -163,23 +153,23 @@ esttab, cells("count(fmt(%13.0fc)) m1(fmt(%13.0fc))")  noobs ///
 estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd)
 estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd) nototal	
 
-
-
 esttab, cells(mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)) nostar  nonumber unstack ///
-  nomtitle nonote noobs label  ///
-   collabels(none) gap   ///
+  nomtitle nonote noobs  ///
+   collabels(none)  ///
    eqlabels("Männer" "Frauen") /// 
    nomtitles ///
    coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")
 
  // um cells() in eine Zeile zu bringen -> ""  
 esttab, cells("mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)") nostar  nonumber unstack ///
-  nomtitle nonote noobs label  ///
-   collabels(none) gap   ///
+  nomtitle nonote noobs  ///
+  collabels("Mean" "SD" "Mean" "SD") ///
    eqlabels("Männer" "Frauen") /// 
    nomtitles ///
    coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")   
+     
    
+*export zu rtf
 esttab using "${word}/Gruppenvergleich.rtf", cells(mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)) nostar  nonumber unstack ///
   nomtitle nonote noobs label  ///
    collabels(none) gap   ///
@@ -188,15 +178,3 @@ esttab using "${word}/Gruppenvergleich.rtf", cells(mean(fmt(%10.1fc)) sd(fmt(%13
    coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")
 		 
  
- 
-estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd p50)
-estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd p50) nototal	
-// labcol2("lc2", title("t2")) 
-
-
-esttab, cells(mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par) p50(fmt(%13.0fc))) nostar  nonumber unstack ///
-  nomtitle nonote noobs label  ///
-   collabels(none) gap   ///
-   eqlabels("Männer" "Frauen") /// 
-   nomtitles ///
-   coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter")

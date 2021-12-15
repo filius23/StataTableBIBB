@@ -19,7 +19,7 @@ estimates clear
 * ------------------------------ *
 * Pfade setzen
 if ("`c(username)'" == "Filser") {
-	glo pfad 		"D:\oCloud\Home-Cloud\Lehre\BIBB\StataBIBB3"		// projekt
+	glo pfad 		"D:\oCloud\Home-Cloud\Lehre\BIBB\StataBIBB3"		// Projekt/Kursordner
 }
 glo data		"${pfad}/data"		// wo liegen die Datensätze?
 glo word		"${pfad}/word"		// Word-Ordner
@@ -34,14 +34,14 @@ foreach dir1 in data word tex prog {
 	if _rc!=0  {
 		mkdir ${`dir1'}
 		display "${`dir1'} erstellt"
-	}
+	} 
  }
 
-cd ${pfad}
+cd "${pfad}"
 
 
 * ------------------ *
-* label kürzen
+* clean data: label kürzen & missings raus
 
 use "${data}/BIBBBAuA_2018_suf1.0.dta", clear
 foreach i of varlist * {
@@ -54,13 +54,6 @@ mvdecode F518_SUF, mv( 99998/ 99999)
 mvdecode F200 F1408, mv( 97/99)
 mvdecode m1202, mv(-1)
 mvdecode Mig, mv(-4)
+gen mig01 = Mig != 0 if !missing(Mig)
 
-	lab define S2 1 "Mann" 2 "Frau", replace
-
-save "${data}/BIBBBAuA_2018_short.dta", replace 
-
-/***
-
-use "${data}/BIBBBAuA_2018_suf1.0.dta", clear
-d  int_jahr F1104 F1408 F1408_01 F1410_01
-useold "${data}/BIBBBAuA_2018_short.dta" , clear  verbose
+save "${data}/BIBBBAuA_2018_suf1.0_clean.dta", replace 

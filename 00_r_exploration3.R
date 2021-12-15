@@ -31,10 +31,13 @@ xt <- baua2 %>% summarise(across(everything(), ~sum(as.numeric(.x) %in% c(9999))
 
 unique(baua$zpalter) %>% length(.)
 
-
+knitr::purl(input="01_basics.Rmd",output="01_basics.do",documentation = 0)
 
 #run render in background -------------------
  bookdown::preview_chapter("03_Deskription.Rmd")
 chap <- "03_Deskription.Rmd"
 rstudioapi::jobRunScript(path = "00_build.R",importEnv = T)
+
+
+
   

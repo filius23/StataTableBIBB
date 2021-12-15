@@ -1,0 +1,6 @@
+
+
+. quietly{
+
+. esttab, se wide transform(ln*: exp(@) exp(@)) ///
+>     varwidth(13) scalars(icc2)
