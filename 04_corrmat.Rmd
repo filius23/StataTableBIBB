@@ -97,7 +97,17 @@ estpost correlate rnk_zpalter rnk_F518_SUF rnk_F200, matrix
 
 Danach können wir die Korrelationsmatrix auch für den Rangkorrelationskoeffizienten wie oben erstellen:
 
-```{stata rho4, eval = F}
+```{stata rho3, eval = F}
+esttab ., not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30) ///
+		 modelwidth(30) ///
+		 title("Dies ist der Spearman-Rangkorrelationskoeffizient")
+```
+
+
+```{stata rho4, echo = F}
 quietly{
   use "./data/BIBBBAuA_2018_short.dta", clear
   set linesize 200
@@ -111,11 +121,12 @@ esttab ., not unstack compress noobs nonumber nomtitles ///
 		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
 		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
 		 varwidth(30) ///
+		 modelwidth(30) ///
 		 title("Dies ist der Spearman-Rangkorrelationskoeffizient")
 ```
 
 
-```{stata rho5, echo = F}
+```{stata rho5, eval = F}
 esttab  using "${word}/corrmat2.rtf", not unstack compress noobs nonumber nomtitles ///
 		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
 		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
@@ -137,7 +148,7 @@ esttab  using "${tex}/corrmat2.tex", not unstack compress noobs nonumber nomtitl
 
 ***
 
-**[Übung 1](#corr1)**
+**[Übung](#corr1)**
 
 ***
 
@@ -145,24 +156,33 @@ esttab  using "${tex}/corrmat2.tex", not unstack compress noobs nonumber nomtitl
 
 
 t-Test sind ebenfalls ein Klassiker.
-Mit `ttest az, by(S1) unequal` können wir einen Signifikanztest zwischen 
+Mit `ttest az, by(S1) unequal` können wir einen Signifikanztest berechnen. Auch hier benötigen wir `estpost`, um die Ergebnisse zu speichern und dann mit `esttab` verarbeiten zu können.
 
 ```{stata ttest1, eval = F}
 ttest az, by(S1) unequal
-
 estpost ttest az F518_SUF, by(S1) unequal
-esttab, wide nonumber noobs
-esttab,  cell("b(fmt(%13.3fc) star) N_1(fmt(%13.0fc)) mu_1 N_2(fmt(%13.0fc)) mu_2") /// 
-	unstack wide nonumber noobs nomtitles ///
-	collabels("t" "N(M)" "Mean(M)" "N(W)" "Mean(W)")		 
-		 
 ```
-```{stata ttest2, echo = F}
+```{stata ttest12, echo = F}
 quietly{
   use "./data/BIBBBAuA_2018_short.dta", clear
   set linesize 200
 }
 estpost ttest az F518_SUF, by(S1) unequal
+```
+
+
+```{stata ttest13, eval = F}
+esttab, wide nonumber noobs
+```
+
+
+```{stata ttest2, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost ttest az F518_SUF, by(S1) unequal
+}
+dis ""
 esttab, wide nonumber noobs
 ```
 
@@ -187,7 +207,7 @@ esttab,  cell("b(fmt(%13.3fc)) t(fmt(%13.3fc) star) N_1(fmt(%13.0fc)) mu_1 N_2(f
 
 ***
 
-**[Übung 2](#ttest1)**
+**[Übung](#ttest1)**
 
 ***
 
@@ -199,7 +219,7 @@ esttab,  cell("b(fmt(%13.3fc)) t(fmt(%13.3fc) star) N_1(fmt(%13.0fc)) mu_1 N_2(f
 
 ### Übung {#ttest1}
 
-+ Erstellen Sie eine t-Testtabelle für Gruppenunterschiede zwischen Menschen mit und ohne Migrationshintergrund für die Variablen `az` und `F518_SUF`. Die Variablen zum Migrationshintergrund können Sie so erstellen: 
++ Erstellen Sie eine t-Testtabelle für Gruppenunterschiede zwischen Menschen mit und ohne Migrationshintergrund für die Variablen `az` und `F518_SUF`. Die Variablen zum Migrationshintergrund können Sie so erstellen (siehe `01_init.do`): 
 
 ```{stata, eval = F}
 gen mig01 = Mig != 0
