@@ -40,6 +40,10 @@ estimates store reg1 	 // Ergebnisse speichern
 ereturn list			     // abrufbare Informationen
 ```
 
+Mit `est dir` bekommen wir übrigens eine Übersicht über alle Ergebnisse.
+Mit `restore name` können wir ein Modell "aktivieren".
+Mit `est drop _all` können wir alle estimates löschen.
+
 Alle unter `e()` abgespeicherten Informationen können wir direkt in  unsere `esttab` einfügen.
 Los geht's:
 

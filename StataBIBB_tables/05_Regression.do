@@ -15,6 +15,10 @@ reg F518_SUF c.zpalter 	// einfaches Regressionsmodell
 estimates store reg1 	// Ergebnisse speichern
 ereturn list			// abrufbare Informationen
 
+// estimates Übersicht:
+est dir
+* est drop _all // alle raus
+
 
 esttab reg1 // Tabelle mit Standard-Einstellungen
 
@@ -113,7 +117,7 @@ esttab reg2b,  b se(%9.3f)	///
 * Mehrere Regressionsmodelle
 * ------------------------------------------------------ *
 est dir // liste alle gespeicherten Ergebnisse
-estimates clear
+est drop _all
 
 glo mod1 " "
 glo mod2 "c.zpalter"

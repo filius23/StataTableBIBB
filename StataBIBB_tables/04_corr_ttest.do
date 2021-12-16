@@ -23,7 +23,16 @@ esttab , not unstack compress noobs nonumber nomtitles ///
 		 varwidth(30) ///
 		 modelwidth(30)
 		 
-// entspricht:		 
+// entspricht:
+esttab , cells(b(fmt(4)))   not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30) ///
+		 modelwidth(30)
+
+		 // :-( keine Sterne -> Option star
+		 // b könnte mit collabels(none) ausgeblendet werden
+		 
 esttab , cells(b(fmt(4) star))   not unstack compress noobs nonumber nomtitles ///
 		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
 		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
@@ -39,11 +48,12 @@ esttab , cells(b(fmt(4) star) p(fmt(%5.2f)))   not unstack compress noobs nonumb
 		 modelwidth(30)
 
 //	 	 
-esttab , cells(b(fmt(4) star) p(fmt(%7.6f)))   not unstack compress noobs nonumber nomtitles ///
+esttab , cells(b(fmt(4) star) p(fmt(%7.6f) par))   not unstack compress noobs nonumber nomtitles ///
 		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
 		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
 		 varwidth(30) ///
-		 modelwidth(30)
+		 modelwidth(30) ///
+		 note("p-Values in parentheses" "* p<0.05, ** p<0.01, *** p<0.001")
   
  
  

@@ -42,7 +42,6 @@ foreach dir1 in data word tex prog {
 
 cd "${pfad}"
 
-
 * ------------------ *
 * clean data: label kürzen & missings raus
 * Daten in data-Verzeichnis
