@@ -15,6 +15,42 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 ```
 
 
+## estimates store auch bei `estpost`
+
+Wir können auch die estimates aus einem `estpost` speichern, um sie später wieder aufzurufen - auch nach einem Befehl, der eigentlich `e()` überschreibt.
+
+```{stata, eval = F}
+estpost correlate zpalter F518_SUF F200, matrix
+estimates store m1
+xi: reg az i.S1
+est store m2
+
+esttab m1, not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+    collabels(none) ///
+		 varwidth(22) ///
+		 modelwidth(22)
+```
+
+
+```{stata, echo = F}
+quietly{
+  use "./data/BIBBBAuA_2018_short.dta", clear
+  set linesize 200
+  estpost correlate zpalter F518_SUF F200, matrix
+  estimates store m1
+  xi: reg az i.S1
+  est store m2
+}
+esttab m1, cell(b(fmt(5) star)) not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+     collabels(none) ///
+		 varwidth(22) ///
+		 modelwidth(22)
+```
+
 
 ## Excel-Export
 

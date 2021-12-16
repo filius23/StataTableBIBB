@@ -215,8 +215,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="misc.html"><a href="misc.html"><i class="fa fa-check"></i><b>7</b> Weitere optionen</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#excel-export"><i class="fa fa-check"></i><b>7.1</b> Excel-Export</a></li>
-<li class="chapter" data-level="7.2" data-path="misc.html"><a href="misc.html#formatierungsoptionen"><i class="fa fa-check"></i><b>7.2</b> Formatierungsoptionen</a></li>
+<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#estimates-store-auch-bei-estpost"><i class="fa fa-check"></i><b>7.1</b> estimates store auch bei <code>estpost</code></a></li>
+<li class="chapter" data-level="7.2" data-path="misc.html"><a href="misc.html#excel-export"><i class="fa fa-check"></i><b>7.2</b> Excel-Export</a></li>
+<li class="chapter" data-level="7.3" data-path="misc.html"><a href="misc.html#formatierungsoptionen"><i class="fa fa-check"></i><b>7.3</b> Formatierungsoptionen</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -240,18 +241,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="misc" class="section level1" number="7">
 <h1><span class="header-section-number">7</span> Weitere optionen</h1>
-<div id="excel-export" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Excel-Export</h2>
+<div id="estimates-store-auch-bei-estpost" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> estimates store auch bei <code>estpost</code></h2>
+<p>Wir können auch die estimates aus einem <code>estpost</code> speichern, um sie später wieder aufzurufen - auch nach einem Befehl, der eigentlich <code>e()</code> überschreibt.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="misc.html#cb1-1" aria-hidden="true" tabindex="-1"></a>estpost correlate zpalter F518_SUF F200, <span class="fu">matrix</span></span>
+<span id="cb1-2"><a href="misc.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> m1</span>
+<span id="cb1-3"><a href="misc.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">xi</span>: <span class="kw">reg</span> az i.S1</span>
+<span id="cb1-4"><a href="misc.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> m2</span>
+<span id="cb1-5"><a href="misc.html#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="misc.html#cb1-6" aria-hidden="true" tabindex="-1"></a>esttab m1, <span class="kw">not</span> unstack <span class="kw">compress</span> <span class="kw">noobs</span> nonumber nomtitles <span class="co">///</span></span>
+<span id="cb1-7"><a href="misc.html#cb1-7" aria-hidden="true" tabindex="-1"></a>         varlabels(zpalter <span class="st">&quot;(1) Alter&quot;</span> F518_SUF <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> F200 <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb1-8"><a href="misc.html#cb1-8" aria-hidden="true" tabindex="-1"></a>         eqlabels(<span class="st">&quot;(1) Alter&quot;</span> <span class="st">&quot;(2) Bruttoeinkommen&quot;</span> <span class="st">&quot;(3) Wochenarbeitszeit&quot;</span>) <span class="co">///</span></span>
+<span id="cb1-9"><a href="misc.html#cb1-9" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="kw">none</span>) <span class="co">///</span></span>
+<span id="cb1-10"><a href="misc.html#cb1-10" aria-hidden="true" tabindex="-1"></a>         varwidth(22) <span class="co">///</span></span>
+<span id="cb1-11"><a href="misc.html#cb1-11" aria-hidden="true" tabindex="-1"></a>         modelwidth(22)</span></code></pre></div>
+<pre><code>                                    (1) Alter       (2) Bruttoeinkommen     (3) Wochenarbeitszeit   
+----------------------------------------------------------------------------------------------------
+(1) Alter                             1.00000                                                       
+(2) Bruttoeinkommen                   0.07956***                1.00000                             
+(3) Wochenarbeitszeit                -0.05579***                0.29245***                1.00000   
+----------------------------------------------------------------------------------------------------</code></pre>
+</div>
+<div id="excel-export" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Excel-Export</h2>
 <p>Für den Excel-Export können wir einfach <code>using ...csv</code> nutzen. Für deutschsprachige Systeme empfiehlt sich dabei aber, statt <code>,</code> ein <code>;</code> als Spaltentrenner zu verwenden. Das können wir mit der Option <code>scsv</code> erreichen.</p>
 <ul>
 <li><code>csv</code> als Dateiendung produziert eine csv-Datei, die mit Excel geöffnet werden kann</li>
 <li><code>nostar</code> empfiehlt sich für den Excel-Export, da Sternchen in Excel häufig zu Problemen führen</li>
 <li><code>scsv</code> <code>;</code> anstelle von <code>,</code> als Spaltenseparator</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="misc.html#cb1-1" aria-hidden="true" tabindex="-1"></a>esttab <span class="fu">mod</span>* <span class="kw">using</span> <span class="st">&quot;${results}</span><span class="ch">\t</span><span class="st">abelle1.csv&quot;</span>, cells(<span class="st">&quot;b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))&quot;</span>) scsv</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb3-1"><a href="misc.html#cb3-1" aria-hidden="true" tabindex="-1"></a>esttab <span class="fu">mod</span>* <span class="kw">using</span> <span class="st">&quot;${results}</span><span class="ch">\t</span><span class="st">abelle1.csv&quot;</span>, cells(<span class="st">&quot;b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))&quot;</span>) scsv</span></code></pre></div>
 </div>
-<div id="formatierungsoptionen" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Formatierungsoptionen</h2>
+<div id="formatierungsoptionen" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Formatierungsoptionen</h2>
 <ul>
 <li><code>alignment(string)  set alignment within columns (LaTeX, HTML, RTF)</code></li>
 </ul>
