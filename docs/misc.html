@@ -24,7 +24,7 @@
 <meta name="author" content="Andreas Filser" />
 
 
-<meta name="date" content="2021-12-15" />
+<meta name="date" content="2021-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -165,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.8.2" data-path="desc.html"><a href="desc.html#w.dfc"><i class="fa fa-check"></i><b>2.8.2</b> %w.dfc</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="tab.html"><a href="tab.html"><i class="fa fa-check"></i><b>3</b> <code>table</code></a>
+<li class="chapter" data-level="3" data-path="tab.html"><a href="tab.html"><i class="fa fa-check"></i><b>3</b> <code>tabulate</code></a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="tab.html"><a href="tab.html#tab-x-one-way-frequency-table"><i class="fa fa-check"></i><b>3.1</b> <code>tab x</code>: One-way frequency table</a></li>
 <li class="chapter" data-level="3.2" data-path="tab.html"><a href="tab.html#tab-var1-var2-kontingenz-kreuztabelle"><i class="fa fa-check"></i><b>3.2</b> <code>tab var1 var2</code>: Kontingenz-/Kreuztabelle</a></li>
@@ -242,12 +242,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">7</span> Weitere optionen</h1>
 <div id="excel-export" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> Excel-Export</h2>
+<p>Für den Excel-Export können wir einfach <code>using ...csv</code> nutzen. Für deutschsprachige Systeme empfiehlt sich dabei aber, statt <code>,</code> ein <code>;</code> als Spaltentrenner zu verwenden. Das können wir mit der Option <code>scsv</code> erreichen.</p>
 <ul>
-<li><code>csv</code></li>
-<li><code>nostar</code></li>
-<li><code>scsv</code></li>
+<li><code>csv</code> als Dateiendung produziert eine csv-Datei, die mit Excel geöffnet werden kann</li>
+<li><code>nostar</code> empfiehlt sich für den Excel-Export, da Sternchen in Excel häufig zu Problemen führen</li>
+<li><code>scsv</code> <code>;</code> anstelle von <code>,</code> als Spaltenseparator</li>
 </ul>
-<p>Für den Excel-Export können wir einfach <code>using ...csv</code> nutzen. Für deutschsprachige Systeme empfiehlt sich dabei aber, statt <code>,</code> ein <code>;</code> als Spaltentrenner zu verwenden. Das können wir mit der Option <code>scsv</code> erreichen:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="misc.html#cb1-1" aria-hidden="true" tabindex="-1"></a>esttab <span class="fu">mod</span>* <span class="kw">using</span> <span class="st">&quot;${results}</span><span class="ch">\t</span><span class="st">abelle1.csv&quot;</span>, cells(<span class="st">&quot;b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))&quot;</span>) scsv</span></code></pre></div>
 </div>
 <div id="formatierungsoptionen" class="section level2" number="7.2">

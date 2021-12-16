@@ -36,21 +36,29 @@ esttab, cells("b(label(freq)) pct(fmt(2)) cumpct(fmt(2))") ///
 	
 	
 * export 
-esttab using "${word}/03_tab1.rtf", cells("b(label(freq)) pct(fmt(2)) cumpct(fmt(2))") ///
+esttab using "03_tab1.rtf", cells("b(label(freq)) pct(fmt(2)) cumpct(fmt(2))") ///
 	nonumber nomtitle noobs ///
 	varlabels(`e(labels)') ///
 	varwidth(40) ///
 	replace 
 	 	 
-	 
+esttab using "03_tab1.tex", cells("b(label(freq)) pct(fmt(2)) cumpct(fmt(2))") ///
+	nonumber nomtitle noobs ///
+	varlabels(`e(labels)') ///
+	varwidth(40) ///
+	replace booktabs
+	 	  
 
 * ------------------ *
 * Kreuztabelle
 
 tabulate m1202 S1 
+tabulate m1202 S1 , row cell col
 estpost tabulate m1202 S1
 /// b pct colpct rowpct
 esttab, cell(b(fmt(%13.0fc))) unstack noobs 
+esttab, cell(pct(fmt(%13.3fc))) unstack noobs 
+
 esttab, cell(b(fmt(%13.0fc))) unstack noobs collabels(none) nonumber nomtitles
 esttab, cell(b(fmt(%13.0fc))) unstack noobs collabels(none) nonumber nomtitles varlabels(`e(labels)') 
 esttab, cell(b(fmt(%13.0fc))) unstack noobs collabels(none) nonumber nomtitles varlabels(`e(labels)') varwidth(40)

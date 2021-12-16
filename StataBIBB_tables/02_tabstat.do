@@ -100,8 +100,7 @@ esttab, cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc)) m
 		nomtitle nonumber label collabels("Mean" "SD" "Min" "Max" "N" "Missings") ///
 		coeflabel(F518_SUF "Bruttoverdienst") 
 
-		
-		
+	
 esttab  using "${tex}/desc_miss.tex", ///
 		cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc)) miss(fmt(%13.0fc))") noobs ///
 		nomtitle nonumber label collabels("Mean" "SD" "Min" "Max" "N" "Missings")  ///
@@ -128,12 +127,25 @@ estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
 estadd mat miss
 estadd mat g2
 
-esttab, cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc)) miss(fmt(%13.0fc)) g2(fmt(%13.4fc))") noobs ///
-		nomtitle nonumber label collabels("Mean" "SD" "Min" "Max" "N" "Missings" "Gini") ///
-		coeflabel(F518_SUF "Bruttoverdienst") 
+esttab, cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc)) miss(fmt(%13.0fc)) g2(fmt(%13.4fc))") ///
+			noobs 	nomtitle nonumber ///
+			collabels("Mean" "SD" "Min" "Max" "N" "Missings" "Gini") ///
+			coeflabel(F518_SUF "Bruttoverdienst") 
 
+
+* ------------------------------------------ *
+* was passiert wenn wir matrix nicht umbenennen?
 		
+mdesc F518_SUF
+mat miss = r(miss) // matrix mit name miss erstellen
+mat l miss
+* mat colname miss = F518_SUF  // spalte umbenennen
+mat list miss
 
+estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
+estadd mat miss
+
+esttab, cells("mean sd min max count miss")
 
 
 
@@ -180,6 +192,8 @@ esttab, cells("count(fmt(%13.0fc)) m1(fmt(%13.0fc))")  noobs ///
 		
 * -------------------------------------------- *
 * Gruppenvergleich	
+tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd)
+
 estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd)
 estpost tabstat zpalter F518_SUF, by(S1) c(stat) stat(mean sd) nototal	
 

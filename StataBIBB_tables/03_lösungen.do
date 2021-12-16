@@ -26,9 +26,8 @@ esttab, cells("b(label(freq)) pct(fmt(2)) cumpct(fmt(2))") ///
 	nonumber nomtitle noobs ///
 	varlabels(`e(labels)') ///
 	collabels("N" "%" "kum. Anteil") ///
-	varwidth(4
-
-
+	varwidth(40)
+	
 * --------------------------------- *
 * 2
 * Erstellen Sie eine Kreuztabelle für `gkpol` und `mobil`. 
@@ -53,6 +52,18 @@ esttab, cell(colpct(fmt(%13.3fc))) unstack noobs collabels(none) nonumber nomtit
 esttab, cell(colpct(fmt(%13.3fc))) unstack noobs collabels(none) nonumber nomtitles ///
 		  varlabels(`e(labels)') varwidth(40) ///
 		  eqlabels(, lhs("Wohnortgröße"))  ///
+		  modelwidth(20) /// spaltenbreite
 		   mgroups("Interviewmodus" "", pattern(1 0 1)) /// Überschrift über spalten
 			title("Hier kann ein Titel stehen") /// titel
 			note("Und hier eine Notiz") // notiz
+			
+			
+esttab using "${word}/tab2.rtf", cell(colpct(fmt(%13.3fc))) unstack noobs collabels(none) nonumber nomtitles ///
+		  varlabels(`e(labels)') varwidth(40) ///
+		  eqlabels(, lhs("Wohnortgröße"))  ///
+		  modelwidth(20) /// spaltenbreite
+		   mgroups("Interviewmodus" "", pattern(1 0 1)) /// Überschrift über spalten
+			title("Hier kann ein Titel stehen") /// titel
+			note("Und hier eine Notiz") // notiz
+		
+			

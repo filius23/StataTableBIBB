@@ -18,11 +18,12 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 
 ## Excel-Export
 
-- `csv`
-- `nostar`
-- `scsv`
 
-Für den Excel-Export können wir einfach `using ...csv` nutzen. Für deutschsprachige Systeme empfiehlt sich dabei aber, statt `,` ein `;` als Spaltentrenner zu verwenden. Das können wir mit der Option `scsv` erreichen:
+Für den Excel-Export können wir einfach `using ...csv` nutzen. Für deutschsprachige Systeme empfiehlt sich dabei aber, statt `,` ein `;` als Spaltentrenner zu verwenden. Das können wir mit der Option `scsv` erreichen.
+
+- `csv` als Dateiendung produziert eine csv-Datei, die mit Excel geöffnet werden kann
+- `nostar` empfiehlt sich für den Excel-Export, da Sternchen in Excel häufig zu Problemen führen
+- `scsv`  `;` anstelle von `,` als Spaltenseparator
 
 ```{stata, eval = F}
 esttab mod* using "${results}\tabelle1.csv", cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") scsv

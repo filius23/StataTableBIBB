@@ -94,7 +94,7 @@ estpost tabstat zpalter F518_SUF az F1104, by(S1) c(stat) stat(mean sd) nototal
 
 
 esttab, cells(mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)) nostar  nonumber unstack ///
-  nomtitle nonote noobs label  ///
+  nomtitle nonote noobs  ///
    collabels(none)    ///
    eqlabels("Männer" "Frauen") /// 
    nomtitles ///
@@ -121,8 +121,8 @@ esttab, cells(mean(fmt(%10.3fc)) p50(fmt(%10.0fc)) sd(fmt(%13.3fc) par)) nostar 
 
 
 * Passen Sie die Syntax in `cells()` an, um die Werte neben- oder untereinander angezeigt zu bekommen.
-esttab, cells("mean(fmt(%10.3fc)) p50(fmt(%10.0fc)) sd(fmt(%13.3fc) par)") nostar  nonumber unstack ///
-   collabels(none) ///
+esttab, cells("mean(fmt(%10.3fc)) sd(fmt(%13.3fc) par)") nostar  nonumber unstack ///
+   collabels("Mean" "SD" "Mean" "SD") ///
   nomtitle nonote noobs label  ///
    eqlabels("Männer" "Frauen") /// 
     coeflabel(F518_SUF "Bruttoverdienst" zpalter "Alter" az "Wochenarbeitszeit" F1104 "Jahr des Schulabschlusses")

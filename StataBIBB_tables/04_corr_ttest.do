@@ -15,12 +15,40 @@ correlate zpalter F518_SUF F200
  
 estpost correlate zpalter F518_SUF F200, matrix
 
+esttab , unstack
 
-esttab ., not unstack compress noobs nonumber nomtitles ///
+esttab , not unstack compress noobs nonumber nomtitles ///
 		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
 		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
 		 varwidth(30) ///
 		 modelwidth(30)
+		 
+// entspricht:		 
+esttab , cells(b(fmt(4) star))   not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30) ///
+		 modelwidth(30)
+* ----- 
+* p-Werte mitaufnehmen:
+
+esttab , cells(b(fmt(4) star) p(fmt(%5.2f)))   not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30) ///
+		 modelwidth(30)
+
+//	 	 
+esttab , cells(b(fmt(4) star) p(fmt(%7.6f)))   not unstack compress noobs nonumber nomtitles ///
+		 varlabels(zpalter "(1) Alter" F518_SUF "(2) Bruttoeinkommen" F200 "(3) Wochenarbeitszeit") ///
+		 eqlabels("(1) Alter" "(2) Bruttoeinkommen" "(3) Wochenarbeitszeit") ///
+		 varwidth(30) ///
+		 modelwidth(30)
+  
+ 
+ 
+ 
+ 
  
  
  
@@ -68,6 +96,19 @@ esttab  using "${tex}/corrmat2.tex", not unstack compress noobs nonumber nomtitl
 		 replace booktabs ///
 		 title("Dies ist der Spearman-Rangkorrelationskoeffizient")
 		 
+
+* pwcorr
+correlate zpalter F518_SUF F200, matrix
+
+
+estpost pwcorr zpalter F518_SUF F200 , sig
+pwcorr zpalter F518_SUF F200 , sig
+ereturn list
+mat l r(C)
+mat l r(sig)
+
+
+esttab , unstack
 		 
 		 
 * ------------------------------------------------------------------------ *
@@ -75,7 +116,7 @@ esttab  using "${tex}/corrmat2.tex", not unstack compress noobs nonumber nomtitl
 
 ttest az, by(S1) unequal
 
-estpost ttest az F518_SUF, by(S1) unequal
+estpost ttest az, by(S1) unequal
 esttab, wide nonumber noobs
 
 
