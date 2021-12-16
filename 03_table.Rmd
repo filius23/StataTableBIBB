@@ -1,4 +1,4 @@
-# `table` {#tab} 
+# `tabulate` {#tab} 
 
 ```{r setup2, echo = F, message=F, warning = F}
 .libPaths("D:/R-library4")

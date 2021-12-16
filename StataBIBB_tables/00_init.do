@@ -21,6 +21,9 @@ estimates clear
 if ("`c(username)'" == "Filser") {
 	glo pfad 		"D:\oCloud\Home-Cloud\Lehre\BIBB\StataBIBB3"		// Projekt/Kursordner
 }
+* hier statt meinem den eigenen Projektordner angeben
+* glo pfad 		""		// Projekt/Kursordner
+
 glo data		"${pfad}/data"		// wo liegen die Datensätze?
 glo word		"${pfad}/word"		// Word-Ordner
 glo tex 		"${pfad}/tex"		// tex-Ordner
@@ -42,7 +45,7 @@ cd "${pfad}"
 
 * ------------------ *
 * clean data: label kürzen & missings raus
-
+* Daten in data-Verzeichnis
 use "${data}/BIBBBAuA_2018_suf1.0.dta", clear
 foreach i of varlist * {
 	local longlabel: var label `i'

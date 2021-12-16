@@ -9,6 +9,8 @@
 which estout // check versions
 which esttab // check version
 
+* statt installieren hier adopath setzen:
+adopath ++ "pfad/zu/adofiles"
 
 * ---------------- 
 * e() und r()

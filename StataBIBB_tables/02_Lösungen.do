@@ -12,6 +12,7 @@ use "${data}/BIBBBAuA_2018_suf1.0_clean.dta", clear
 * 1 Erstellen Sie eine Überblickstabelle für `F200` mit Min, Mean, SD, 1. Quartil (`p25`), Median, 3. Quartil (`p75`) und der Anzahl der Beobachtungen.
 
 tabstat F200, c(stat) stat(min mean sd max p25 p75 n) 
+estpost tabstat F200, c(stat) stat(min mean sd max p25 p75 n) 
 
 esttab, ///
 	cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%13.0fc)) max(fmt(%13.0fc)) count(fmt(%6.0fc))")  ///
@@ -19,12 +20,17 @@ esttab, ///
 	collabels("Mean" "SD" "Min" "Max" "N") ///
 	coeflabel(F200 "Wochenarbeitszeit")
 
+esttab using "tabelle2.rtf", ///
+	cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%13.0fc)) max(fmt(%13.0fc)) count(fmt(%6.0fc))")  ///
+	nonumber nomtitle nonote noobs label ///
+	collabels("Mean" "SD" "Min" "Max" "N") ///
+	coeflabel(F200 "Wochenarbeitszeit")	///
+	replace
+	
 * --------------------------------- *
 * 2 Ergänzen Sie die Tabelle von Übung 1 `F200` um `fastgini` - so kommen Sie an die abgelegte Info
 
 ssc install fastgini // falls nicht schon installiert
-fastgini F200
-return list
 
 tabstat F200, c(stat) stat(mean sd min max n)
 estpost tabstat F200, c(stat) stat(mean sd min max n)
@@ -32,12 +38,13 @@ estpost tabstat F200, c(stat) stat(mean sd min max n)
 
 fastgini F200
 return list
-
 // matrix Befehle
 mat gini = r(gini)
 mat l gini
 mat colname gini = F200
 mat list gini
+
+estpost tabstat F200, c(stat) stat(mean sd min max n)
 estadd mat gini
 
 esttab, cells("mean sd min max count gini")

@@ -10,6 +10,8 @@ do "01_init.do"
 * einlesen 
 use "${data}/BIBBBAuA_2018_suf1.0_clean.dta", clear
 
+su F518_SUF
+
 * ------------------ *
 * tabstat
 tabstat F518_SUF, c(var) stat(mean sd min max n) // wie orientiert?
@@ -20,7 +22,6 @@ estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
 esttab, cells("mean sd min max count")
 
 
-
 // Median hinzufügen braucht neues estpost:
 esttab, cells("mean p50 sd min max count")
 
@@ -28,16 +29,17 @@ esttab, cells("mean p50 sd min max count")
 estpost tabstat F518_SUF, c(stat) stat(mean p50 sd min max n)
 esttab, cells("mean p50 sd min max count")
 
-// formatierung - ohne Median, übersichtlicher
+// formatierung - übersichtlicher
 esttab, ///
 	cells("mean p50 sd min max count") ///
 	nonumber nomtitle noobs label 
 
 esttab, ///
 	cells("mean sd min max count") ///
-	nonumber nomtitle nonote noobs label ///
+	nonumber nomtitle nonote noobs ///
 	collabels("Mean" "SD" "Min" "Max" "N") ///
-	coeflabel(F518_SUF "Bruttoverdienst")
+	coeflabel(F518_SUF "Bruttoverdienst") ///
+	varwidth(20)
 		
 esttab, ///
 	cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%13.0fc)) max(fmt(%13.0fc)) count(fmt(%6.0fc))")  ///
@@ -76,7 +78,7 @@ esttab using "${tex}/tab1.tex", ///
 	
 * eigene Infos hinzufügen -----------------
 tabstat F518_SUF, c(stat) stat(mean sd min max n)
-estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
+
 
 estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
 mdesc F518_SUF
@@ -84,10 +86,12 @@ return list
 
 // matrix Befehle
 mat l r(miss) // :-( Fehler, da Skalar
-mat miss = r(miss)
+mat miss = r(miss) // matrix mit name miss erstellen
 mat l miss
-mat colname miss = F518_SUF
+mat colname miss = F518_SUF  // spalte umbenennen
 mat list miss
+
+estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
 estadd mat miss
 
 esttab, cells("mean sd min max count miss")
@@ -104,9 +108,35 @@ esttab  using "${tex}/desc_miss.tex", ///
 		booktabs replace
 
 		
-
+* gini & mdesc hinzufügen
 fastgini F518_SUF
 return list
+mat g2 = r(gini) // matrix mit name g2 erstellen
+mat l g2
+mat colname g2 = F518_SUF
+mat list g2
+
+mdesc F518_SUF
+return list
+mat miss = r(miss) // matrix mit name miss erstellen
+mat l miss
+mat colname miss = F518_SUF
+mat list miss
+
+
+estpost tabstat F518_SUF, c(stat) stat(mean sd min max n)
+estadd mat miss
+estadd mat g2
+
+esttab, cells("mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc)) miss(fmt(%13.0fc)) g2(fmt(%13.4fc))") noobs ///
+		nomtitle nonumber label collabels("Mean" "SD" "Min" "Max" "N" "Missings" "Gini") ///
+		coeflabel(F518_SUF "Bruttoverdienst") 
+
+		
+
+
+
+
 
 * ------------------------------------------ *
 * mehrere Variablen 
