@@ -18,13 +18,16 @@ esttab logm1, b se(%9.3f) eform // eform für Odds Ratios
 
 logit nt i.S1  if !missing(zpalter)
 est store logm1b
+
 logit nt i.S1 zpalter 
 est store logm2
 estadd lrtest logm1b
-esttab logm?, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p) 
 
 
-esttab logm?, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p)   pr2 aic bic
+esttab logm*, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p) 
+
+
+esttab logm*, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p)   pr2 aic bic
 
 
 * ------------------ *
@@ -32,8 +35,9 @@ esttab logm?, b se(%9.3f) scalars("lrtest_chi2  LRTest Chi²" lrtest_df lrtest_p
 
 est restore logm2
 margins, dydx(*)
-esttab logm?, b se(%9.3f) //?
+esttab, b se(%9.3f) //?
 
+// post-Option nötig
 margins, dydx(*) post
 est store mar_mod2
 esttab mar_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))") nonumbers 
@@ -47,17 +51,24 @@ esttab pred_mod2, cells("b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fm
 * ------------------ *
 * mixed
 xtmixed F518_SUF i.S1 ||Bula:
-est store mmodel
-*ereturn list
-*estadd mat e(N_g)
 esttab mmodel 
-esttab mmodel ,	transform(ln*: exp(@) exp(@))  ///
-     eqlabels("" "sd(week)" "sd(_cons)" "sd(Residual)", none) 
+est store mmodel
+esttab mmodel ,	transform(ln*: exp(@) exp(@)) 
 	 
 * ICC
 xtmixed F518_SUF i.S1 ||Bula:
+est store m1
 estat icc
-estadd scalar icc2 = r(icc2) // Use 'return list' to check for other scalars from 'estaticc' you might want
-esttab, se wide transform(ln*: exp(@) exp(@)) ///
+return list
+est restore m1
+estadd scalar icc2 = r(icc2) 
+esttab m1, se wide transform(ln*: exp(@) exp(@)) ///
     varwidth(13) scalars(icc2)	 
 	 
+	 
+* random slope 	 
+xtmixed F518_SUF i.S1 ||Bula:S1
+est store mmodel2
+esttab mmodel2
+esttab mmodel2 ,	transform(ln*: exp(@) exp(@)) 
+	 	 

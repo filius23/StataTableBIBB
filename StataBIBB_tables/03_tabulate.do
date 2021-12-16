@@ -100,7 +100,7 @@ esttab using "${tex}/crosstab.tex", cell(b) unstack noobs collabels(none) nonumb
 		eqlabels(, lhs("Ausbildungsabs.")) ///
 		mgroups("Gender" "", pattern(0 1 0) prefix(\multicolumn{2}{c}{) suffix(}) span erepeat(\cmidrule(lr){2-3})) /// Überschrift über spalten
 		title("Hier kann ein Titel stehen") /// titel
-		note("Und hier eine Notiz sogar mit: `x'") /// notiz
+		addnote("Und hier eine Notiz sogar mit: `x'") /// notiz
 		replace booktabs // latex optionen
 			
 

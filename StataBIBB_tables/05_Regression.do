@@ -7,16 +7,24 @@ do "01_init.do"
 * einlesen 
 use "${data}/BIBBBAuA_2018_suf1.0_clean.dta", clear
 
+sample 10
+
 * ------------------ *
 * Ein Regressionsmodell
 
 
 reg F518_SUF c.zpalter 	// einfaches Regressionsmodell
 estimates store reg1 	// Ergebnisse speichern
+// oder so:
+eststo reg2: reg F518_SUF zpalter 	// einfaches Regressionsmodell
+est dir
+
 ereturn list			// abrufbare Informationen
 
 // estimates Übersicht:
 est dir
+est restore reg1
+est replay reg1
 * est drop _all // alle raus
 
 
@@ -28,7 +36,7 @@ esttab reg1, b se(%9.3f) label // Formatierung, SE statt t + Variablen Labels
  * z, se, p, ci, beta (standardisierte Koeffizienten)
 
 
-esttab reg1, b se(%9.3f) stats(N  r2 ll F) // Modellkennzahlen angeben (volle Liste oben bei ereturn list)
+esttab reg1, b se(%9.3f) stats( r2 ll F N) // Modellkennzahlen angeben (volle Liste oben bei ereturn list)
 
 
 esttab reg1, b se(%9.3f) /// 
@@ -58,7 +66,7 @@ esttab reg1, b se(%9.3f) ///
 
 * neben- statt untereinander
 esttab reg1, b se(%9.3f) /// 
-	wide ///
+	wide /// nebeneinander stellen
 	stats(r2 N, fmt(%9.3f %9.0g) labels(R² Observations)) ///
 	coeflabel(zpalter "Alter" _cons "Konstante") ///
 	title(Modelltitel) 	///
@@ -90,6 +98,8 @@ esttab reg1, cells("b se(fmt(%9.3f)) ci_l(fmt(%9.2f)) ci_u(fmt(%9.2f)) p(fmt(%9.
 * kategoriale UV	
 reg F518_SUF i.S1
 estimates store reg2
+
+esttab reg2
 	
 esttab reg2,  b se(%9.3f)	///
 	coeflabel(1.S1 "Maenner" 2.S1 "Frauen" _cons "Konstante")
@@ -102,13 +112,15 @@ estimates store reg2b
 esttab reg2b,  b se(%9.3f)	///	
 	coeflabel(_IS1_2 "Frauen" _cons "Konstante") 
 
+	esttab reg2b
 esttab reg2b,  b se(%9.3f)	///	
 	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
 	refcat(_IS1_2 "Männer")	
 
 esttab reg2b,  b se(%9.3f)	///	
 	coeflabel(_IS1_2 "Frauen" _cons "Konstante") ///
-	refcat(_IS1_2 "Männer", label("Referenzkategorie") below)	
+	refcat(_IS1_2 "Männer", label("Referenzkategorie") below) ///
+	modelwidth(20)
 	
 
 
@@ -166,11 +178,11 @@ glo mod4 "c.zpalter##c.zpalter i.m1202"
 forval i = 1/4 {
 	quietly xi: reg F518_SUF i.S1 ${mod`i'}
 	est store regm`i'
-	estadd local note "${mod`i'}"
+	estadd local not11 "${mod`i'}"
 }
-esttab regm*,  b se(%9.3f) keep(_IS1_2) scalars("note Kontrollvariablen")
+esttab regm*,  b se(%9.3f) keep(_IS1_2) scalars("not11 Kontrollvariablen")
 
-esttab regm*,  b se(%9.3f) keep(_IS1_2) scalars("note Kontrollvariablen") ///
+esttab regm*,  b se(%9.3f) keep(_IS1_2) scalars("not11 Kontrollvariablen") ///
 	modelwidth(25) ///
 	coeflabel(_IS1_2 "Frauen") ///
 	refcat(_IS1_2 "Männer")
@@ -210,6 +222,7 @@ forvalues s = 1/2 {
 	estadd local note "Alter & Alter^2, Ausbildung"
 }
 
+est dir
 
 esttab reg_*, r2 
 

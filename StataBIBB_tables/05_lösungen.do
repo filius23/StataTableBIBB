@@ -60,9 +60,22 @@ est store m2
 esttab m2,  b se(%9.3f)	///	
 	coeflabel(_Imig01_1 "Migrationshintergrund" _cons "Konstante") ///
 	refcat(_Imig01_1 "kein Migrationshintergrund")	///
-	varwidth(30)
+	varwidth(30) ///
+	stats(r2 N, fmt(%9.4f %9.0fc) labels("R²" "Observations")) ///
+	star(+ 0.10 * 0.05 ** 0.01 *** 0.001 **** 0.0001) ///
+	nonumbers // Zahl oben ausblenden
 
+	
+xi: reg F518_SUF i.m1202
+est store m3
+esttab m3,  b se(%9.3f)	///	
+	coeflabel(_Im1202_2 "duale aus" _cons "Konstante") ///
+	refcat(_Im1202_2 "keine Aus.")	///
+	varwidth(30) ///
+	stats(r2 N, fmt(%9.4f %9.0fc) labels("R²" "Observations")) ///
+	nonumbers // Zahl oben ausblenden
 
+tab m1202
 * --------------------------------------- *
 * 3 Erstellen Sie ein Regressionsmodell, welches schrittweise mehrere Variablen aufnimmt:
 
@@ -105,13 +118,21 @@ esttab regmx*,  b se(%9.3f) ///
 *  Verwenden Sie die Modellserie von gerade eben (Übung 3), behalten Sie aber den Koeffizienten für das Geschlecht in ihrer Tabelle.
 *  Wie müssen Sie die Schleife für die Modellserie aus Übung 3 anpassen, um die Kontrollvariablen in einer Zeile unten einzufügen?
 
+est drop _all 
+
+glo mod1 " "
+glo mod2 "c.zpalter"
+glo mod3 "c.zpalter##c.zpalter"
+glo mod4 "c.zpalter##c.zpalter i.m1202"
+
+
 forval i = 1/4 {
 	xi: reg az i.S1 ${mod`i'}
 	est store regmx`i'
-	estadd local note "${mod`i'}"
+	estadd local no11 "${mod`i'}"
 }
 
-esttab regm*,  b se(%9.3f) keep(_IS1_2) scalars("note Kontrollvariablen") ///
+esttab regm*,  b se(%9.3f) keep(_IS1_2) scalars("no11 Kontrollvariablen") ///
 	modelwidth(25) ///
 	coeflabel(_IS1_2 "Frauen") ///
 	refcat(_IS1_2 "Männer")
