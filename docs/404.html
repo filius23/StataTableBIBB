@@ -24,7 +24,7 @@
 <meta name="author" content="Andreas Filser" />
 
 
-<meta name="date" content="2021-12-16" />
+<meta name="date" content="2022-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,8 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -213,11 +215,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="ml_log.html"><a href="ml_log.html#logit"><i class="fa fa-check"></i><b>6.1</b> <code>logit</code></a></li>
 <li class="chapter" data-level="6.2" data-path="ml_log.html"><a href="ml_log.html#mehrebenenmodelle"><i class="fa fa-check"></i><b>6.2</b> Mehrebenenmodelle</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="misc.html"><a href="misc.html"><i class="fa fa-check"></i><b>7</b> Weitere optionen</a>
+<li class="chapter" data-level="7" data-path="misc.html"><a href="misc.html"><i class="fa fa-check"></i><b>7</b> Weitere Optionen</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#estimates-store-auch-bei-estpost"><i class="fa fa-check"></i><b>7.1</b> estimates store auch bei <code>estpost</code></a></li>
+<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#estimates-store-auch-bei-estpost"><i class="fa fa-check"></i><b>7.1</b> <code>estimates store</code> auch bei <code>estpost</code></a></li>
 <li class="chapter" data-level="7.2" data-path="misc.html"><a href="misc.html#excel-export"><i class="fa fa-check"></i><b>7.2</b> Excel-Export</a></li>
-<li class="chapter" data-level="7.3" data-path="misc.html"><a href="misc.html#formatierungsoptionen"><i class="fa fa-check"></i><b>7.3</b> Formatierungsoptionen</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -305,6 +306,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

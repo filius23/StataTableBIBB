@@ -24,7 +24,7 @@
 <meta name="author" content="Andreas Filser" />
 
 
-<meta name="date" content="2021-12-16" />
+<meta name="date" content="2022-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,8 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -213,11 +215,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="ml_log.html"><a href="ml_log.html#logit"><i class="fa fa-check"></i><b>6.1</b> <code>logit</code></a></li>
 <li class="chapter" data-level="6.2" data-path="ml_log.html"><a href="ml_log.html#mehrebenenmodelle"><i class="fa fa-check"></i><b>6.2</b> Mehrebenenmodelle</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="misc.html"><a href="misc.html"><i class="fa fa-check"></i><b>7</b> Weitere optionen</a>
+<li class="chapter" data-level="7" data-path="misc.html"><a href="misc.html"><i class="fa fa-check"></i><b>7</b> Weitere Optionen</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#estimates-store-auch-bei-estpost"><i class="fa fa-check"></i><b>7.1</b> estimates store auch bei <code>estpost</code></a></li>
+<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#estimates-store-auch-bei-estpost"><i class="fa fa-check"></i><b>7.1</b> <code>estimates store</code> auch bei <code>estpost</code></a></li>
 <li class="chapter" data-level="7.2" data-path="misc.html"><a href="misc.html#excel-export"><i class="fa fa-check"></i><b>7.2</b> Excel-Export</a></li>
-<li class="chapter" data-level="7.3" data-path="misc.html"><a href="misc.html#formatierungsoptionen"><i class="fa fa-check"></i><b>7.3</b> Formatierungsoptionen</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -245,9 +246,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.1</span> <code>regression</code></h2>
 <p>Regressionstabellen sind wohl <em>der</em> Klassiker des Tabellenexports.</p>
 <p>Das grundsätzliche Vorgehen für das Erstellen von Regressionstabellen mit <code>esttab</code> ist etwas anders als bei den Deskriptionstabellen:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="reg.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> F518_SUF c.zpalter <span class="co">// einfaches Regressionsmodell</span></span>
-<span id="cb1-2"><a href="reg.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> reg1     <span class="co">// Ergebnisse speichern</span></span>
-<span id="cb1-3"><a href="reg.html#cb1-3" aria-hidden="true" tabindex="-1"></a>esttab reg1 <span class="co">// (ausgeblendet)</span></span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb91-1"><a href="reg.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> F518_SUF c.zpalter <span class="co">// einfaches Regressionsmodell</span></span>
+<span id="cb91-2"><a href="reg.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> reg1     <span class="co">// Ergebnisse speichern</span></span>
+<span id="cb91-3"><a href="reg.html#cb91-3" aria-hidden="true" tabindex="-1"></a>esttab reg1 <span class="co">// (ausgeblendet)</span></span></code></pre></div>
 <p>Mit <code>ereturn list</code> bekommen wir alle abrufbaren Informationen angezeigt:</p>
 <pre><code>      Source |       SS           df       MS      Number of obs   =    16,543
 -------------+----------------------------------   F(1, 16541)     =    105.36
@@ -305,7 +306,7 @@ Los geht’s:</p>
 </div>
 <div id="eine-tabelle-ein-modell" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Eine Tabelle, ein Modell</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb3-1"><a href="reg.html#cb3-1" aria-hidden="true" tabindex="-1"></a>esttab reg1 <span class="co">// Tabelle mit Standard-Einstellungen</span></span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb93-1"><a href="reg.html#cb93-1" aria-hidden="true" tabindex="-1"></a>esttab reg1 <span class="co">// Tabelle mit Standard-Einstellungen</span></span></code></pre></div>
 <pre><code>                      (1)   
                  F518_SUF   
 ----------------------------
@@ -328,7 +329,7 @@ Grundsätzlich können wir folgende Kennzahlen anfordern:
 + <code>p</code> p-Werte
 + <code>ci</code> 95%-Konfidenzintervalle
 + <code>beta</code> standardisierte Koeffizienten</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="reg.html#cb5-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="kw">label</span> <span class="co">// Formatierung, SE statt t + Variablen Labels</span></span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb95-1"><a href="reg.html#cb95-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="kw">label</span> <span class="co">// Formatierung, SE statt t + Variablen Labels</span></span></code></pre></div>
 <pre><code>                              (1)   
                      Wie hoch i~h   
 ------------------------------------
@@ -344,7 +345,7 @@ Standard errors in parentheses
 * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
 <p>Außerdem wollen wir in der Regel nicht nur die Fallzahl, sondern auch weitere Informationen zum Modell angeben.
 Dabei können wir auf die Liste, die wir vorhin bei <code>ereturn list</code> gesehen haben, zurückgreifen.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb7-1"><a href="reg.html#cb7-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="kw">stats</span>(<span class="kw">N</span>  r2 ll <span class="fu">F</span>) <span class="co">// Modellkennzahlen angeben (volle Liste oben bei ereturn list)</span></span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb97-1"><a href="reg.html#cb97-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="kw">stats</span>(<span class="kw">N</span>  r2 ll <span class="fu">F</span>) <span class="co">// Modellkennzahlen angeben (volle Liste oben bei ereturn list)</span></span></code></pre></div>
 <pre><code>                      (1)   
                  F518_SUF   
 ----------------------------
@@ -363,9 +364,9 @@ Standard errors in parentheses
 * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
 <p>Diese Informationen können wir natürlich auch labeln und formatieren wie wir es schon kennengelernt haben.
 Auch <code>coeflabel</code> funktioniert hier so wie bei <code>tabstat</code> zuvor:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb9-1"><a href="reg.html#cb9-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
-<span id="cb9-2"><a href="reg.html#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 r2_a <span class="kw">N</span>, fmt(%9.4f %9.4f %9.0fc) labels(<span class="st">&quot;R²&quot;</span> <span class="st">&quot;adj. R²&quot;</span> <span class="st">&quot;Observations&quot;</span>)) <span class="co">/// N und R² labeln</span></span>
-<span id="cb9-3"><a href="reg.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>)  <span class="co">// Koeffizienten links labeln</span></span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb99-1"><a href="reg.html#cb99-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
+<span id="cb99-2"><a href="reg.html#cb99-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 r2_a <span class="kw">N</span>, fmt(%9.4f %9.4f %9.0fc) labels(<span class="st">&quot;R²&quot;</span> <span class="st">&quot;adj. R²&quot;</span> <span class="st">&quot;Observations&quot;</span>)) <span class="co">/// N und R² labeln</span></span>
+<span id="cb99-3"><a href="reg.html#cb99-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>)  <span class="co">// Koeffizienten links labeln</span></span></code></pre></div>
 <pre><code>                      (1)   
                  F518_SUF   
 ----------------------------
@@ -384,13 +385,13 @@ Standard errors in parentheses
 <p>Außerdem können wir mit <code>mtitles</code> die Beschrifung anpassen und mit <code>nonumbers</code> die Zahl oben ausblenden.
 Mit <code>title</code> können wir einen Tabellentitel und mit <code>note</code> eine Notiz unten hinzufügen.
 Wenn wir mehrere Zeilen möchten, dann geben wir einfach <code>"Text in 1. Zeile" "Text in 2. Zeile"</code> an:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb11-1"><a href="reg.html#cb11-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
-<span id="cb11-2"><a href="reg.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
-<span id="cb11-3"><a href="reg.html#cb11-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
-<span id="cb11-4"><a href="reg.html#cb11-4" aria-hidden="true" tabindex="-1"></a>    mtitles(<span class="st">&quot;1. Modell&quot;</span>) <span class="co">/// </span></span>
-<span id="cb11-5"><a href="reg.html#cb11-5" aria-hidden="true" tabindex="-1"></a>    nonumbers <span class="co">///</span></span>
-<span id="cb11-6"><a href="reg.html#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="bn">title</span>(Tabellentitel)    <span class="co">/// Titel für die Tabelle</span></span>
-<span id="cb11-7"><a href="reg.html#cb11-7" aria-hidden="true" tabindex="-1"></a>    addnotes(<span class="st">&quot;erste Anmerkung&quot;</span> <span class="st">&quot;zweite Anmerkung darunter&quot;</span>) <span class="co">// Notizen ganz unten</span></span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb101-1"><a href="reg.html#cb101-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
+<span id="cb101-2"><a href="reg.html#cb101-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb101-3"><a href="reg.html#cb101-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb101-4"><a href="reg.html#cb101-4" aria-hidden="true" tabindex="-1"></a>    mtitles(<span class="st">&quot;1. Modell&quot;</span>) <span class="co">/// </span></span>
+<span id="cb101-5"><a href="reg.html#cb101-5" aria-hidden="true" tabindex="-1"></a>    nonumbers <span class="co">///</span></span>
+<span id="cb101-6"><a href="reg.html#cb101-6" aria-hidden="true" tabindex="-1"></a>    <span class="bn">title</span>(Tabellentitel)    <span class="co">/// Titel für die Tabelle</span></span>
+<span id="cb101-7"><a href="reg.html#cb101-7" aria-hidden="true" tabindex="-1"></a>    addnotes(<span class="st">&quot;erste Anmerkung&quot;</span> <span class="st">&quot;zweite Anmerkung darunter&quot;</span>) <span class="co">// Notizen ganz unten</span></span></code></pre></div>
 <pre><code>Tabellentitel
 ----------------------------
                 1. Modell   
@@ -409,10 +410,10 @@ erste Anmerkung
 zweite Anmerkung darunter
 * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
 <p>Auch Signifikanzsterne anpassen, mit <code>star()</code></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb13-1"><a href="reg.html#cb13-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
-<span id="cb13-2"><a href="reg.html#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
-<span id="cb13-3"><a href="reg.html#cb13-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
-<span id="cb13-4"><a href="reg.html#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">star</span>(+ 0.10 * 0.05 ** 0.01 *** 0.001 **** 0.0001)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb103-1"><a href="reg.html#cb103-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
+<span id="cb103-2"><a href="reg.html#cb103-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb103-3"><a href="reg.html#cb103-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb103-4"><a href="reg.html#cb103-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">star</span>(+ 0.10 * 0.05 ** 0.01 *** 0.001 **** 0.0001)</span></code></pre></div>
 <pre><code>                      (1)    
                  F518_SUF    
 -----------------------------
@@ -431,12 +432,12 @@ Standard errors in parentheses
 <div id="neben--statt-untereinander" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Neben- statt untereinander</h3>
 <p>Dafür steht uns <code>wide</code> zur Verfügung:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb15-1"><a href="reg.html#cb15-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
-<span id="cb15-2"><a href="reg.html#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">wide</span> <span class="co">///</span></span>
-<span id="cb15-3"><a href="reg.html#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
-<span id="cb15-4"><a href="reg.html#cb15-4" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
-<span id="cb15-5"><a href="reg.html#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="bn">title</span>(Modelltitel)  <span class="co">///</span></span>
-<span id="cb15-6"><a href="reg.html#cb15-6" aria-hidden="true" tabindex="-1"></a>    addnotes(<span class="st">&quot;erste Anmerkung&quot;</span> <span class="st">&quot;zweite Anmerkung darunter&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb105-1"><a href="reg.html#cb105-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, b se(%9.3f) <span class="co">/// </span></span>
+<span id="cb105-2"><a href="reg.html#cb105-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">wide</span> <span class="co">///</span></span>
+<span id="cb105-3"><a href="reg.html#cb105-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb105-4"><a href="reg.html#cb105-4" aria-hidden="true" tabindex="-1"></a>    coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb105-5"><a href="reg.html#cb105-5" aria-hidden="true" tabindex="-1"></a>    <span class="bn">title</span>(Modelltitel)  <span class="co">///</span></span>
+<span id="cb105-6"><a href="reg.html#cb105-6" aria-hidden="true" tabindex="-1"></a>    addnotes(<span class="st">&quot;erste Anmerkung&quot;</span> <span class="st">&quot;zweite Anmerkung darunter&quot;</span>)</span></code></pre></div>
 <pre><code>Modelltitel
 -----------------------------------------
                       (1)                
@@ -453,13 +454,13 @@ erste Anmerkung
 zweite Anmerkung darunter
 * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
 <p>Leider funktioniert das nicht für mehr als zwei Kennzahlen:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb17-1"><a href="reg.html#cb17-1" aria-hidden="true" tabindex="-1"></a>esttab reg1,b se(%9.3f) <span class="kw">ci</span>(%9.3f) <span class="kw">p</span>(%9.3f) <span class="co">/// </span></span>
-<span id="cb17-2"><a href="reg.html#cb17-2" aria-hidden="true" tabindex="-1"></a>            <span class="kw">wide</span> <span class="co">///</span></span>
-<span id="cb17-3"><a href="reg.html#cb17-3" aria-hidden="true" tabindex="-1"></a>            <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
-<span id="cb17-4"><a href="reg.html#cb17-4" aria-hidden="true" tabindex="-1"></a>            coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
-<span id="cb17-5"><a href="reg.html#cb17-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">star</span>(+ 0.10 * 0.05 ** 0.01 *** 0.001 **** 0.0001) <span class="co">///</span></span>
-<span id="cb17-6"><a href="reg.html#cb17-6" aria-hidden="true" tabindex="-1"></a>            <span class="bn">title</span>(Modelltitel)      <span class="co">///</span></span>
-<span id="cb17-7"><a href="reg.html#cb17-7" aria-hidden="true" tabindex="-1"></a>            addnotes(<span class="st">&quot;erste Anmerkung&quot;</span> <span class="st">&quot;zweite Anmerkung darunter&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb107-1"><a href="reg.html#cb107-1" aria-hidden="true" tabindex="-1"></a>esttab reg1,b se(%9.3f) <span class="kw">ci</span>(%9.3f) <span class="kw">p</span>(%9.3f) <span class="co">/// </span></span>
+<span id="cb107-2"><a href="reg.html#cb107-2" aria-hidden="true" tabindex="-1"></a>            <span class="kw">wide</span> <span class="co">///</span></span>
+<span id="cb107-3"><a href="reg.html#cb107-3" aria-hidden="true" tabindex="-1"></a>            <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb107-4"><a href="reg.html#cb107-4" aria-hidden="true" tabindex="-1"></a>            coeflabel(zpalter <span class="st">&quot;Alter&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb107-5"><a href="reg.html#cb107-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">star</span>(+ 0.10 * 0.05 ** 0.01 *** 0.001 **** 0.0001) <span class="co">///</span></span>
+<span id="cb107-6"><a href="reg.html#cb107-6" aria-hidden="true" tabindex="-1"></a>            <span class="bn">title</span>(Modelltitel)      <span class="co">///</span></span>
+<span id="cb107-7"><a href="reg.html#cb107-7" aria-hidden="true" tabindex="-1"></a>            addnotes(<span class="st">&quot;erste Anmerkung&quot;</span> <span class="st">&quot;zweite Anmerkung darunter&quot;</span>)</span></code></pre></div>
 <pre><code>only one allowed of z, se, p, ci, and aux()
 r(198);
 
@@ -467,8 +468,8 @@ end of do-file
 r(198);</code></pre>
 <p>Hier müssen wir dann auf <code>cells()</code> und <code>""</code> zurückgreifen.
 Mit <code>ci_l</code> und <code>ci_u</code> statt <code>ci</code> bekommen wir außerdem die untere und obere KI-Grenze in separaten Spalten angezeigt, was das Ganze etwas übersichtlicher macht:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb19-1"><a href="reg.html#cb19-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, cells(<span class="st">&quot;b se(fmt(%9.3f)) ci(fmt(%9.2f)) p(fmt(%9.3f))&quot;</span>)</span>
-<span id="cb19-2"><a href="reg.html#cb19-2" aria-hidden="true" tabindex="-1"></a>esttab reg1, cells(<span class="st">&quot;b se(fmt(%9.3f)) ci_l(fmt(%9.2f)) ci_u(fmt(%9.2f)) p(fmt(%9.3f))&quot;</span>) <span class="co">// Übersichtlicher: KIs aufteilen in zwei Spalten</span></span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb109-1"><a href="reg.html#cb109-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, cells(<span class="st">&quot;b se(fmt(%9.3f)) ci(fmt(%9.2f)) p(fmt(%9.3f))&quot;</span>)</span>
+<span id="cb109-2"><a href="reg.html#cb109-2" aria-hidden="true" tabindex="-1"></a>esttab reg1, cells(<span class="st">&quot;b se(fmt(%9.3f)) ci_l(fmt(%9.2f)) ci_u(fmt(%9.2f)) p(fmt(%9.3f))&quot;</span>) <span class="co">// Übersichtlicher: KIs aufteilen in zwei Spalten</span></span></code></pre></div>
 <pre><code>                      (1)                                       
                  F518_SUF                                       
                         b           se         ci95            p
@@ -491,8 +492,8 @@ _cons             2381.28      115.577      2154.74      2607.82        0.000
 N                   16543                                                    
 -----------------------------------------------------------------------------</code></pre>
 <p>Auch das können wir labeln - mit <code>collabels</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb21-1"><a href="reg.html#cb21-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, cells(<span class="st">&quot;b se(fmt(%9.3f)) ci_l(fmt(%9.2f)) ci_u(fmt(%9.2f)) p(fmt(%9.3f))&quot;</span>) <span class="co">///</span></span>
-<span id="cb21-2"><a href="reg.html#cb21-2" aria-hidden="true" tabindex="-1"></a>            collabels(<span class="st">&quot;B&quot;</span> <span class="st">&quot;SE&quot;</span> <span class="st">&quot;u.KI&quot;</span> <span class="st">&quot;o.KI&quot;</span> <span class="st">&quot;p&quot;</span>)       <span class="co">// labels</span></span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb111-1"><a href="reg.html#cb111-1" aria-hidden="true" tabindex="-1"></a>esttab reg1, cells(<span class="st">&quot;b se(fmt(%9.3f)) ci_l(fmt(%9.2f)) ci_u(fmt(%9.2f)) p(fmt(%9.3f))&quot;</span>) <span class="co">///</span></span>
+<span id="cb111-2"><a href="reg.html#cb111-2" aria-hidden="true" tabindex="-1"></a>            collabels(<span class="st">&quot;B&quot;</span> <span class="st">&quot;SE&quot;</span> <span class="st">&quot;u.KI&quot;</span> <span class="st">&quot;o.KI&quot;</span> <span class="st">&quot;p&quot;</span>)       <span class="co">// labels</span></span></code></pre></div>
 <pre><code>                      (1)                                                    
                  F518_SUF                                                    
                         B           SE         u.KI         o.KI            p
@@ -510,10 +511,10 @@ N                   16543
 <div id="kategoriale-unabhängige-variable" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> kategoriale unabhängige Variable</h2>
 <p>Für kategoriale unabhängige Variablen stellt sich noch die Herausforderung, dass wir die Referenzkategorie richtig angeben möchten.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="reg.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> F518_SUF i.S1</span>
-<span id="cb23-2"><a href="reg.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> reg2</span>
-<span id="cb23-3"><a href="reg.html#cb23-3" aria-hidden="true" tabindex="-1"></a>esttab reg2,  b se(%9.3f)   <span class="co">///</span></span>
-<span id="cb23-4"><a href="reg.html#cb23-4" aria-hidden="true" tabindex="-1"></a>    coeflabel(1.S1 <span class="st">&quot;Maenner&quot;</span> 2.S1 <span class="st">&quot;Frauen&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb113-1"><a href="reg.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> F518_SUF i.S1</span>
+<span id="cb113-2"><a href="reg.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> reg2</span>
+<span id="cb113-3"><a href="reg.html#cb113-3" aria-hidden="true" tabindex="-1"></a>esttab reg2,  b se(%9.3f)   <span class="co">///</span></span>
+<span id="cb113-4"><a href="reg.html#cb113-4" aria-hidden="true" tabindex="-1"></a>    coeflabel(1.S1 <span class="st">&quot;Maenner&quot;</span> 2.S1 <span class="st">&quot;Frauen&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>)</span></code></pre></div>
 <pre><code>                      (1)   
                  F518_SUF   
 ----------------------------
@@ -531,10 +532,10 @@ N                   16635
 Standard errors in parentheses
 * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
 <p>Um Referenzkategorie in der Tabelle kennzuzeichnen, muss die Regression mit <code>xi:</code> erstellt werden. Der Koeffizienten für <code>S1</code> = 2 ist dann <code>_IS1_2</code>:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb25-1"><a href="reg.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1</span>
-<span id="cb25-2"><a href="reg.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> reg2b</span>
-<span id="cb25-3"><a href="reg.html#cb25-3" aria-hidden="true" tabindex="-1"></a>esttab reg2b,  b se(%9.3f)  <span class="co">/// </span></span>
-<span id="cb25-4"><a href="reg.html#cb25-4" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb115-1"><a href="reg.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1</span>
+<span id="cb115-2"><a href="reg.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">store</span> reg2b</span>
+<span id="cb115-3"><a href="reg.html#cb115-3" aria-hidden="true" tabindex="-1"></a>esttab reg2b,  b se(%9.3f)  <span class="co">/// </span></span>
+<span id="cb115-4"><a href="reg.html#cb115-4" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>)</span></code></pre></div>
 <pre><code>                      (1)   
                  F518_SUF   
 ----------------------------
@@ -550,9 +551,9 @@ Standard errors in parentheses
 * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
 <p>Mit <code>refcat()</code> können wir jetzt eine Zeile in die Tabelle einfüge.
 Dazu geben wir die Variable an, überhalb derer die Zeile eingefügt werden soll (hier also <code>_IS1_2</code>) und den Text, der links in der Beschriftung angezeigt werden soll:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb27-1"><a href="reg.html#cb27-1" aria-hidden="true" tabindex="-1"></a>esttab reg2b,  b se(%9.3f)  <span class="co">/// </span></span>
-<span id="cb27-2"><a href="reg.html#cb27-2" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
-<span id="cb27-3"><a href="reg.html#cb27-3" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb117-1"><a href="reg.html#cb117-1" aria-hidden="true" tabindex="-1"></a>esttab reg2b,  b se(%9.3f)  <span class="co">/// </span></span>
+<span id="cb117-2"><a href="reg.html#cb117-2" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb117-3"><a href="reg.html#cb117-3" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span>)</span></code></pre></div>
 <pre><code>                      (1)   
                  F518_SUF   
 ----------------------------
@@ -570,9 +571,9 @@ Standard errors in parentheses
 * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
 <p>Mit <code>label("Referenzkategorie")</code> können wir <code>ref.</code> ersetzen.
 Mit <code>below</code> wird die Zeile unter der angegebenen Variable eingefügt.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb29-1"><a href="reg.html#cb29-1" aria-hidden="true" tabindex="-1"></a>esttab reg2b,  b se(%9.3f)  <span class="co">/// </span></span>
-<span id="cb29-2"><a href="reg.html#cb29-2" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
-<span id="cb29-3"><a href="reg.html#cb29-3" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span>, <span class="kw">label</span>(<span class="st">&quot;Referenzkategorie&quot;</span>) below)   </span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb119-1"><a href="reg.html#cb119-1" aria-hidden="true" tabindex="-1"></a>esttab reg2b,  b se(%9.3f)  <span class="co">/// </span></span>
+<span id="cb119-2"><a href="reg.html#cb119-2" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb119-3"><a href="reg.html#cb119-3" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span>, <span class="kw">label</span>(<span class="st">&quot;Referenzkategorie&quot;</span>) below)   </span></code></pre></div>
 <hr />
 <p><strong><a href="reg.html#reg2">Übung</a></strong></p>
 <hr />
@@ -588,16 +589,16 @@ Mit <code>est dir</code> bekommen wir eine Liste alle gespeicherten Ergebnisse a
 <code>estimates clear</code> löst alle Ergebnisse, <code>est drop name</code> nur das Modell <code>name</code>.</p>
 <p>Genestete Modelle lassen sich mit einer Schleife elegant erstellen.
 Wir können dafür in <code>global</code>s die Kontrollvariablen angeben und anschließend die Modelle nacheinander schätzen lassen.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb30-1"><a href="reg.html#cb30-1" aria-hidden="true" tabindex="-1"></a>glo mod1 <span class="st">&quot; &quot;</span></span>
-<span id="cb30-2"><a href="reg.html#cb30-2" aria-hidden="true" tabindex="-1"></a>glo mod2 <span class="st">&quot;c.zpalter&quot;</span></span>
-<span id="cb30-3"><a href="reg.html#cb30-3" aria-hidden="true" tabindex="-1"></a>glo mod3 <span class="st">&quot;c.zpalter##c.zpalter&quot;</span></span>
-<span id="cb30-4"><a href="reg.html#cb30-4" aria-hidden="true" tabindex="-1"></a>glo mod4 <span class="st">&quot;c.zpalter##c.zpalter i.m1202&quot;</span></span>
-<span id="cb30-5"><a href="reg.html#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="reg.html#cb30-6" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
-<span id="cb30-7"><a href="reg.html#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1 <span class="ot">${mod`i&#39;</span>}</span>
-<span id="cb30-8"><a href="reg.html#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regm<span class="ot">`i&#39;</span></span>
-<span id="cb30-9"><a href="reg.html#cb30-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb30-10"><a href="reg.html#cb30-10" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb120-1"><a href="reg.html#cb120-1" aria-hidden="true" tabindex="-1"></a>glo mod1 <span class="st">&quot; &quot;</span></span>
+<span id="cb120-2"><a href="reg.html#cb120-2" aria-hidden="true" tabindex="-1"></a>glo mod2 <span class="st">&quot;c.zpalter&quot;</span></span>
+<span id="cb120-3"><a href="reg.html#cb120-3" aria-hidden="true" tabindex="-1"></a>glo mod3 <span class="st">&quot;c.zpalter##c.zpalter&quot;</span></span>
+<span id="cb120-4"><a href="reg.html#cb120-4" aria-hidden="true" tabindex="-1"></a>glo mod4 <span class="st">&quot;c.zpalter##c.zpalter i.m1202&quot;</span></span>
+<span id="cb120-5"><a href="reg.html#cb120-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-6"><a href="reg.html#cb120-6" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
+<span id="cb120-7"><a href="reg.html#cb120-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1 <span class="ot">${mod`i&#39;</span>}</span>
+<span id="cb120-8"><a href="reg.html#cb120-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regm<span class="ot">`i&#39;</span></span>
+<span id="cb120-9"><a href="reg.html#cb120-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb120-10"><a href="reg.html#cb120-10" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f)</span></code></pre></div>
 <pre><code>                      (1)             (2)             (3)             (4)   
                  F518_SUF        F518_SUF        F518_SUF        F518_SUF   
 ----------------------------------------------------------------------------
@@ -627,18 +628,18 @@ N                   16635           16543           16543           16521
 Standard errors in parentheses
 * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
 <p>Auch hier lohnt sich aber natürlich etwas label-Arbeit:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb32-1"><a href="reg.html#cb32-1" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="co">///</span></span>
-<span id="cb32-2"><a href="reg.html#cb32-2" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span> <span class="co">///</span></span>
-<span id="cb32-3"><a href="reg.html#cb32-3" aria-hidden="true" tabindex="-1"></a>              c.zpalter#c.zpalter <span class="st">&quot;Alter²&quot;</span> <span class="co">///</span></span>
-<span id="cb32-4"><a href="reg.html#cb32-4" aria-hidden="true" tabindex="-1"></a>              _Im1202_2  <span class="st">&quot;dual/schul. Abs.&quot;</span> <span class="co">///    </span></span>
-<span id="cb32-5"><a href="reg.html#cb32-5" aria-hidden="true" tabindex="-1"></a>              _Im1202_3  <span class="st">&quot;Meister/Techniker&quot;</span> <span class="co">///</span></span>
-<span id="cb32-6"><a href="reg.html#cb32-6" aria-hidden="true" tabindex="-1"></a>              _Im1202_4  <span class="st">&quot;Hochschule/Uni&quot;</span> <span class="co">///</span></span>
-<span id="cb32-7"><a href="reg.html#cb32-7" aria-hidden="true" tabindex="-1"></a>              <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
-<span id="cb32-8"><a href="reg.html#cb32-8" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span> <span class="co">///</span></span>
-<span id="cb32-9"><a href="reg.html#cb32-9" aria-hidden="true" tabindex="-1"></a>           _Im1202_2 <span class="st">&quot;kein Abs.&quot;</span>)   <span class="co">///</span></span>
-<span id="cb32-10"><a href="reg.html#cb32-10" aria-hidden="true" tabindex="-1"></a>           nomtitle <span class="co">///</span></span>
-<span id="cb32-11"><a href="reg.html#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
-<span id="cb32-12"><a href="reg.html#cb32-12" aria-hidden="true" tabindex="-1"></a>    varwidth(20)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb122-1"><a href="reg.html#cb122-1" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="co">///</span></span>
+<span id="cb122-2"><a href="reg.html#cb122-2" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span> <span class="co">///</span></span>
+<span id="cb122-3"><a href="reg.html#cb122-3" aria-hidden="true" tabindex="-1"></a>              c.zpalter#c.zpalter <span class="st">&quot;Alter²&quot;</span> <span class="co">///</span></span>
+<span id="cb122-4"><a href="reg.html#cb122-4" aria-hidden="true" tabindex="-1"></a>              _Im1202_2  <span class="st">&quot;dual/schul. Abs.&quot;</span> <span class="co">///    </span></span>
+<span id="cb122-5"><a href="reg.html#cb122-5" aria-hidden="true" tabindex="-1"></a>              _Im1202_3  <span class="st">&quot;Meister/Techniker&quot;</span> <span class="co">///</span></span>
+<span id="cb122-6"><a href="reg.html#cb122-6" aria-hidden="true" tabindex="-1"></a>              _Im1202_4  <span class="st">&quot;Hochschule/Uni&quot;</span> <span class="co">///</span></span>
+<span id="cb122-7"><a href="reg.html#cb122-7" aria-hidden="true" tabindex="-1"></a>              <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb122-8"><a href="reg.html#cb122-8" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span> <span class="co">///</span></span>
+<span id="cb122-9"><a href="reg.html#cb122-9" aria-hidden="true" tabindex="-1"></a>           _Im1202_2 <span class="st">&quot;kein Abs.&quot;</span>)   <span class="co">///</span></span>
+<span id="cb122-10"><a href="reg.html#cb122-10" aria-hidden="true" tabindex="-1"></a>           nomtitle <span class="co">///</span></span>
+<span id="cb122-11"><a href="reg.html#cb122-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb122-12"><a href="reg.html#cb122-12" aria-hidden="true" tabindex="-1"></a>    varwidth(20)</span></code></pre></div>
 <pre><code>                              (1)             (2)             (3)             (4)   
 ------------------------------------------------------------------------------------
 Männer                       ref.            ref.            ref.            ref.   
@@ -678,8 +679,8 @@ Standard errors in parentheses
 <div id="nur-ein-koeffizient" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Nur ein Koeffizient</h2>
 <p>Manchmal möchten wir die Tabelle etwas entrümpeln und nur den interessierenden Koeffizienten behalten, das geht mit <code>keep()</code>:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb34-1"><a href="reg.html#cb34-1" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2)</span>
-<span id="cb34-2"><a href="reg.html#cb34-2" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2 zpalter) <span class="co">// mehrere mit Leerzeichen</span></span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb124-1"><a href="reg.html#cb124-1" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2)</span>
+<span id="cb124-2"><a href="reg.html#cb124-2" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2 zpalter) <span class="co">// mehrere mit Leerzeichen</span></span></code></pre></div>
 <pre><code>                      (1)             (2)             (3)             (4)   
                  F518_SUF        F518_SUF        F518_SUF        F518_SUF   
 ----------------------------------------------------------------------------
@@ -711,21 +712,21 @@ Da kann uns <code>estadd local</code> weiter helfen. Damit können wir einen Tex
 Wir erweitern unsere Schleife also und lassen sie nochmal laufen.
 Mit <code>scalars("note Kontrollvariablen")</code> werden die vorher abgelegten <code>note</code>s dann als Zeile <code>Kontrollvariablen</code> in der Tabelle angezeigt.
 Mit <code>modelwidth()</code> können wir die Breite der Spalten steuern.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb36-1"><a href="reg.html#cb36-1" aria-hidden="true" tabindex="-1"></a>glo mod1 <span class="st">&quot; &quot;</span></span>
-<span id="cb36-2"><a href="reg.html#cb36-2" aria-hidden="true" tabindex="-1"></a>glo mod2 <span class="st">&quot;c.zpalter&quot;</span></span>
-<span id="cb36-3"><a href="reg.html#cb36-3" aria-hidden="true" tabindex="-1"></a>glo mod3 <span class="st">&quot;c.zpalter##c.zpalter&quot;</span></span>
-<span id="cb36-4"><a href="reg.html#cb36-4" aria-hidden="true" tabindex="-1"></a>glo mod4 <span class="st">&quot;c.zpalter##c.zpalter i.m1202&quot;</span></span>
-<span id="cb36-5"><a href="reg.html#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="reg.html#cb36-6" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
-<span id="cb36-7"><a href="reg.html#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1 <span class="ot">${mod`i&#39;</span>}</span>
-<span id="cb36-8"><a href="reg.html#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regm<span class="ot">`i&#39;</span></span>
-<span id="cb36-9"><a href="reg.html#cb36-9" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;${mod`i&#39;}&quot;</span></span>
-<span id="cb36-10"><a href="reg.html#cb36-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb36-11"><a href="reg.html#cb36-11" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2) scalars(<span class="st">&quot;note Kontrollvariablen&quot;</span>)</span>
-<span id="cb36-12"><a href="reg.html#cb36-12" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2) scalars(<span class="st">&quot;note Kontrollvariablen&quot;</span>) <span class="co">///</span></span>
-<span id="cb36-13"><a href="reg.html#cb36-13" aria-hidden="true" tabindex="-1"></a>    modelwidth(25) <span class="co">///</span></span>
-<span id="cb36-14"><a href="reg.html#cb36-14" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span>) <span class="co">///</span></span>
-<span id="cb36-15"><a href="reg.html#cb36-15" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb126-1"><a href="reg.html#cb126-1" aria-hidden="true" tabindex="-1"></a>glo mod1 <span class="st">&quot; &quot;</span></span>
+<span id="cb126-2"><a href="reg.html#cb126-2" aria-hidden="true" tabindex="-1"></a>glo mod2 <span class="st">&quot;c.zpalter&quot;</span></span>
+<span id="cb126-3"><a href="reg.html#cb126-3" aria-hidden="true" tabindex="-1"></a>glo mod3 <span class="st">&quot;c.zpalter##c.zpalter&quot;</span></span>
+<span id="cb126-4"><a href="reg.html#cb126-4" aria-hidden="true" tabindex="-1"></a>glo mod4 <span class="st">&quot;c.zpalter##c.zpalter i.m1202&quot;</span></span>
+<span id="cb126-5"><a href="reg.html#cb126-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-6"><a href="reg.html#cb126-6" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
+<span id="cb126-7"><a href="reg.html#cb126-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1 <span class="ot">${mod`i&#39;</span>}</span>
+<span id="cb126-8"><a href="reg.html#cb126-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regm<span class="ot">`i&#39;</span></span>
+<span id="cb126-9"><a href="reg.html#cb126-9" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;${mod`i&#39;}&quot;</span></span>
+<span id="cb126-10"><a href="reg.html#cb126-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb126-11"><a href="reg.html#cb126-11" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2) scalars(<span class="st">&quot;note Kontrollvariablen&quot;</span>)</span>
+<span id="cb126-12"><a href="reg.html#cb126-12" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2) scalars(<span class="st">&quot;note Kontrollvariablen&quot;</span>) <span class="co">///</span></span>
+<span id="cb126-13"><a href="reg.html#cb126-13" aria-hidden="true" tabindex="-1"></a>    modelwidth(25) <span class="co">///</span></span>
+<span id="cb126-14"><a href="reg.html#cb126-14" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span>) <span class="co">///</span></span>
+<span id="cb126-15"><a href="reg.html#cb126-15" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span>)</span></code></pre></div>
 <pre><code>                      (1)             (2)             (3)             (4)   
                  F518_SUF        F518_SUF        F518_SUF        F518_SUF   
 ----------------------------------------------------------------------------
@@ -755,24 +756,24 @@ Standard errors in parentheses
 * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
 <p>Mit der <code>regex</code>-Funktion <code>ustrregexra("","Suchtext", "Ersetztext")</code> können wir aus den Variablenangaben auch noch sprechendere Bezeichnungen machen.
 Die Option <code>quietly</code> vor dem <code>reg</code>-Befehl unterdrückt die Standard-Regressionstabelle von Stata.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb38-1"><a href="reg.html#cb38-1" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
-<span id="cb38-2"><a href="reg.html#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">quietly</span> <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1 <span class="ot">${mod`i&#39;</span>}</span>
-<span id="cb38-3"><a href="reg.html#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regm<span class="ot">`i&#39;</span></span>
-<span id="cb38-4"><a href="reg.html#cb38-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb38-5"><a href="reg.html#cb38-5" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> <span class="st">&quot;${mod`i&#39;}&quot;</span></span>
-<span id="cb38-6"><a href="reg.html#cb38-6" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot;^\s&quot;</span>, <span class="st">&quot;-&quot;</span>) <span class="co">// ^\s = &quot;an Anfang Leerzeichen&quot;</span></span>
-<span id="cb38-7"><a href="reg.html#cb38-7" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot;c.zpalter##c.zpalter&quot;</span>, <span class="st">&quot;Alter &amp; Alter^2&quot;</span>) </span>
-<span id="cb38-8"><a href="reg.html#cb38-8" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot;c.zpalter&quot;</span>, <span class="st">&quot;Alter&quot;</span>)</span>
-<span id="cb38-9"><a href="reg.html#cb38-9" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot; i.m1202&quot;</span>, <span class="st">&quot;, Ausbildung&quot;</span>)</span>
-<span id="cb38-10"><a href="reg.html#cb38-10" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;`note&#39;&quot;</span></span>
-<span id="cb38-11"><a href="reg.html#cb38-11" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb38-12"><a href="reg.html#cb38-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-13"><a href="reg.html#cb38-13" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2) scalars(<span class="st">&quot;note Kontrollvariablen&quot;</span>) <span class="co">///</span></span>
-<span id="cb38-14"><a href="reg.html#cb38-14" aria-hidden="true" tabindex="-1"></a>    modelwidth(25) <span class="co">///</span></span>
-<span id="cb38-15"><a href="reg.html#cb38-15" aria-hidden="true" tabindex="-1"></a>    varwidth(17) <span class="co">///</span></span>
-<span id="cb38-16"><a href="reg.html#cb38-16" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span>) <span class="co">///</span></span>
-<span id="cb38-17"><a href="reg.html#cb38-17" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span>) <span class="co">///</span></span>
-<span id="cb38-18"><a href="reg.html#cb38-18" aria-hidden="true" tabindex="-1"></a>    nomtitle</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb128-1"><a href="reg.html#cb128-1" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
+<span id="cb128-2"><a href="reg.html#cb128-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">quietly</span> <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF i.S1 <span class="ot">${mod`i&#39;</span>}</span>
+<span id="cb128-3"><a href="reg.html#cb128-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regm<span class="ot">`i&#39;</span></span>
+<span id="cb128-4"><a href="reg.html#cb128-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb128-5"><a href="reg.html#cb128-5" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> <span class="st">&quot;${mod`i&#39;}&quot;</span></span>
+<span id="cb128-6"><a href="reg.html#cb128-6" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot;^\s&quot;</span>, <span class="st">&quot;-&quot;</span>) <span class="co">// ^\s = &quot;an Anfang Leerzeichen&quot;</span></span>
+<span id="cb128-7"><a href="reg.html#cb128-7" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot;c.zpalter##c.zpalter&quot;</span>, <span class="st">&quot;Alter &amp; Alter^2&quot;</span>) </span>
+<span id="cb128-8"><a href="reg.html#cb128-8" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot;c.zpalter&quot;</span>, <span class="st">&quot;Alter&quot;</span>)</span>
+<span id="cb128-9"><a href="reg.html#cb128-9" aria-hidden="true" tabindex="-1"></a>    loc <span class="kw">note</span> = ustrregexra(<span class="st">&quot;`note&#39;&quot;</span>,<span class="st">&quot; i.m1202&quot;</span>, <span class="st">&quot;, Ausbildung&quot;</span>)</span>
+<span id="cb128-10"><a href="reg.html#cb128-10" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;`note&#39;&quot;</span></span>
+<span id="cb128-11"><a href="reg.html#cb128-11" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb128-12"><a href="reg.html#cb128-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb128-13"><a href="reg.html#cb128-13" aria-hidden="true" tabindex="-1"></a>esttab regm*,  b se(%9.3f) <span class="kw">keep</span>(_IS1_2) scalars(<span class="st">&quot;note Kontrollvariablen&quot;</span>) <span class="co">///</span></span>
+<span id="cb128-14"><a href="reg.html#cb128-14" aria-hidden="true" tabindex="-1"></a>    modelwidth(25) <span class="co">///</span></span>
+<span id="cb128-15"><a href="reg.html#cb128-15" aria-hidden="true" tabindex="-1"></a>    varwidth(17) <span class="co">///</span></span>
+<span id="cb128-16"><a href="reg.html#cb128-16" aria-hidden="true" tabindex="-1"></a>    coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span>) <span class="co">///</span></span>
+<span id="cb128-17"><a href="reg.html#cb128-17" aria-hidden="true" tabindex="-1"></a>    refcat(_IS1_2 <span class="st">&quot;Männer&quot;</span>) <span class="co">///</span></span>
+<span id="cb128-18"><a href="reg.html#cb128-18" aria-hidden="true" tabindex="-1"></a>    nomtitle</span></code></pre></div>
 <pre><code>                                        (1)                          (2)                          (3)                          (4)   
 -------------------------------------------------------------------------------------------------------------------------------------
 Männer                                 ref.                         ref.                         ref.                         ref.   
@@ -792,17 +793,17 @@ Standard errors in parentheses
 <div id="mgroups" class="section level2" number="5.6">
 <h2><span class="header-section-number">5.6</span> mehrere Modellgruppen</h2>
 <p>Manchmal möchten wir auch getrennte Modelle nebeneinander stellen. Auch das geht natürlich. Hier also eine Schleife über die Werte <code>1</code> und <code>2</code> von <code>S1</code>, also getrennte Modelle für Männer und Frauen durch die Bedingung <code>if S1 == s</code> am Ende des <code>reg</code>-Befehls:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb40-1"><a href="reg.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> <span class="fu">s</span> = 1/2 {</span>
-<span id="cb40-2"><a href="reg.html#cb40-2" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb40-3"><a href="reg.html#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter <span class="kw">if</span> S1 == <span class="ot">`s&#39;</span></span>
-<span id="cb40-4"><a href="reg.html#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_1</span>
-<span id="cb40-5"><a href="reg.html#cb40-5" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2&quot;</span></span>
-<span id="cb40-6"><a href="reg.html#cb40-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-7"><a href="reg.html#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter i.m1202  <span class="kw">if</span> S1 == <span class="ot">`s&#39;</span></span>
-<span id="cb40-8"><a href="reg.html#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_2</span>
-<span id="cb40-9"><a href="reg.html#cb40-9" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2, Ausbildung&quot;</span></span>
-<span id="cb40-10"><a href="reg.html#cb40-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb40-11"><a href="reg.html#cb40-11" aria-hidden="true" tabindex="-1"></a>esttab reg_*</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb130-1"><a href="reg.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> <span class="fu">s</span> = 1/2 {</span>
+<span id="cb130-2"><a href="reg.html#cb130-2" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb130-3"><a href="reg.html#cb130-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter <span class="kw">if</span> S1 == <span class="ot">`s&#39;</span></span>
+<span id="cb130-4"><a href="reg.html#cb130-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_1</span>
+<span id="cb130-5"><a href="reg.html#cb130-5" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2&quot;</span></span>
+<span id="cb130-6"><a href="reg.html#cb130-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb130-7"><a href="reg.html#cb130-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter i.m1202  <span class="kw">if</span> S1 == <span class="ot">`s&#39;</span></span>
+<span id="cb130-8"><a href="reg.html#cb130-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_2</span>
+<span id="cb130-9"><a href="reg.html#cb130-9" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2, Ausbildung&quot;</span></span>
+<span id="cb130-10"><a href="reg.html#cb130-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb130-11"><a href="reg.html#cb130-11" aria-hidden="true" tabindex="-1"></a>esttab reg_*</span></code></pre></div>
 <pre><code>                      (1)             (2)             (3)             (4)   
                  F518_SUF        F518_SUF        F518_SUF        F518_SUF   
 ----------------------------------------------------------------------------
@@ -833,10 +834,10 @@ t statistics in parentheses
 * p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
 <p>Mit <code>mgroups</code> können wir dann mehrere Spalten überschreiben.
 <code>pattern</code> gibt dabei die Gruppierung an: <code>1</code> steht für “(nächstes) Label,” <code>0</code> für “unter vorheriges einordnen.”</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb42-1"><a href="reg.html#cb42-1" aria-hidden="true" tabindex="-1"></a>esttab reg_*, r2 <span class="co">///</span></span>
-<span id="cb42-2"><a href="reg.html#cb42-2" aria-hidden="true" tabindex="-1"></a>     mgroups(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>, pattern(1 0 1 0))</span>
-<span id="cb42-3"><a href="reg.html#cb42-3" aria-hidden="true" tabindex="-1"></a>esttab reg_*, r2 <span class="co">///</span></span>
-<span id="cb42-4"><a href="reg.html#cb42-4" aria-hidden="true" tabindex="-1"></a>     mgroups(<span class="st">&quot;&quot;</span> <span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>, pattern(1 1 0 1 ))</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb132-1"><a href="reg.html#cb132-1" aria-hidden="true" tabindex="-1"></a>esttab reg_*, r2 <span class="co">///</span></span>
+<span id="cb132-2"><a href="reg.html#cb132-2" aria-hidden="true" tabindex="-1"></a>     mgroups(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>, pattern(1 0 1 0))</span>
+<span id="cb132-3"><a href="reg.html#cb132-3" aria-hidden="true" tabindex="-1"></a>esttab reg_*, r2 <span class="co">///</span></span>
+<span id="cb132-4"><a href="reg.html#cb132-4" aria-hidden="true" tabindex="-1"></a>     mgroups(<span class="st">&quot;&quot;</span> <span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>, pattern(1 1 0 1 ))</span></code></pre></div>
 <pre><code>                   Männer                          Frauen                   
                       (1)             (2)             (3)             (4)   
                  F518_SUF        F518_SUF        F518_SUF        F518_SUF   
@@ -904,35 +905,35 @@ t statistics in parentheses
 <div id="einmal-mit-allem" class="section level2" number="5.7">
 <h2><span class="header-section-number">5.7</span> Einmal mit allem</h2>
 <p>All diese Formatierungen sind natürlich kombinierbar:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb44-1"><a href="reg.html#cb44-1" aria-hidden="true" tabindex="-1"></a>  glo mod1 <span class="st">&quot; &quot;</span></span>
-<span id="cb44-2"><a href="reg.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  glo mod2 <span class="st">&quot;c.zpalter&quot;</span></span>
-<span id="cb44-3"><a href="reg.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  glo mod3 <span class="st">&quot;c.zpalter##c.zpalter&quot;</span></span>
-<span id="cb44-4"><a href="reg.html#cb44-4" aria-hidden="true" tabindex="-1"></a>  glo mod4 <span class="st">&quot;c.zpalter##c.zpalter i.m1202&quot;</span></span>
-<span id="cb44-5"><a href="reg.html#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-6"><a href="reg.html#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">forvalues</span> <span class="fu">s</span> = 1/2 {</span>
-<span id="cb44-7"><a href="reg.html#cb44-7" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb44-8"><a href="reg.html#cb44-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter <span class="kw">if</span> S1 == <span class="ot">`s&#39;</span></span>
-<span id="cb44-9"><a href="reg.html#cb44-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_1</span>
-<span id="cb44-10"><a href="reg.html#cb44-10" aria-hidden="true" tabindex="-1"></a>        estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2&quot;</span></span>
-<span id="cb44-11"><a href="reg.html#cb44-11" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb44-12"><a href="reg.html#cb44-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">xi</span>:  <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter i.m1202  <span class="kw">if</span> S1 == <span class="ot">`s&#39;</span></span>
-<span id="cb44-13"><a href="reg.html#cb44-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_2</span>
-<span id="cb44-14"><a href="reg.html#cb44-14" aria-hidden="true" tabindex="-1"></a>        estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2, Ausbildung&quot;</span></span>
-<span id="cb44-15"><a href="reg.html#cb44-15" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb44-16"><a href="reg.html#cb44-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-17"><a href="reg.html#cb44-17" aria-hidden="true" tabindex="-1"></a>esttab reg_* , <span class="co">///</span></span>
-<span id="cb44-18"><a href="reg.html#cb44-18" aria-hidden="true" tabindex="-1"></a>        b se(%9.3f)  <span class="co">///</span></span>
-<span id="cb44-19"><a href="reg.html#cb44-19" aria-hidden="true" tabindex="-1"></a>        nomtitle <span class="co">///</span></span>
-<span id="cb44-20"><a href="reg.html#cb44-20" aria-hidden="true" tabindex="-1"></a>        coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span> <span class="co">///</span></span>
-<span id="cb44-21"><a href="reg.html#cb44-21" aria-hidden="true" tabindex="-1"></a>              c.zpalter#c.zpalter <span class="st">&quot;Alter²&quot;</span> <span class="co">///</span></span>
-<span id="cb44-22"><a href="reg.html#cb44-22" aria-hidden="true" tabindex="-1"></a>              _Im1202_2  <span class="st">&quot;dual/schul. Abs.&quot;</span> <span class="co">///    </span></span>
-<span id="cb44-23"><a href="reg.html#cb44-23" aria-hidden="true" tabindex="-1"></a>              _Im1202_3  <span class="st">&quot;Meister/Techniker&quot;</span> <span class="co">///</span></span>
-<span id="cb44-24"><a href="reg.html#cb44-24" aria-hidden="true" tabindex="-1"></a>              _Im1202_4  <span class="st">&quot;Hochschule/Uni&quot;</span> <span class="co">///</span></span>
-<span id="cb44-25"><a href="reg.html#cb44-25" aria-hidden="true" tabindex="-1"></a>              <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
-<span id="cb44-26"><a href="reg.html#cb44-26" aria-hidden="true" tabindex="-1"></a>        <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
-<span id="cb44-27"><a href="reg.html#cb44-27" aria-hidden="true" tabindex="-1"></a>    refcat(_Im1202_2 <span class="st">&quot;kein Abs.&quot;</span>) <span class="co">///</span></span>
-<span id="cb44-28"><a href="reg.html#cb44-28" aria-hidden="true" tabindex="-1"></a>     mgroups(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>, pattern(1 0 1 0)) <span class="co">///</span></span>
-<span id="cb44-29"><a href="reg.html#cb44-29" aria-hidden="true" tabindex="-1"></a>  varwidth(20)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb134-1"><a href="reg.html#cb134-1" aria-hidden="true" tabindex="-1"></a>  glo mod1 <span class="st">&quot; &quot;</span></span>
+<span id="cb134-2"><a href="reg.html#cb134-2" aria-hidden="true" tabindex="-1"></a>  glo mod2 <span class="st">&quot;c.zpalter&quot;</span></span>
+<span id="cb134-3"><a href="reg.html#cb134-3" aria-hidden="true" tabindex="-1"></a>  glo mod3 <span class="st">&quot;c.zpalter##c.zpalter&quot;</span></span>
+<span id="cb134-4"><a href="reg.html#cb134-4" aria-hidden="true" tabindex="-1"></a>  glo mod4 <span class="st">&quot;c.zpalter##c.zpalter i.m1202&quot;</span></span>
+<span id="cb134-5"><a href="reg.html#cb134-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-6"><a href="reg.html#cb134-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">forvalues</span> <span class="fu">s</span> = 1/2 {</span>
+<span id="cb134-7"><a href="reg.html#cb134-7" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb134-8"><a href="reg.html#cb134-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter <span class="kw">if</span> S1 == <span class="ot">`s&#39;</span></span>
+<span id="cb134-9"><a href="reg.html#cb134-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_1</span>
+<span id="cb134-10"><a href="reg.html#cb134-10" aria-hidden="true" tabindex="-1"></a>        estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2&quot;</span></span>
+<span id="cb134-11"><a href="reg.html#cb134-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb134-12"><a href="reg.html#cb134-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">xi</span>:  <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter i.m1202  <span class="kw">if</span> S1 == <span class="ot">`s&#39;</span></span>
+<span id="cb134-13"><a href="reg.html#cb134-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_2</span>
+<span id="cb134-14"><a href="reg.html#cb134-14" aria-hidden="true" tabindex="-1"></a>        estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2, Ausbildung&quot;</span></span>
+<span id="cb134-15"><a href="reg.html#cb134-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb134-16"><a href="reg.html#cb134-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-17"><a href="reg.html#cb134-17" aria-hidden="true" tabindex="-1"></a>esttab reg_* , <span class="co">///</span></span>
+<span id="cb134-18"><a href="reg.html#cb134-18" aria-hidden="true" tabindex="-1"></a>        b se(%9.3f)  <span class="co">///</span></span>
+<span id="cb134-19"><a href="reg.html#cb134-19" aria-hidden="true" tabindex="-1"></a>        nomtitle <span class="co">///</span></span>
+<span id="cb134-20"><a href="reg.html#cb134-20" aria-hidden="true" tabindex="-1"></a>        coeflabel(_IS1_2 <span class="st">&quot;Frauen&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span> <span class="co">///</span></span>
+<span id="cb134-21"><a href="reg.html#cb134-21" aria-hidden="true" tabindex="-1"></a>              c.zpalter#c.zpalter <span class="st">&quot;Alter²&quot;</span> <span class="co">///</span></span>
+<span id="cb134-22"><a href="reg.html#cb134-22" aria-hidden="true" tabindex="-1"></a>              _Im1202_2  <span class="st">&quot;dual/schul. Abs.&quot;</span> <span class="co">///    </span></span>
+<span id="cb134-23"><a href="reg.html#cb134-23" aria-hidden="true" tabindex="-1"></a>              _Im1202_3  <span class="st">&quot;Meister/Techniker&quot;</span> <span class="co">///</span></span>
+<span id="cb134-24"><a href="reg.html#cb134-24" aria-hidden="true" tabindex="-1"></a>              _Im1202_4  <span class="st">&quot;Hochschule/Uni&quot;</span> <span class="co">///</span></span>
+<span id="cb134-25"><a href="reg.html#cb134-25" aria-hidden="true" tabindex="-1"></a>              <span class="dt">_cons</span> <span class="st">&quot;Konstante&quot;</span>) <span class="co">///</span></span>
+<span id="cb134-26"><a href="reg.html#cb134-26" aria-hidden="true" tabindex="-1"></a>        <span class="kw">stats</span>(r2 <span class="kw">N</span>, fmt(%9.3f %9.0g) labels(R² Observations)) <span class="co">///</span></span>
+<span id="cb134-27"><a href="reg.html#cb134-27" aria-hidden="true" tabindex="-1"></a>    refcat(_Im1202_2 <span class="st">&quot;kein Abs.&quot;</span>) <span class="co">///</span></span>
+<span id="cb134-28"><a href="reg.html#cb134-28" aria-hidden="true" tabindex="-1"></a>     mgroups(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>, pattern(1 0 1 0)) <span class="co">///</span></span>
+<span id="cb134-29"><a href="reg.html#cb134-29" aria-hidden="true" tabindex="-1"></a>  varwidth(20)</span></code></pre></div>
 <pre><code>                           Männer                          Frauen                   
                               (1)             (2)             (3)             (4)   
 ------------------------------------------------------------------------------------
@@ -967,7 +968,7 @@ Standard errors in parentheses
 <ul>
 <li>Erstellen Sie ein bivariates Regressionsmodell mit <code>F518_SUF</code> als abhängiger und <code>az</code> als unabhängiger Variable.</li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb46-1"><a href="reg.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> F518_SUF az</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb136-1"><a href="reg.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> F518_SUF az</span></code></pre></div>
 <ul>
 <li>Speichern Sie die Ergebnisse mit <code>estimates store</code> und erstellen Sie eine Tabelle mit <code>esttab</code></li>
 <li>Wie können Sie die Standardfehler statt der t-Werte anzeigen lassen?</li>
@@ -983,8 +984,8 @@ Standard errors in parentheses
 <li>Erstellen Sie ein bivariates Regressionsmodell mit <code>F518_SUF</code> als abhängiger und <code>mig</code> als unabhängiger Variable.
 In <code>mig01</code> steht dann <code>0</code> für keinen Migrationshintergrund und <code>1</code> für Migrationshintergrund (siehe auch <code>01_init.do</code>):</li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb47-1"><a href="reg.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> mig01 = Mig != 0  <span class="kw">if</span> !<span class="fu">missing</span>(Mig)</span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb48-1"><a href="reg.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> F518_SUF i.mig01</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb137-1"><a href="reg.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> mig01 = Mig != 0  <span class="kw">if</span> !<span class="fu">missing</span>(Mig)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb138-1"><a href="reg.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="kw">reg</span> F518_SUF i.mig01</span></code></pre></div>
 <ul>
 <li>Erstellen Sie das Modell mit Hilfe von <code>xi</code> so, dass Sie die Referenzkategorie beschriften können.</li>
 <li>FÜgen Sie die Beschriftung für die Referenzkategorie ein.</li>
@@ -995,21 +996,21 @@ In <code>mig01</code> steht dann <code>0</code> für keinen Migrationshintergrun
 <ul>
 <li>Erstellen Sie ein Regressionsmodell, welches schrittweise mehrere Variablen aufnimmt:</li>
 </ul>
-<div class="sourceCode" id="cb49"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb49-1"><a href="reg.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="ot">dir</span> <span class="co">// liste alle gespeicherten Ergebnisse</span></span>
-<span id="cb49-2"><a href="reg.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">clear</span></span>
-<span id="cb49-3"><a href="reg.html#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-4"><a href="reg.html#cb49-4" aria-hidden="true" tabindex="-1"></a>glo mod1 <span class="st">&quot; &quot;</span></span>
-<span id="cb49-5"><a href="reg.html#cb49-5" aria-hidden="true" tabindex="-1"></a>glo mod2 <span class="st">&quot;c.zpalter&quot;</span></span>
-<span id="cb49-6"><a href="reg.html#cb49-6" aria-hidden="true" tabindex="-1"></a>glo mod3 <span class="st">&quot;c.zpalter##c.zpalter&quot;</span></span>
-<span id="cb49-7"><a href="reg.html#cb49-7" aria-hidden="true" tabindex="-1"></a>glo mod4 <span class="st">&quot;c.zpalter##c.zpalter i.m1202&quot;</span></span>
-<span id="cb49-8"><a href="reg.html#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-9"><a href="reg.html#cb49-9" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
-<span id="cb49-10"><a href="reg.html#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> az i.S1 <span class="ot">${mod`i&#39;</span>}</span>
-<span id="cb49-11"><a href="reg.html#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regmx<span class="ot">`i&#39;</span></span>
-<span id="cb49-12"><a href="reg.html#cb49-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb49-13"><a href="reg.html#cb49-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-14"><a href="reg.html#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="ot">dir</span></span>
-<span id="cb49-15"><a href="reg.html#cb49-15" aria-hidden="true" tabindex="-1"></a>esttab regmx*,  b se(%9.3f)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb139-1"><a href="reg.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="ot">dir</span> <span class="co">// liste alle gespeicherten Ergebnisse</span></span>
+<span id="cb139-2"><a href="reg.html#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estimates</span> <span class="kw">clear</span></span>
+<span id="cb139-3"><a href="reg.html#cb139-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-4"><a href="reg.html#cb139-4" aria-hidden="true" tabindex="-1"></a>glo mod1 <span class="st">&quot; &quot;</span></span>
+<span id="cb139-5"><a href="reg.html#cb139-5" aria-hidden="true" tabindex="-1"></a>glo mod2 <span class="st">&quot;c.zpalter&quot;</span></span>
+<span id="cb139-6"><a href="reg.html#cb139-6" aria-hidden="true" tabindex="-1"></a>glo mod3 <span class="st">&quot;c.zpalter##c.zpalter&quot;</span></span>
+<span id="cb139-7"><a href="reg.html#cb139-7" aria-hidden="true" tabindex="-1"></a>glo mod4 <span class="st">&quot;c.zpalter##c.zpalter i.m1202&quot;</span></span>
+<span id="cb139-8"><a href="reg.html#cb139-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-9"><a href="reg.html#cb139-9" aria-hidden="true" tabindex="-1"></a>forval i = 1/4 {</span>
+<span id="cb139-10"><a href="reg.html#cb139-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> az i.S1 <span class="ot">${mod`i&#39;</span>}</span>
+<span id="cb139-11"><a href="reg.html#cb139-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> regmx<span class="ot">`i&#39;</span></span>
+<span id="cb139-12"><a href="reg.html#cb139-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb139-13"><a href="reg.html#cb139-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-14"><a href="reg.html#cb139-14" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="ot">dir</span></span>
+<span id="cb139-15"><a href="reg.html#cb139-15" aria-hidden="true" tabindex="-1"></a>esttab regmx*,  b se(%9.3f)</span></code></pre></div>
 <ul>
 <li>Stellen Sie die Ergebnisse in einer Tabelle nebeneinander dar.</li>
 <li>Labeln Sie Variablen und wie oben gezeigt und verändern Sie die labels</li>
@@ -1027,17 +1028,17 @@ In <code>mig01</code> steht dann <code>0</code> für keinen Migrationshintergrun
 <ul>
 <li>Schätzen Sie getrennte Modelle für <code>mig01=0</code> und <code>mig01=1</code> mit den Kontrollvariablen aus Übung 3. Passen Sie also die Schleife von <a href="reg.html#mgroups">oben</a> an, sodass jeweils zwei Modelle für die Gruppen <code>mig01=0</code> und <code>mig01=1</code> geschätzt werden:</li>
 </ul>
-<div class="sourceCode" id="cb50"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb50-1"><a href="reg.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> <span class="fu">m</span> = 0/1 {</span>
-<span id="cb50-2"><a href="reg.html#cb50-2" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb50-3"><a href="reg.html#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter <span class="kw">if</span> mig01 == <span class="ot">`m&#39;</span></span>
-<span id="cb50-4"><a href="reg.html#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_1</span>
-<span id="cb50-5"><a href="reg.html#cb50-5" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2&quot;</span></span>
-<span id="cb50-6"><a href="reg.html#cb50-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb50-7"><a href="reg.html#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter i.m1202  <span class="kw">if</span> mig01 == <span class="ot">`m&#39;</span></span>
-<span id="cb50-8"><a href="reg.html#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_2</span>
-<span id="cb50-9"><a href="reg.html#cb50-9" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2, Ausbildung&quot;</span></span>
-<span id="cb50-10"><a href="reg.html#cb50-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb50-11"><a href="reg.html#cb50-11" aria-hidden="true" tabindex="-1"></a>esttab reg_*</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb140-1"><a href="reg.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="kw">forvalues</span> <span class="fu">m</span> = 0/1 {</span>
+<span id="cb140-2"><a href="reg.html#cb140-2" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb140-3"><a href="reg.html#cb140-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter <span class="kw">if</span> mig01 == <span class="ot">`m&#39;</span></span>
+<span id="cb140-4"><a href="reg.html#cb140-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_1</span>
+<span id="cb140-5"><a href="reg.html#cb140-5" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2&quot;</span></span>
+<span id="cb140-6"><a href="reg.html#cb140-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb140-7"><a href="reg.html#cb140-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">xi</span>: <span class="kw">reg</span> F518_SUF c.zpalter##c.zpalter i.m1202  <span class="kw">if</span> mig01 == <span class="ot">`m&#39;</span></span>
+<span id="cb140-8"><a href="reg.html#cb140-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">est</span> <span class="kw">store</span> reg_<span class="ot">`s&#39;</span>_2</span>
+<span id="cb140-9"><a href="reg.html#cb140-9" aria-hidden="true" tabindex="-1"></a>    estadd <span class="kw">local</span> <span class="kw">note</span> <span class="st">&quot;Alter &amp; Alter^2, Ausbildung&quot;</span></span>
+<span id="cb140-10"><a href="reg.html#cb140-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb140-11"><a href="reg.html#cb140-11" aria-hidden="true" tabindex="-1"></a>esttab reg_*</span></code></pre></div>
 <ul>
 <li>Fügen Sie jetzt Gruppenlabels ein und labeln Sie die Tabelle entsprechend der kennengelernten Optionen.</li>
 </ul>
@@ -1105,6 +1106,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

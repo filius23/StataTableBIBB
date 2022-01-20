@@ -1,4 +1,4 @@
-# Weitere optionen {#misc} 
+# Weitere Optionen {#misc} 
 
 ```{r setup7, echo = F, message=F, warning = F}
 .libPaths("D:/R-library4")
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(engine.path=list(stata=stataexe))
 ```
 
 
-## estimates store auch bei `estpost`
+## `estimates store` auch bei `estpost`
 
 Wir können auch die estimates aus einem `estpost` speichern, um sie später wieder aufzurufen - auch nach einem Befehl, der eigentlich `e()` überschreibt.
 
@@ -67,24 +67,24 @@ esttab mod* using "${results}\tabelle1.csv", cells("b(fmt(a3)) se(fmt(a3)) ci_l(
 
 
 
-## Formatierungsoptionen
+<!-- ## Formatierungsoptionen -->
 
- + `alignment(string)  set alignment within columns (LaTeX, HTML, RTF)`
+<!--  + `alignment(string)  set alignment within columns (LaTeX, HTML, RTF)` -->
 
-In LaTeX mode string should be a LaTeX column specifier. 
-The default is to center the columns. 
-To produce right-aligned columns, for example, type alignment(r). 
-If the table contains multiple columns per model/equation, the alignment specification should define all columns. 
-For example, if the wide option is specified, you could type alignment(cr) to, say, center the point estimates and right-align the t-statistics. Note that more sophisticated column definitions are often needed to produce appealing results. 
-In particular, LaTeX's dcolumn package proves useful to align columns on the decimal point.
-
-
-In RTF mode string should be one of l, c, r, and j. 
-The default is to center the columns. To produce right-aligned columns, for example, type alignment(r). 
-The same alignment is used for all columns if the table contains multiple columns per model/equation in the RTF mode.
+<!-- In LaTeX mode string should be a LaTeX column specifier.  -->
+<!-- The default is to center the columns.  -->
+<!-- To produce right-aligned columns, for example, type alignment(r).  -->
+<!-- If the table contains multiple columns per model/equation, the alignment specification should define all columns.  -->
+<!-- For example, if the wide option is specified, you could type alignment(cr) to, say, center the point estimates and right-align the t-statistics. Note that more sophisticated column definitions are often needed to produce appealing results.  -->
+<!-- In particular, LaTeX's dcolumn package proves useful to align columns on the decimal point. -->
 
 
-+ `fragment` 
+<!-- In RTF mode string should be one of l, c, r, and j.  -->
+<!-- The default is to center the columns. To produce right-aligned columns, for example, type alignment(r).  -->
+<!-- The same alignment is used for all columns if the table contains multiple columns per model/equation in the RTF mode. -->
+
+
+<!-- + `fragment`  -->
 
 <!-- ## Schriftart -->
 <!-- `fonttbl(string)    set custom font table (RTF)` -->

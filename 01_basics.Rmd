@@ -62,6 +62,7 @@ ereturn list
 ```
 
 Das Grundprinzip ist dann immer:
+
 (@) Auswertungsbefehl
 (@) Tabelle mit `esttab` erstellen
 
@@ -98,7 +99,7 @@ Grundsätzlich sind aber die Ergebnisse aus `e()` und `r()` alle in Tabellen mit
 
 ## Kurs-Setup
 
-```{r index_illustration, echo = F,out.width = "80%",fig.height= 3, fig.align="center"}
+```{r index_illustration01, echo = F,out.width = "80%",fig.height= 3, fig.align="center"}
 knitr::include_graphics("pics/01_pfade.png")
 ```
 

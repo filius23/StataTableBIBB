@@ -1,6 +1,6 @@
 # `tabulate` {#tab} 
 
-```{r setup2, echo = F, message=F, warning = F}
+```{r setup3, echo = F, message=F, warning = F}
 .libPaths("D:/R-library4")
 knitr::opts_chunk$set(collapse = TRUE)
 knitr::opts_chunk$set(dpi=800)

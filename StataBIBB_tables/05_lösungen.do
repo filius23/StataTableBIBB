@@ -132,8 +132,11 @@ forval i = 1/4 {
 	estadd local no11 "${mod`i'}"
 }
 
-esttab regm*,  b se(%9.3f) keep(_IS1_2) scalars("no11 Kontrollvariablen") ///
+eststo m4: mixed az i.S1 ${mod4} ||Bula:
+
+esttab regm* m4,  b se(%9.3f) keep(_IS1_2) scalars("no11 Kontrollvariablen") ///
 	modelwidth(25) ///
+	stats(N r2 model) ///
 	coeflabel(_IS1_2 "Frauen") ///
 	refcat(_IS1_2 "Männer")
 

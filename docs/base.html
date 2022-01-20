@@ -24,7 +24,7 @@
 <meta name="author" content="Andreas Filser" />
 
 
-<meta name="date" content="2021-12-16" />
+<meta name="date" content="2022-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,6 +53,8 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -165,7 +167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.8.2" data-path="desc.html"><a href="desc.html#w.dfc"><i class="fa fa-check"></i><b>2.8.2</b> %w.dfc</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="tab.html"><a href="tab.html"><i class="fa fa-check"></i><b>3</b> <code>table</code></a>
+<li class="chapter" data-level="3" data-path="tab.html"><a href="tab.html"><i class="fa fa-check"></i><b>3</b> <code>tabulate</code></a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="tab.html"><a href="tab.html#tab-x-one-way-frequency-table"><i class="fa fa-check"></i><b>3.1</b> <code>tab x</code>: One-way frequency table</a></li>
 <li class="chapter" data-level="3.2" data-path="tab.html"><a href="tab.html#tab-var1-var2-kontingenz-kreuztabelle"><i class="fa fa-check"></i><b>3.2</b> <code>tab var1 var2</code>: Kontingenz-/Kreuztabelle</a></li>
@@ -213,10 +215,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="ml_log.html"><a href="ml_log.html#logit"><i class="fa fa-check"></i><b>6.1</b> <code>logit</code></a></li>
 <li class="chapter" data-level="6.2" data-path="ml_log.html"><a href="ml_log.html#mehrebenenmodelle"><i class="fa fa-check"></i><b>6.2</b> Mehrebenenmodelle</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="misc.html"><a href="misc.html"><i class="fa fa-check"></i><b>7</b> Weitere optionen</a>
+<li class="chapter" data-level="7" data-path="misc.html"><a href="misc.html"><i class="fa fa-check"></i><b>7</b> Weitere Optionen</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#excel-export"><i class="fa fa-check"></i><b>7.1</b> Excel-Export</a></li>
-<li class="chapter" data-level="7.2" data-path="misc.html"><a href="misc.html#formatierungsoptionen"><i class="fa fa-check"></i><b>7.2</b> Formatierungsoptionen</a></li>
+<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#estimates-store-auch-bei-estpost"><i class="fa fa-check"></i><b>7.1</b> <code>estimates store</code> auch bei <code>estpost</code></a></li>
+<li class="chapter" data-level="7.2" data-path="misc.html"><a href="misc.html#excel-export"><i class="fa fa-check"></i><b>7.2</b> Excel-Export</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -298,9 +300,11 @@ matrices:
 
 functions:
              e(sample)   </code></pre>
-<p>Das Grundprinzip ist dann immer:
-(@) Auswertungsbefehl
-(@) Tabelle mit <code>esttab</code> erstellen</p>
+<p>Das Grundprinzip ist dann immer:</p>
+<ol class="example" style="list-style-type: decimal">
+<li>Auswertungsbefehl</li>
+<li>Tabelle mit <code>esttab</code> erstellen</li>
+</ol>
 <p>Die Matrizen können wir mit <code>matrix list</code>, die <code>Skalare</code> mit <code>scalar list</code> + Name aufrufen, unter <code>e(b)</code> sind beispielsweise die Koeffizienten abgelegt:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb6-1"><a href="base.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span> <span class="ot">list</span> <span class="fu">e</span>(b)</span></code></pre></div>
 <pre><code>e(b)[1,2]
@@ -396,6 +400,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

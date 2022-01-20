@@ -24,7 +24,7 @@
 <meta name="author" content="Andreas Filser" />
 
 
-<meta name="date" content="2021-12-16" />
+<meta name="date" content="2022-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,10 +215,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="ml_log.html"><a href="ml_log.html#logit"><i class="fa fa-check"></i><b>6.1</b> <code>logit</code></a></li>
 <li class="chapter" data-level="6.2" data-path="ml_log.html"><a href="ml_log.html#mehrebenenmodelle"><i class="fa fa-check"></i><b>6.2</b> Mehrebenenmodelle</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="misc.html"><a href="misc.html"><i class="fa fa-check"></i><b>7</b> Weitere optionen</a>
+<li class="chapter" data-level="7" data-path="misc.html"><a href="misc.html"><i class="fa fa-check"></i><b>7</b> Weitere Optionen</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#excel-export"><i class="fa fa-check"></i><b>7.1</b> Excel-Export</a></li>
-<li class="chapter" data-level="7.2" data-path="misc.html"><a href="misc.html#formatierungsoptionen"><i class="fa fa-check"></i><b>7.2</b> Formatierungsoptionen</a></li>
+<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#estimates-store-auch-bei-estpost"><i class="fa fa-check"></i><b>7.1</b> <code>estimates store</code> auch bei <code>estpost</code></a></li>
+<li class="chapter" data-level="7.2" data-path="misc.html"><a href="misc.html#excel-export"><i class="fa fa-check"></i><b>7.2</b> Excel-Export</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -245,7 +245,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="summary" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> <code>summary</code></h2>
 <p>Hier ein Bespielbefehl für die Berechnung des arith. Mittels, des Medians, der Varianz und des Varianzkoeffizienten mit <code>tabstat</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="desc.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span> zpalter</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb10-1"><a href="desc.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span> zpalter</span></code></pre></div>
 <pre><code>    Variable |        Obs        Mean    Std. Dev.       Min        Max
 -------------+---------------------------------------------------------
      zpalter |     19,836    47.19228    11.33762         15         87</code></pre>
@@ -397,14 +397,14 @@ Entspricht p25 p50 p75
 </tbody>
 </table>
 <p>Hier ein Bespielbefehl für die Berechnung des arith. Mittels, des Medians, der Varianz und des Varianzkoeffizienten mit <code>tabstat</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb3-1"><a href="desc.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> zpalter, <span class="fu">s</span>(<span class="kw">mean</span> <span class="kw">median</span> <span class="kw">var</span> cv) c(stat)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb12-1"><a href="desc.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">tabstat</span> zpalter, <span class="fu">s</span>(<span class="kw">mean</span> <span class="kw">median</span> <span class="kw">var</span> cv) c(stat)</span></code></pre></div>
 <pre><code>    variable |      mean        sd       min       max         N
 -------------+--------------------------------------------------
      zpalter |  47.19228  11.33762        15        87     19836
 ----------------------------------------------------------------</code></pre>
 <p>Für Deskriptionsbefehle müssen wir immer zuerst ein <code>estpost</code> voranstellen:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="desc.html#cb5-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> F518_SUF, c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
-<span id="cb5-2"><a href="desc.html#cb5-2" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean sd min max count&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb14-1"><a href="desc.html#cb14-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> F518_SUF, c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
+<span id="cb14-2"><a href="desc.html#cb14-2" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean sd min max count&quot;</span>)</span></code></pre></div>
 <pre><code>Summary statistics: mean sd min max count
      for variables: F518_SUF
 
@@ -423,7 +423,7 @@ F518_SUF         3532.109     3530.928            1        72000        16635
 N                   16635                                                    
 -----------------------------------------------------------------------------</code></pre>
 <p>Wenn wir jetzt den Median hinzufügen möchten, brauchen wir ein neues <code>estpost</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb7-1"><a href="desc.html#cb7-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean p50 sd min max count&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb16-1"><a href="desc.html#cb16-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean p50 sd min max count&quot;</span>)</span></code></pre></div>
 <pre><code>                      (1)                                                                 
                                                                                           
                      mean          p50           sd          min          max        count
@@ -433,8 +433,8 @@ F518_SUF         3532.109                  3530.928            1        72000   
 N                   16635                                                                 
 ------------------------------------------------------------------------------------------</code></pre>
 <p><code>tabstat</code> mit <code>p50</code> für Median:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb9-1"><a href="desc.html#cb9-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> F518_SUF, c(stat) stat(<span class="kw">mean</span> p50 <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
-<span id="cb9-2"><a href="desc.html#cb9-2" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean p50 sd min max count&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb18-1"><a href="desc.html#cb18-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> F518_SUF, c(stat) stat(<span class="kw">mean</span> p50 <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
+<span id="cb18-2"><a href="desc.html#cb18-2" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean p50 sd min max count&quot;</span>)</span></code></pre></div>
 <pre><code>Summary statistics: mean p50 sd min max count
      for variables: F518_SUF
 
@@ -460,9 +460,9 @@ Um das anzupassen, stehen uns eine ganze Reihe an Formatierungsbefehlen zur Verf
 <li><code>noobs</code> <span class="math inline">\(\Rightarrow\)</span> Beobachtungszahl unten ausblenden</li>
 <li><code>label</code> <span class="math inline">\(\Rightarrow\)</span> Variablenlaben verwenden</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb11-1"><a href="desc.html#cb11-1" aria-hidden="true" tabindex="-1"></a>esttab, <span class="co">///</span></span>
-<span id="cb11-2"><a href="desc.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean p50 sd min max count&quot;</span>) <span class="co">///</span></span>
-<span id="cb11-3"><a href="desc.html#cb11-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle <span class="kw">noobs</span> <span class="kw">label</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb20-1"><a href="desc.html#cb20-1" aria-hidden="true" tabindex="-1"></a>esttab, <span class="co">///</span></span>
+<span id="cb20-2"><a href="desc.html#cb20-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean p50 sd min max count&quot;</span>) <span class="co">///</span></span>
+<span id="cb20-3"><a href="desc.html#cb20-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle <span class="kw">noobs</span> <span class="kw">label</span></span></code></pre></div>
 <pre><code>                             mean          p50           sd          min          max        count
 --------------------------------------------------------------------------------------------------
 Wie hoch ist Ih          3532.109         3000     3530.928            1        72000        16635
@@ -470,22 +470,22 @@ Wie hoch ist Ih          3532.109         3000     3530.928            1        
 <p>Das label ist hier allerdings abgeschnitten, wäre aber die Frageformulierung.
 Stattdessen hätten wir gernen einen Variablennamen, dazu können wir mit <code>coeflabel()</code> den Variablennamen und in <code>""</code> ein Label angeben.
 Außerdem wollen wir die Spalten ansprechender beschriften, dazu geben wir mit <code>collabels</code> ebenfalls in <code>""</code> der Reihe nach Werte an:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb13-1"><a href="desc.html#cb13-1" aria-hidden="true" tabindex="-1"></a>esttab, <span class="co">///</span></span>
-<span id="cb13-2"><a href="desc.html#cb13-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean sd min max count&quot;</span>) <span class="co">///</span></span>
-<span id="cb13-3"><a href="desc.html#cb13-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
-<span id="cb13-4"><a href="desc.html#cb13-4" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Median&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
-<span id="cb13-5"><a href="desc.html#cb13-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb22-1"><a href="desc.html#cb22-1" aria-hidden="true" tabindex="-1"></a>esttab, <span class="co">///</span></span>
+<span id="cb22-2"><a href="desc.html#cb22-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean sd min max count&quot;</span>) <span class="co">///</span></span>
+<span id="cb22-3"><a href="desc.html#cb22-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
+<span id="cb22-4"><a href="desc.html#cb22-4" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Median&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
+<span id="cb22-5"><a href="desc.html#cb22-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>)</span></code></pre></div>
 <pre><code>                             Mean           SD       Median          Min          Max            N
 --------------------------------------------------------------------------------------------------
 Bruttoverdienst          3532.109         3000     3530.928            1        72000        16635
 --------------------------------------------------------------------------------------------------</code></pre>
 <p>Abschließend möchten wir noch die Kennzahlen formatieren.
 Dazu können wir auf die Zahlenformate in Stata zurückgreifen - <a href="desc.html#format">hier</a> eine kurze Erklärung dazu.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb15-1"><a href="desc.html#cb15-1" aria-hidden="true" tabindex="-1"></a>esttab, <span class="co">///</span></span>
-<span id="cb15-2"><a href="desc.html#cb15-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%13.0fc)) max(fmt(%13.0fc)) count(fmt(%6.0fc))&quot;</span>)  <span class="co">///</span></span>
-<span id="cb15-3"><a href="desc.html#cb15-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
-<span id="cb15-4"><a href="desc.html#cb15-4" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
-<span id="cb15-5"><a href="desc.html#cb15-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb24-1"><a href="desc.html#cb24-1" aria-hidden="true" tabindex="-1"></a>esttab, <span class="co">///</span></span>
+<span id="cb24-2"><a href="desc.html#cb24-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%13.0fc)) max(fmt(%13.0fc)) count(fmt(%6.0fc))&quot;</span>)  <span class="co">///</span></span>
+<span id="cb24-3"><a href="desc.html#cb24-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
+<span id="cb24-4"><a href="desc.html#cb24-4" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
+<span id="cb24-5"><a href="desc.html#cb24-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>)</span></code></pre></div>
 <pre><code>                             Mean           SD          Min          Max            N
 -------------------------------------------------------------------------------------
 Bruttoverdienst          3,532.11     3,530.93            1       72,000       16,635
@@ -496,33 +496,33 @@ Bruttoverdienst          3,532.11     3,530.93            1       72,000       1
 </div>
 <div id="export" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> export</h2>
-<div class="sourceCode" id="cb17"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb17-1"><a href="desc.html#cb17-1" aria-hidden="true" tabindex="-1"></a>esttab <span class="kw">using</span> <span class="st">&quot;${word}/tab1.rtf&quot;</span>, <span class="co">///</span></span>
-<span id="cb17-2"><a href="desc.html#cb17-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%4.0fc)) max(fmt(%4.0fc)) count(fmt(%4.0fc))&quot;</span>)  <span class="co">///</span></span>
-<span id="cb17-3"><a href="desc.html#cb17-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
-<span id="cb17-4"><a href="desc.html#cb17-4" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
-<span id="cb17-5"><a href="desc.html#cb17-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>) <span class="co">///</span></span>
-<span id="cb17-6"><a href="desc.html#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span></span>
-<span id="cb17-7"><a href="desc.html#cb17-7" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb17-8"><a href="desc.html#cb17-8" aria-hidden="true" tabindex="-1"></a>esttab <span class="kw">using</span> <span class="st">&quot;${tex}/tab1.tex&quot;</span>, <span class="co">///</span></span>
-<span id="cb17-9"><a href="desc.html#cb17-9" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%4.0fc)) max(fmt(%4.0fc)) count(fmt(%4.0fc))&quot;</span>)  <span class="co">///</span></span>
-<span id="cb17-10"><a href="desc.html#cb17-10" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
-<span id="cb17-11"><a href="desc.html#cb17-11" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
-<span id="cb17-12"><a href="desc.html#cb17-12" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>)  <span class="co">///</span></span>
-<span id="cb17-13"><a href="desc.html#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> booktabs</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb26-1"><a href="desc.html#cb26-1" aria-hidden="true" tabindex="-1"></a>esttab <span class="kw">using</span> <span class="st">&quot;${word}/tab1.rtf&quot;</span>, <span class="co">///</span></span>
+<span id="cb26-2"><a href="desc.html#cb26-2" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%4.0fc)) max(fmt(%4.0fc)) count(fmt(%4.0fc))&quot;</span>)  <span class="co">///</span></span>
+<span id="cb26-3"><a href="desc.html#cb26-3" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
+<span id="cb26-4"><a href="desc.html#cb26-4" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
+<span id="cb26-5"><a href="desc.html#cb26-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>) <span class="co">///</span></span>
+<span id="cb26-6"><a href="desc.html#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span></span>
+<span id="cb26-7"><a href="desc.html#cb26-7" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb26-8"><a href="desc.html#cb26-8" aria-hidden="true" tabindex="-1"></a>esttab <span class="kw">using</span> <span class="st">&quot;${tex}/tab1.tex&quot;</span>, <span class="co">///</span></span>
+<span id="cb26-9"><a href="desc.html#cb26-9" aria-hidden="true" tabindex="-1"></a>    cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min(fmt(%4.0fc)) max(fmt(%4.0fc)) count(fmt(%4.0fc))&quot;</span>)  <span class="co">///</span></span>
+<span id="cb26-10"><a href="desc.html#cb26-10" aria-hidden="true" tabindex="-1"></a>    nonumber nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span> <span class="co">///</span></span>
+<span id="cb26-11"><a href="desc.html#cb26-11" aria-hidden="true" tabindex="-1"></a>    collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
+<span id="cb26-12"><a href="desc.html#cb26-12" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>)  <span class="co">///</span></span>
+<span id="cb26-13"><a href="desc.html#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">replace</span> booktabs</span></code></pre></div>
 </div>
 <div id="zusätzliche-kennzahlen-hinzufügen" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> Zusätzliche Kennzahlen hinzufügen</h2>
 <p>Gelegentlich möchten wir aber unserer Tabelle auch noch weitere Kennzahlen hinzufügen, bspw. aus <code>mdesc</code> oder <code>fastgini</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb18-1"><a href="desc.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install mdesc</span>
-<span id="cb18-2"><a href="desc.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install fastgini</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb27-1"><a href="desc.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install mdesc</span>
+<span id="cb27-2"><a href="desc.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install fastgini</span></code></pre></div>
 <p>Dazu können wir die <code>estadd</code>-Funktion nutzen.
 Um eine neue Spalte mit der gewünschten Kennzahl zu erhalten, müssen wir <code>estadd matrix</code> verwenden.
 Deswegen müssen wir ein klein bisschen in die <code>matrix</code>-Welt von Stata eintauchen, um die Werte richtig hinzufügen zu können.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb19-1"><a href="desc.html#cb19-1" aria-hidden="true" tabindex="-1"></a>mdesc F518_SUF</span>
-<span id="cb19-2"><a href="desc.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span>
-<span id="cb19-3"><a href="desc.html#cb19-3" aria-hidden="true" tabindex="-1"></a>mat miss = <span class="fu">r</span>(miss)</span>
-<span id="cb19-4"><a href="desc.html#cb19-4" aria-hidden="true" tabindex="-1"></a>mat colname miss = F518_SUF</span>
-<span id="cb19-5"><a href="desc.html#cb19-5" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">list</span> miss</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb28-1"><a href="desc.html#cb28-1" aria-hidden="true" tabindex="-1"></a>mdesc F518_SUF</span>
+<span id="cb28-2"><a href="desc.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span>
+<span id="cb28-3"><a href="desc.html#cb28-3" aria-hidden="true" tabindex="-1"></a>mat miss = <span class="fu">r</span>(miss)</span>
+<span id="cb28-4"><a href="desc.html#cb28-4" aria-hidden="true" tabindex="-1"></a>mat colname miss = F518_SUF</span>
+<span id="cb28-5"><a href="desc.html#cb28-5" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">list</span> miss</span></code></pre></div>
 <pre><code>    Variable    |     Missing          Total     Percent Missing
 ----------------+-----------------------------------------------
        F518_SUF |       3,377         20,012          16.87
@@ -544,13 +544,13 @@ symmetric miss[1,1]
     F518_SUF
 r1      3377</code></pre>
 <p>Die so formatierte <span class="math inline">\(1x1\)</span> <code>matrix</code> können wir jetzt in unsere Tabelle einfügen, indem wir <code>estadd matrix miss</code> angeben:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb21-1"><a href="desc.html#cb21-1" aria-hidden="true" tabindex="-1"></a>estadd mat miss</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb30-1"><a href="desc.html#cb30-1" aria-hidden="true" tabindex="-1"></a>estadd mat miss</span></code></pre></div>
 <pre><code>added matrix:
                e(miss) :  1 x 1</code></pre>
 <p>Anschließend können wir die Tabelle mit <code>esttab</code> erstellen und die Information aus <code>mdesc</code> unter dem Namen der hinzugefügten <code>matrix</code> aufrufen:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="desc.html#cb23-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc)) miss(fmt(%13.0fc))&quot;</span>) <span class="co">///</span></span>
-<span id="cb23-2"><a href="desc.html#cb23-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">noobs</span> nomtitle nonumber <span class="kw">label</span> collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span> <span class="st">&quot;Missings&quot;</span>) <span class="co">///</span></span>
-<span id="cb23-3"><a href="desc.html#cb23-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb32-1"><a href="desc.html#cb32-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc)) miss(fmt(%13.0fc))&quot;</span>) <span class="co">///</span></span>
+<span id="cb32-2"><a href="desc.html#cb32-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">noobs</span> nomtitle nonumber <span class="kw">label</span> collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span> <span class="st">&quot;Missings&quot;</span>) <span class="co">///</span></span>
+<span id="cb32-3"><a href="desc.html#cb32-3" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span>) </span></code></pre></div>
 <pre><code>                             Mean           SD          Min          Max            N     Missings
 --------------------------------------------------------------------------------------------------
 Bruttoverdienst          3,532.11     3,530.93         1.00    72,000.00       16,635        3,377
@@ -562,10 +562,10 @@ Bruttoverdienst          3,532.11     3,530.93         1.00    72,000.00       1
 <div id="mehrere-variablen" class="section level2" number="2.5">
 <h2><span class="header-section-number">2.5</span> mehrere Variablen</h2>
 <p>Wir können natürlich auch mehrere Variablen in <code>tabstat</code> und damit in <code>esttab</code> aufnehmen:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb25-1"><a href="desc.html#cb25-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> zpalter F518_SUF, c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
-<span id="cb25-2"><a href="desc.html#cb25-2" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc))&quot;</span>) <span class="kw">noobs</span> <span class="co">///</span></span>
-<span id="cb25-3"><a href="desc.html#cb25-3" aria-hidden="true" tabindex="-1"></a>        nomtitle nonumber <span class="kw">label</span> collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
-<span id="cb25-4"><a href="desc.html#cb25-4" aria-hidden="true" tabindex="-1"></a>        coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb34-1"><a href="desc.html#cb34-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> zpalter F518_SUF, c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
+<span id="cb34-2"><a href="desc.html#cb34-2" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%13.2fc)) sd(fmt(%13.2fc)) min max count(fmt(%13.0fc))&quot;</span>) <span class="kw">noobs</span> <span class="co">///</span></span>
+<span id="cb34-3"><a href="desc.html#cb34-3" aria-hidden="true" tabindex="-1"></a>        nomtitle nonumber <span class="kw">label</span> collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Min&quot;</span> <span class="st">&quot;Max&quot;</span> <span class="st">&quot;N&quot;</span>) <span class="co">///</span></span>
+<span id="cb34-4"><a href="desc.html#cb34-4" aria-hidden="true" tabindex="-1"></a>        coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>) </span></code></pre></div>
 <pre><code>                             Mean           SD          Min          Max            N
 -------------------------------------------------------------------------------------
 Alter                       47.19        11.34        15.00        87.00       19,836
@@ -573,8 +573,8 @@ Bruttoverdienst          3,532.11     3,530.93         1.00    72,000.00       1
 -------------------------------------------------------------------------------------</code></pre>
 <p>Etwas tricky wird’s aber, wenn wir auch hier eigene Kennzahlen miteinfügen möchten.
 Die <code>r()</code>-Skalare für <code>mdesc</code> (und auch <code>fastgini</code>) geben uns nämlich nur den Wert für die <em>letzte</em> Variable aus:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb27-1"><a href="desc.html#cb27-1" aria-hidden="true" tabindex="-1"></a>mdesc zpalter F518_SUF</span>
-<span id="cb27-2"><a href="desc.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb36-1"><a href="desc.html#cb36-1" aria-hidden="true" tabindex="-1"></a>mdesc zpalter F518_SUF</span>
+<span id="cb36-2"><a href="desc.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span></code></pre></div>
 <pre><code>    Variable    |     Missing          Total     Percent Missing
 ----------------+-----------------------------------------------
         zpalter |         176         20,012           0.88
@@ -590,22 +590,22 @@ scalars:
 macros:
           r(miss_vars) : &quot;zpalter F518_SUF&quot;</code></pre>
 <p>Daher müssen wir uns hier mit einer Schleife helfen:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb29-1"><a href="desc.html#cb29-1" aria-hidden="true" tabindex="-1"></a>* <span class="fu">matrix</span> vorbereiten</span>
-<span id="cb29-2"><a href="desc.html#cb29-2" aria-hidden="true" tabindex="-1"></a>    glo x = <span class="st">&quot;zpalter F518_SUF&quot;</span> <span class="co">// auszuwertende Variablen</span></span>
-<span id="cb29-3"><a href="desc.html#cb29-3" aria-hidden="true" tabindex="-1"></a>    glo len: <span class="fu">word</span> <span class="fu">count</span> <span class="ot">${x}</span>    <span class="co">// wie viele sind es?</span></span>
-<span id="cb29-4"><a href="desc.html#cb29-4" aria-hidden="true" tabindex="-1"></a>    mat m1 = <span class="fu">J</span>(1,<span class="ot">${len}</span>,.)     <span class="co">// entsprechend lange Matrix erstellen J(Zeilen,Spalten,Inhalt)</span></span>
-<span id="cb29-5"><a href="desc.html#cb29-5" aria-hidden="true" tabindex="-1"></a>    mat colname m1 = <span class="ot">${x}</span>       <span class="co">// spalten schon mal richtig benennen</span></span>
-<span id="cb29-6"><a href="desc.html#cb29-6" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">list</span> m1                 <span class="co">// ansehen</span></span>
-<span id="cb29-7"><a href="desc.html#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-8"><a href="desc.html#cb29-8" aria-hidden="true" tabindex="-1"></a>* Schleife über die angegebenen Variablen</span>
-<span id="cb29-9"><a href="desc.html#cb29-9" aria-hidden="true" tabindex="-1"></a>    forval <span class="fu">y</span> = 1/<span class="ot">$len</span> {</span>
-<span id="cb29-10"><a href="desc.html#cb29-10" aria-hidden="true" tabindex="-1"></a>        loc v: dis  <span class="fu">word</span>(<span class="st">&quot;${x}&quot;</span>,<span class="ot">`y&#39;</span>) <span class="co">// y.tes Wort aus x in v ablegen</span></span>
-<span id="cb29-11"><a href="desc.html#cb29-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">display</span> <span class="st">&quot;`v&#39;&quot;</span>               <span class="co">// zur Kontrolle: v anzeigen</span></span>
-<span id="cb29-12"><a href="desc.html#cb29-12" aria-hidden="true" tabindex="-1"></a>        mdesc <span class="ot">`v&#39;</span>                   <span class="co">// missings in v berechnen</span></span>
-<span id="cb29-13"><a href="desc.html#cb29-13" aria-hidden="true" tabindex="-1"></a>        loc res_mat = <span class="fu">r</span>(miss)</span>
-<span id="cb29-14"><a href="desc.html#cb29-14" aria-hidden="true" tabindex="-1"></a>        mat m1[1,<span class="ot">`y&#39;</span>] = <span class="ot">`res_mat&#39;</span></span>
-<span id="cb29-15"><a href="desc.html#cb29-15" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb29-16"><a href="desc.html#cb29-16" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">l</span> m1</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb38-1"><a href="desc.html#cb38-1" aria-hidden="true" tabindex="-1"></a>* <span class="fu">matrix</span> vorbereiten</span>
+<span id="cb38-2"><a href="desc.html#cb38-2" aria-hidden="true" tabindex="-1"></a>    glo x = <span class="st">&quot;zpalter F518_SUF&quot;</span> <span class="co">// auszuwertende Variablen</span></span>
+<span id="cb38-3"><a href="desc.html#cb38-3" aria-hidden="true" tabindex="-1"></a>    glo len: <span class="fu">word</span> <span class="fu">count</span> <span class="ot">${x}</span>    <span class="co">// wie viele sind es?</span></span>
+<span id="cb38-4"><a href="desc.html#cb38-4" aria-hidden="true" tabindex="-1"></a>    mat m1 = <span class="fu">J</span>(1,<span class="ot">${len}</span>,.)     <span class="co">// entsprechend lange Matrix erstellen J(Zeilen,Spalten,Inhalt)</span></span>
+<span id="cb38-5"><a href="desc.html#cb38-5" aria-hidden="true" tabindex="-1"></a>    mat colname m1 = <span class="ot">${x}</span>       <span class="co">// spalten schon mal richtig benennen</span></span>
+<span id="cb38-6"><a href="desc.html#cb38-6" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">list</span> m1                 <span class="co">// ansehen</span></span>
+<span id="cb38-7"><a href="desc.html#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="desc.html#cb38-8" aria-hidden="true" tabindex="-1"></a>* Schleife über die angegebenen Variablen</span>
+<span id="cb38-9"><a href="desc.html#cb38-9" aria-hidden="true" tabindex="-1"></a>    forval <span class="fu">y</span> = 1/<span class="ot">$len</span> {</span>
+<span id="cb38-10"><a href="desc.html#cb38-10" aria-hidden="true" tabindex="-1"></a>        loc v: dis  <span class="fu">word</span>(<span class="st">&quot;${x}&quot;</span>,<span class="ot">`y&#39;</span>) <span class="co">// y.tes Wort aus x in v ablegen</span></span>
+<span id="cb38-11"><a href="desc.html#cb38-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">display</span> <span class="st">&quot;`v&#39;&quot;</span>               <span class="co">// zur Kontrolle: v anzeigen</span></span>
+<span id="cb38-12"><a href="desc.html#cb38-12" aria-hidden="true" tabindex="-1"></a>        mdesc <span class="ot">`v&#39;</span>                   <span class="co">// missings in v berechnen</span></span>
+<span id="cb38-13"><a href="desc.html#cb38-13" aria-hidden="true" tabindex="-1"></a>        loc res_mat = <span class="fu">r</span>(miss)</span>
+<span id="cb38-14"><a href="desc.html#cb38-14" aria-hidden="true" tabindex="-1"></a>        mat m1[1,<span class="ot">`y&#39;</span>] = <span class="ot">`res_mat&#39;</span></span>
+<span id="cb38-15"><a href="desc.html#cb38-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb38-16"><a href="desc.html#cb38-16" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">l</span> m1</span></code></pre></div>
 <pre><code>m1[1,2]
      zpalter  F518_SUF
 r1         .         .
@@ -628,11 +628,11 @@ m1[1,2]
      zpalter  F518_SUF
 r1       176      3377</code></pre>
 <p>…und dann können wir wieder zur gewohnten Routine zurück. <code>estpost</code> mit <code>quietly</code> unterdrückt den Output, den wir ja schon kennen.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb31-1"><a href="desc.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">quietly</span> estpost <span class="kw">tabstat</span> zpalter F518_SUF, c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
-<span id="cb31-2"><a href="desc.html#cb31-2" aria-hidden="true" tabindex="-1"></a>estadd mat m1</span>
-<span id="cb31-3"><a href="desc.html#cb31-3" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;count(fmt(%13.0fc)) m1(fmt(%13.0fc))&quot;</span>)  <span class="kw">noobs</span> <span class="co">///</span></span>
-<span id="cb31-4"><a href="desc.html#cb31-4" aria-hidden="true" tabindex="-1"></a>        nomtitle nonumber <span class="kw">label</span> collabels(<span class="st">&quot;N&quot;</span> <span class="st">&quot;Missings&quot;</span>) <span class="co">///</span></span>
-<span id="cb31-5"><a href="desc.html#cb31-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb40-1"><a href="desc.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">quietly</span> estpost <span class="kw">tabstat</span> zpalter F518_SUF, c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span> <span class="fu">min</span> <span class="fu">max</span> n)</span>
+<span id="cb40-2"><a href="desc.html#cb40-2" aria-hidden="true" tabindex="-1"></a>estadd mat m1</span>
+<span id="cb40-3"><a href="desc.html#cb40-3" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;count(fmt(%13.0fc)) m1(fmt(%13.0fc))&quot;</span>)  <span class="kw">noobs</span> <span class="co">///</span></span>
+<span id="cb40-4"><a href="desc.html#cb40-4" aria-hidden="true" tabindex="-1"></a>        nomtitle nonumber <span class="kw">label</span> collabels(<span class="st">&quot;N&quot;</span> <span class="st">&quot;Missings&quot;</span>) <span class="co">///</span></span>
+<span id="cb40-5"><a href="desc.html#cb40-5" aria-hidden="true" tabindex="-1"></a>    coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)</span></code></pre></div>
 <pre><code>                                N     Missings
 ----------------------------------------------
 Alter                      19,836          176
@@ -646,8 +646,8 @@ Bruttoverdienst            16,635        3,377
 <h2><span class="header-section-number">2.6</span> Gruppenvergleich</h2>
 <p>Mit <code>by(S1)</code> bekommen wir einen Gruppenvergleich - hier zwischen Männern und Frauen.
 Die Option <code>nototal</code> unterdrückt dabei die <code>total</code>-Angabe</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb33-1"><a href="desc.html#cb33-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> zpalter F518_SUF, <span class="kw">by</span>(S1) c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span>)</span>
-<span id="cb33-2"><a href="desc.html#cb33-2" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> zpalter F518_SUF, <span class="kw">by</span>(S1) c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span>) <span class="kw">nototal</span>  </span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb42-1"><a href="desc.html#cb42-1" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> zpalter F518_SUF, <span class="kw">by</span>(S1) c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span>)</span>
+<span id="cb42-2"><a href="desc.html#cb42-2" aria-hidden="true" tabindex="-1"></a>estpost <span class="kw">tabstat</span> zpalter F518_SUF, <span class="kw">by</span>(S1) c(stat) stat(<span class="kw">mean</span> <span class="fu">sd</span>) <span class="kw">nototal</span>  </span></code></pre></div>
 <pre><code>Summary statistics: mean sd
      for variables: zpalter F518_SUF
   by categories of: S1
@@ -681,12 +681,12 @@ weiblich     |
      zpalter |  47.90402   10.71604 
     F518_SUF |  2800.926   2852.935 </code></pre>
 <p>Mit <code>par</code> bekommen wir den entsprechenden Wert in Klammern angezeigt:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb35-1"><a href="desc.html#cb35-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="kw">mean</span>(fmt(%10.1fc)) <span class="fu">sd</span>(fmt(%13.3fc) par)) nostar  nonumber unstack <span class="co">///</span></span>
-<span id="cb35-2"><a href="desc.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  nomtitle nonote <span class="kw">noobs</span>  <span class="co">///</span></span>
-<span id="cb35-3"><a href="desc.html#cb35-3" aria-hidden="true" tabindex="-1"></a>   collabels(<span class="kw">none</span>)  <span class="co">///</span></span>
-<span id="cb35-4"><a href="desc.html#cb35-4" aria-hidden="true" tabindex="-1"></a>   eqlabels(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>) <span class="co">/// </span></span>
-<span id="cb35-5"><a href="desc.html#cb35-5" aria-hidden="true" tabindex="-1"></a>   nomtitles <span class="co">///</span></span>
-<span id="cb35-6"><a href="desc.html#cb35-6" aria-hidden="true" tabindex="-1"></a>   coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb44-1"><a href="desc.html#cb44-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="kw">mean</span>(fmt(%10.1fc)) <span class="fu">sd</span>(fmt(%13.3fc) par)) nostar  nonumber unstack <span class="co">///</span></span>
+<span id="cb44-2"><a href="desc.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  nomtitle nonote <span class="kw">noobs</span>  <span class="co">///</span></span>
+<span id="cb44-3"><a href="desc.html#cb44-3" aria-hidden="true" tabindex="-1"></a>   collabels(<span class="kw">none</span>)  <span class="co">///</span></span>
+<span id="cb44-4"><a href="desc.html#cb44-4" aria-hidden="true" tabindex="-1"></a>   eqlabels(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>) <span class="co">/// </span></span>
+<span id="cb44-5"><a href="desc.html#cb44-5" aria-hidden="true" tabindex="-1"></a>   nomtitles <span class="co">///</span></span>
+<span id="cb44-6"><a href="desc.html#cb44-6" aria-hidden="true" tabindex="-1"></a>   coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)</span></code></pre></div>
 <pre><code>                   Männer       Frauen
 --------------------------------------
 Alter                46.5         47.9
@@ -695,12 +695,12 @@ Bruttoverd~t      4,232.7      2,800.9
               (3,951.324)  (2,852.935)
 --------------------------------------</code></pre>
 <p>Um die in <code>cells()</code> angegebenen Werte in eine Zeile zu bringen, müssen wir sie in <code>""</code> setzen.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb37-1"><a href="desc.html#cb37-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)&quot;</span>) nostar  nonumber unstack <span class="co">///</span></span>
-<span id="cb37-2"><a href="desc.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span>  <span class="co">///</span></span>
-<span id="cb37-3"><a href="desc.html#cb37-3" aria-hidden="true" tabindex="-1"></a>   collabels(<span class="kw">none</span>)  <span class="co">///</span></span>
-<span id="cb37-4"><a href="desc.html#cb37-4" aria-hidden="true" tabindex="-1"></a>   eqlabels(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>) <span class="co">/// </span></span>
-<span id="cb37-5"><a href="desc.html#cb37-5" aria-hidden="true" tabindex="-1"></a>   nomtitles <span class="co">///</span></span>
-<span id="cb37-6"><a href="desc.html#cb37-6" aria-hidden="true" tabindex="-1"></a>   coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)   </span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb46-1"><a href="desc.html#cb46-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)&quot;</span>) nostar  nonumber unstack <span class="co">///</span></span>
+<span id="cb46-2"><a href="desc.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span>  <span class="co">///</span></span>
+<span id="cb46-3"><a href="desc.html#cb46-3" aria-hidden="true" tabindex="-1"></a>   collabels(<span class="kw">none</span>)  <span class="co">///</span></span>
+<span id="cb46-4"><a href="desc.html#cb46-4" aria-hidden="true" tabindex="-1"></a>   eqlabels(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>) <span class="co">/// </span></span>
+<span id="cb46-5"><a href="desc.html#cb46-5" aria-hidden="true" tabindex="-1"></a>   nomtitles <span class="co">///</span></span>
+<span id="cb46-6"><a href="desc.html#cb46-6" aria-hidden="true" tabindex="-1"></a>   coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)   </span></code></pre></div>
 <pre><code>                           Männer                    Frauen             
 ------------------------------------------------------------------------
 Alter                        46.5     (11.877)         47.9     (10.716)
@@ -708,12 +708,12 @@ Alter                        46.5     (11.877)         47.9     (10.716)
 Bruttoverdienst           4,232.7  (3,951.324)      2,800.9  (2,852.935)
 ------------------------------------------------------------------------</code></pre>
 <p>Mit <code>collabels()</code> können wir die Werte auch beschriften.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb39-1"><a href="desc.html#cb39-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)&quot;</span>) nostar  nonumber unstack <span class="co">///</span></span>
-<span id="cb39-2"><a href="desc.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span>  <span class="co">///</span></span>
-<span id="cb39-3"><a href="desc.html#cb39-3" aria-hidden="true" tabindex="-1"></a>   collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span>) <span class="co">///</span></span>
-<span id="cb39-4"><a href="desc.html#cb39-4" aria-hidden="true" tabindex="-1"></a>   eqlabels(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>) <span class="co">/// </span></span>
-<span id="cb39-5"><a href="desc.html#cb39-5" aria-hidden="true" tabindex="-1"></a>   nomtitles <span class="co">///</span></span>
-<span id="cb39-6"><a href="desc.html#cb39-6" aria-hidden="true" tabindex="-1"></a>   coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)   </span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb48-1"><a href="desc.html#cb48-1" aria-hidden="true" tabindex="-1"></a>esttab, cells(<span class="st">&quot;mean(fmt(%10.1fc)) sd(fmt(%13.3fc) par)&quot;</span>) nostar  nonumber unstack <span class="co">///</span></span>
+<span id="cb48-2"><a href="desc.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  nomtitle nonote <span class="kw">noobs</span> <span class="kw">label</span>  <span class="co">///</span></span>
+<span id="cb48-3"><a href="desc.html#cb48-3" aria-hidden="true" tabindex="-1"></a>   collabels(<span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span> <span class="st">&quot;Mean&quot;</span> <span class="st">&quot;SD&quot;</span>) <span class="co">///</span></span>
+<span id="cb48-4"><a href="desc.html#cb48-4" aria-hidden="true" tabindex="-1"></a>   eqlabels(<span class="st">&quot;Männer&quot;</span> <span class="st">&quot;Frauen&quot;</span>) <span class="co">/// </span></span>
+<span id="cb48-5"><a href="desc.html#cb48-5" aria-hidden="true" tabindex="-1"></a>   nomtitles <span class="co">///</span></span>
+<span id="cb48-6"><a href="desc.html#cb48-6" aria-hidden="true" tabindex="-1"></a>   coeflabel(F518_SUF <span class="st">&quot;Bruttoverdienst&quot;</span> zpalter <span class="st">&quot;Alter&quot;</span>)   </span></code></pre></div>
 <pre><code>                           Männer                    Frauen             
                              Mean           SD         Mean           SD
 ------------------------------------------------------------------------
@@ -738,17 +738,17 @@ Bruttoverdienst           4,232.7  (3,951.324)      2,800.9  (2,852.935)
 <ul>
 <li>Ergänzen Sie die Tabelle von Übung 1 <code>F200</code> um <code>fastgini</code> - so kommen Sie an die abgelegte Info:</li>
 </ul>
-<div class="sourceCode" id="cb41"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb41-1"><a href="desc.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install fastgini <span class="co">// falls nicht schon installiert</span></span>
-<span id="cb41-2"><a href="desc.html#cb41-2" aria-hidden="true" tabindex="-1"></a>fastgini F518_SUF</span>
-<span id="cb41-3"><a href="desc.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb50-1"><a href="desc.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install fastgini <span class="co">// falls nicht schon installiert</span></span>
+<span id="cb50-2"><a href="desc.html#cb50-2" aria-hidden="true" tabindex="-1"></a>fastgini F518_SUF</span>
+<span id="cb50-3"><a href="desc.html#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span></span></code></pre></div>
 </div>
 <div id="tabst3" class="section level3" number="2.7.3">
 <h3><span class="header-section-number">2.7.3</span> Übung</h3>
 <ul>
 <li>Verändern Sie die oben gezeigte Schleife so, dass nicht mehr die <em>Anzahl</em>, sondern der <em>Anteil</em> der Missings eingefügt wird.</li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb42-1"><a href="desc.html#cb42-1" aria-hidden="true" tabindex="-1"></a>mdesc zpalter F518_SUF</span>
-<span id="cb42-2"><a href="desc.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span> </span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb51-1"><a href="desc.html#cb51-1" aria-hidden="true" tabindex="-1"></a>mdesc zpalter F518_SUF</span>
+<span id="cb51-2"><a href="desc.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span> <span class="ot">list</span> </span></code></pre></div>
 </div>
 <div id="tabst4" class="section level3" number="2.7.4">
 <h3><span class="header-section-number">2.7.4</span> Übung</h3>
@@ -772,19 +772,19 @@ Bruttoverdienst           4,232.7  (3,951.324)      2,800.9  (2,852.935)
 </ul>
 <p>Aus der Stata-Hilfe:</p>
 <p>The number 5.139 in <code>%12.2f</code> format displays as</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="desc.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="sc">----+----</span><span class="dv">1</span><span class="sc">--</span></span>
-<span id="cb43-2"><a href="desc.html#cb43-2" aria-hidden="true" tabindex="-1"></a>        <span class="fl">5.14</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="desc.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="sc">----+----</span><span class="dv">1</span><span class="sc">--</span></span>
+<span id="cb52-2"><a href="desc.html#cb52-2" aria-hidden="true" tabindex="-1"></a>        <span class="fl">5.14</span></span></code></pre></div>
 <p><em>Beispiele</em></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb44-1"><a href="desc.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> <span class="kw">format</span></span>
-<span id="cb44-2"><a href="desc.html#cb44-2" aria-hidden="true" tabindex="-1"></a>    dis <span class="fu">strlen</span>(<span class="st">&quot;10789.1234&quot;</span>)</span>
-<span id="cb44-3"><a href="desc.html#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10.2f  10789.1234 <span class="co">// 0 Nachkommastellen</span></span>
-<span id="cb44-4"><a href="desc.html#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10.0f  10789.1234 <span class="co">// 2 Nachkommastellen</span></span>
-<span id="cb44-5"><a href="desc.html#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %11.5f  10789.1234 <span class="co">// 0 hinzugefügt!</span></span>
-<span id="cb44-6"><a href="desc.html#cb44-6" aria-hidden="true" tabindex="-1"></a>10</span>
-<span id="cb44-7"><a href="desc.html#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="desc.html#cb44-8" aria-hidden="true" tabindex="-1"></a>     10789</span>
-<span id="cb44-9"><a href="desc.html#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-10"><a href="desc.html#cb44-10" aria-hidden="true" tabindex="-1"></a>10789.12340</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb53-1"><a href="desc.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> <span class="kw">format</span></span>
+<span id="cb53-2"><a href="desc.html#cb53-2" aria-hidden="true" tabindex="-1"></a>    dis <span class="fu">strlen</span>(<span class="st">&quot;10789.1234&quot;</span>)</span>
+<span id="cb53-3"><a href="desc.html#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10.2f  10789.1234 <span class="co">// 0 Nachkommastellen</span></span>
+<span id="cb53-4"><a href="desc.html#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10.0f  10789.1234 <span class="co">// 2 Nachkommastellen</span></span>
+<span id="cb53-5"><a href="desc.html#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %11.5f  10789.1234 <span class="co">// 0 hinzugefügt!</span></span>
+<span id="cb53-6"><a href="desc.html#cb53-6" aria-hidden="true" tabindex="-1"></a>10</span>
+<span id="cb53-7"><a href="desc.html#cb53-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-8"><a href="desc.html#cb53-8" aria-hidden="true" tabindex="-1"></a>     10789</span>
+<span id="cb53-9"><a href="desc.html#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-10"><a href="desc.html#cb53-10" aria-hidden="true" tabindex="-1"></a>10789.12340</span></code></pre></div>
 </div>
 <div id="w.dfc" class="section level3" number="2.8.2">
 <h3><span class="header-section-number">2.8.2</span> %w.dfc</h3>
@@ -792,8 +792,8 @@ Bruttoverdienst           4,232.7  (3,951.324)      2,800.9  (2,852.935)
 <p>Während ``</p>
 <p>Mit <code>%</code><em>w</em><code>**,**</code><em>d</em><code>fc</code> können wir das Format für Dezimal- und Tausendertrenner ändern: Dezimalstellen werden mit einem <code>,</code> abgetrennt, 1000er mit <code>.</code></p>
 <p><em>Beispiele</em>: mit <code>fc</code> werden Tausendertrenner eingefügt</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb45-1"><a href="desc.html#cb45-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10.2fc     10789.1234</span>
-<span id="cb45-2"><a href="desc.html#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10,2fc     10789.1234 <span class="co">// , und . tauschen -&gt; &quot;dt Format&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb54-1"><a href="desc.html#cb54-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10.2fc     10789.1234</span>
+<span id="cb54-2"><a href="desc.html#cb54-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">display</span> %10,2fc     10789.1234 <span class="co">// , und . tauschen -&gt; &quot;dt Format&quot;</span></span></code></pre></div>
 
 </div>
 </div>

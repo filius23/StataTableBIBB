@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Multilevel- und logit Modelle | Stata: Erzeugen von Deskriptions- und Regressionstabellen</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Multilevel- und logit Modelle | Stata: Erzeugen von Deskriptions- und Regressionstabellen" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Multilevel- und logit Modelle | Stata: Erzeugen von Deskriptions- und Regressionstabellen" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Andreas Filser" />
+
+
+<meta name="date" content="2022-01-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reg.html"/>
+<link rel="next" href="misc.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Stata @ BIBB</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Herzlich Willkommen</a></li>
+<li class="chapter" data-level="1" data-path="base.html"><a href="base.html"><i class="fa fa-check"></i><b>1</b> Tabellenexport mit Stata: Grundlagen &amp; Pakete</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="base.html"><a href="base.html#grundlagen-e-und-r"><i class="fa fa-check"></i><b>1.1</b> Grundlagen: <code>e()</code> und <code>r()</code></a></li>
+<li class="chapter" data-level="1.2" data-path="base.html"><a href="base.html#kurs-setup"><i class="fa fa-check"></i><b>1.2</b> Kurs-Setup</a></li>
+<li class="chapter" data-level="1.3" data-path="base.html"><a href="base.html#übung"><i class="fa fa-check"></i><b>1.3</b> Übung</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="desc.html"><a href="desc.html"><i class="fa fa-check"></i><b>2</b> Deskriptionen</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="desc.html"><a href="desc.html#summary"><i class="fa fa-check"></i><b>2.1</b> <code>summary</code></a></li>
+<li class="chapter" data-level="2.2" data-path="desc.html"><a href="desc.html#tabstat"><i class="fa fa-check"></i><b>2.2</b> <code>tabstat</code></a></li>
+<li class="chapter" data-level="2.3" data-path="desc.html"><a href="desc.html#export"><i class="fa fa-check"></i><b>2.3</b> export</a></li>
+<li class="chapter" data-level="2.4" data-path="desc.html"><a href="desc.html#zusätzliche-kennzahlen-hinzufügen"><i class="fa fa-check"></i><b>2.4</b> Zusätzliche Kennzahlen hinzufügen</a></li>
+<li class="chapter" data-level="2.5" data-path="desc.html"><a href="desc.html#mehrere-variablen"><i class="fa fa-check"></i><b>2.5</b> mehrere Variablen</a></li>
+<li class="chapter" data-level="2.6" data-path="desc.html"><a href="desc.html#gruppenvergleich"><i class="fa fa-check"></i><b>2.6</b> Gruppenvergleich</a></li>
+<li class="chapter" data-level="2.7" data-path="desc.html"><a href="desc.html#übungen"><i class="fa fa-check"></i><b>2.7</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="desc.html"><a href="desc.html#tabst1"><i class="fa fa-check"></i><b>2.7.1</b> Übung</a></li>
+<li class="chapter" data-level="2.7.2" data-path="desc.html"><a href="desc.html#tabst2"><i class="fa fa-check"></i><b>2.7.2</b> Übung</a></li>
+<li class="chapter" data-level="2.7.3" data-path="desc.html"><a href="desc.html#tabst3"><i class="fa fa-check"></i><b>2.7.3</b> Übung</a></li>
+<li class="chapter" data-level="2.7.4" data-path="desc.html"><a href="desc.html#tabst4"><i class="fa fa-check"></i><b>2.7.4</b> Übung</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="desc.html"><a href="desc.html#format"><i class="fa fa-check"></i><b>2.8</b> Mehr zu <code>format</code></a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="desc.html"><a href="desc.html#w.df"><i class="fa fa-check"></i><b>2.8.1</b> %w.df</a></li>
+<li class="chapter" data-level="2.8.2" data-path="desc.html"><a href="desc.html#w.dfc"><i class="fa fa-check"></i><b>2.8.2</b> %w.dfc</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tab.html"><a href="tab.html"><i class="fa fa-check"></i><b>3</b> <code>tabulate</code></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tab.html"><a href="tab.html#tab-x-one-way-frequency-table"><i class="fa fa-check"></i><b>3.1</b> <code>tab x</code>: One-way frequency table</a></li>
+<li class="chapter" data-level="3.2" data-path="tab.html"><a href="tab.html#tab-var1-var2-kontingenz-kreuztabelle"><i class="fa fa-check"></i><b>3.2</b> <code>tab var1 var2</code>: Kontingenz-/Kreuztabelle</a></li>
+<li class="chapter" data-level="3.3" data-path="tab.html"><a href="tab.html#gewichtete-tabelle-mit-svy"><i class="fa fa-check"></i><b>3.3</b> Gewichtete Tabelle mit <code>svy</code></a></li>
+<li class="chapter" data-level="3.4" data-path="tab.html"><a href="tab.html#übungen-1"><i class="fa fa-check"></i><b>3.4</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="tab.html"><a href="tab.html#table1"><i class="fa fa-check"></i><b>3.4.1</b> Übung</a></li>
+<li class="chapter" data-level="3.4.2" data-path="tab.html"><a href="tab.html#table2"><i class="fa fa-check"></i><b>3.4.2</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cormat.html"><a href="cormat.html"><i class="fa fa-check"></i><b>4</b> Korrelationsmatrix</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="cormat.html"><a href="cormat.html#corr-x"><i class="fa fa-check"></i><b>4.1</b> <code>corr x</code></a></li>
+<li class="chapter" data-level="4.2" data-path="cormat.html"><a href="cormat.html#spearmans-rho"><i class="fa fa-check"></i><b>4.2</b> Spearman’s Rho:</a></li>
+<li class="chapter" data-level="4.3" data-path="cormat.html"><a href="cormat.html#ttest"><i class="fa fa-check"></i><b>4.3</b> <code>ttest</code></a></li>
+<li class="chapter" data-level="4.4" data-path="cormat.html"><a href="cormat.html#übungen-2"><i class="fa fa-check"></i><b>4.4</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="cormat.html"><a href="cormat.html#corr1"><i class="fa fa-check"></i><b>4.4.1</b> Übung</a></li>
+<li class="chapter" data-level="4.4.2" data-path="cormat.html"><a href="cormat.html#ttest1"><i class="fa fa-check"></i><b>4.4.2</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="reg.html"><a href="reg.html"><i class="fa fa-check"></i><b>5</b> Regressionstabellen</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="reg.html"><a href="reg.html#regression"><i class="fa fa-check"></i><b>5.1</b> <code>regression</code></a></li>
+<li class="chapter" data-level="5.2" data-path="reg.html"><a href="reg.html#eine-tabelle-ein-modell"><i class="fa fa-check"></i><b>5.2</b> Eine Tabelle, ein Modell</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="reg.html"><a href="reg.html#neben--statt-untereinander"><i class="fa fa-check"></i><b>5.2.1</b> Neben- statt untereinander</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="reg.html"><a href="reg.html#kategoriale-unabhängige-variable"><i class="fa fa-check"></i><b>5.3</b> kategoriale unabhängige Variable</a></li>
+<li class="chapter" data-level="5.4" data-path="reg.html"><a href="reg.html#mehrere-regressionsmodelle-nebeneinander"><i class="fa fa-check"></i><b>5.4</b> mehrere Regressionsmodelle nebeneinander</a></li>
+<li class="chapter" data-level="5.5" data-path="reg.html"><a href="reg.html#nur-ein-koeffizient"><i class="fa fa-check"></i><b>5.5</b> Nur ein Koeffizient</a></li>
+<li class="chapter" data-level="5.6" data-path="reg.html"><a href="reg.html#mgroups"><i class="fa fa-check"></i><b>5.6</b> mehrere Modellgruppen</a></li>
+<li class="chapter" data-level="5.7" data-path="reg.html"><a href="reg.html#einmal-mit-allem"><i class="fa fa-check"></i><b>5.7</b> Einmal mit allem</a></li>
+<li class="chapter" data-level="5.8" data-path="reg.html"><a href="reg.html#übungen-3"><i class="fa fa-check"></i><b>5.8</b> Übungen</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="reg.html"><a href="reg.html#reg1"><i class="fa fa-check"></i><b>5.8.1</b> Übung</a></li>
+<li class="chapter" data-level="5.8.2" data-path="reg.html"><a href="reg.html#reg2"><i class="fa fa-check"></i><b>5.8.2</b> Übung</a></li>
+<li class="chapter" data-level="5.8.3" data-path="reg.html"><a href="reg.html#reg3"><i class="fa fa-check"></i><b>5.8.3</b> Übung</a></li>
+<li class="chapter" data-level="5.8.4" data-path="reg.html"><a href="reg.html#reg4"><i class="fa fa-check"></i><b>5.8.4</b> Übung</a></li>
+<li class="chapter" data-level="5.8.5" data-path="reg.html"><a href="reg.html#reg5"><i class="fa fa-check"></i><b>5.8.5</b> Übung</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ml_log.html"><a href="ml_log.html"><i class="fa fa-check"></i><b>6</b> Multilevel- und logit Modelle</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ml_log.html"><a href="ml_log.html#logit"><i class="fa fa-check"></i><b>6.1</b> <code>logit</code></a></li>
+<li class="chapter" data-level="6.2" data-path="ml_log.html"><a href="ml_log.html#mehrebenenmodelle"><i class="fa fa-check"></i><b>6.2</b> Mehrebenenmodelle</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="misc.html"><a href="misc.html"><i class="fa fa-check"></i><b>7</b> Weitere Optionen</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="misc.html"><a href="misc.html#estimates-store-auch-bei-estpost"><i class="fa fa-check"></i><b>7.1</b> <code>estimates store</code> auch bei <code>estpost</code></a></li>
+<li class="chapter" data-level="7.2" data-path="misc.html"><a href="misc.html#excel-export"><i class="fa fa-check"></i><b>7.2</b> Excel-Export</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stata: Erzeugen von Deskriptions- und Regressionstabellen</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ml_log" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Multilevel- und logit Modelle</h1>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="ml_log.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.libPaths</span>(<span class="st">&quot;D:/R-library4&quot;</span>)</span>
+<span id="cb141-2"><a href="ml_log.html#cb141-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">collapse =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb141-3"><a href="ml_log.html#cb141-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">dpi=</span><span class="dv">800</span>)</span>
+<span id="cb141-4"><a href="ml_log.html#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="co"># knitr::opts_chunk$set(collectcode = T)</span></span>
+<span id="cb141-5"><a href="ml_log.html#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Statamarkdown)</span>
+<span id="cb141-6"><a href="ml_log.html#cb141-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb141-7"><a href="ml_log.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb141-8"><a href="ml_log.html#cb141-8" aria-hidden="true" tabindex="-1"></a>stataexe <span class="ot">&lt;-</span> <span class="st">&quot;C:/Program Files/Stata16/StataSE-64.exe&quot;</span></span>
+<span id="cb141-9"><a href="ml_log.html#cb141-9" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">engine.path=</span><span class="fu">list</span>(<span class="at">stata=</span>stataexe))</span>
+<span id="cb141-10"><a href="ml_log.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co"># baua &lt;- readstata13::read.dta13(&quot;D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta&quot;,convert.factors = F)</span></span></code></pre></div>
+<div id="logit" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> <code>logit</code></h2>
+<p>Um die Odds Ratios zu erhalten, müssen wir <code>eform</code> verwenden:</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb142-1"><a href="ml_log.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> nt i.S1 </span>
+<span id="cb142-2"><a href="ml_log.html#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> logm1</span>
+<span id="cb142-3"><a href="ml_log.html#cb142-3" aria-hidden="true" tabindex="-1"></a>esttab logm1, b se(%9.3f) </span></code></pre></div>
+<pre><code>Iteration 0:   log likelihood = -6191.9354  
+Iteration 1:   log likelihood = -6187.5538  
+Iteration 2:   log likelihood =   -6187.55  
+Iteration 3:   log likelihood =   -6187.55  
+
+Logistic regression                             Number of obs     =     20,012
+                                                LR chi2(1)        =       8.77
+                                                Prob &gt; chi2       =     0.0031
+Log likelihood =   -6187.55                     Pseudo R2         =     0.0007
+
+------------------------------------------------------------------------------
+          nt |      Coef.   Std. Err.      z    P&gt;|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+          S1 |
+   weiblich  |   .1442729   .0487565     2.96   0.003      .048712    .2398339
+       _cons |  -2.351375   .0353592   -66.50   0.000    -2.420678   -2.282073
+------------------------------------------------------------------------------
+
+
+
+----------------------------
+                      (1)   
+                       nt   
+----------------------------
+nt                          
+1.S1                    0   
+                      (.)   
+
+2.S1                0.144** 
+                  (0.049)   
+
+_cons              -2.351***
+                  (0.035)   
+----------------------------
+N                   20012   
+----------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb144-1"><a href="ml_log.html#cb144-1" aria-hidden="true" tabindex="-1"></a>esttab logm1, b se(%9.3f) <span class="kw">eform</span> <span class="co">// eform für Odds Ratios</span></span></code></pre></div>
+<pre><code>                      (1)   
+                       nt   
+----------------------------
+nt                          
+1.S1                    1   
+                      (.)   
+
+2.S1                1.155** 
+                  (0.056)   
+----------------------------
+N                   20012   
+----------------------------
+Exponentiated coefficients; Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Außerdem können wir mit <code>estadd lrtest</code> direkt den LR-Test in die Tabelle aufnehmen:</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb146-1"><a href="ml_log.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> nt i.S1  <span class="kw">if</span> !<span class="fu">missing</span>(zpalter)</span>
+<span id="cb146-2"><a href="ml_log.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> logm1b</span>
+<span id="cb146-3"><a href="ml_log.html#cb146-3" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> nt i.S1 zpalter </span>
+<span id="cb146-4"><a href="ml_log.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> logm2</span>
+<span id="cb146-5"><a href="ml_log.html#cb146-5" aria-hidden="true" tabindex="-1"></a>estadd <span class="kw">lrtest</span> logm1b</span>
+<span id="cb146-6"><a href="ml_log.html#cb146-6" aria-hidden="true" tabindex="-1"></a>esttab logm*, b se(%9.3f) scalars(<span class="st">&quot;lrtest_chi2  LRTest Chi²&quot;</span> lrtest_df lrtest_p)</span></code></pre></div>
+<pre><code>                      (1)   
+                       nt   
+----------------------------
+nt                          
+1.S1                    0   
+                      (.)   
+
+2.S1                0.158** 
+                  (0.049)   
+
+zpalter           -0.0108***
+                  (0.002)   
+
+_cons              -1.854***
+                  (0.103)   
+----------------------------
+N                   19836   
+LRTest Chi²         25.46   
+lrtest_df               1   
+lrtest_p      0.000000451   
+----------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Mit <code>pr2</code> <code>aic</code> <code>bic</code> können wir Modellkennzahlen ausgeben lassen.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb148-1"><a href="ml_log.html#cb148-1" aria-hidden="true" tabindex="-1"></a>esttab logm*, b se(%9.3f)  pr2 aic bic</span></code></pre></div>
+<pre><code>                      (1)   
+                       nt   
+----------------------------
+nt                          
+1.S1                    0   
+                      (.)   
+
+2.S1                0.158** 
+                  (0.049)   
+
+zpalter           -0.0108***
+                  (0.002)   
+
+_cons              -1.854***
+                  (0.103)   
+----------------------------
+N                   19836   
+LRTest Chi²         25.46   
+lrtest_df               1   
+lrtest_p      0.000000451   
+----------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>Bei <code>margins</code> müssen wir darauf achten, die Option <code>, post</code> zu verwenden:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb150-1"><a href="ml_log.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> nt i.S1 zpalter </span>
+<span id="cb150-2"><a href="ml_log.html#cb150-2" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(*) <span class="kw">post</span></span>
+<span id="cb150-3"><a href="ml_log.html#cb150-3" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> mar_mod2</span>
+<span id="cb150-4"><a href="ml_log.html#cb150-4" aria-hidden="true" tabindex="-1"></a>esttab mar_mod2, cells(<span class="st">&quot;b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))&quot;</span>) nonumbers</span></code></pre></div>
+<pre><code>                        b           se        min95        max95            p
+-----------------------------------------------------------------------------
+1.S1                    0            .            0            0            .
+2.S1               0.0133      0.00414      0.00523       0.0214      0.00126
+zpalter         -0.000911     0.000180     -0.00126    -0.000558  0.000000428
+-----------------------------------------------------------------------------
+N                   19836                                                    
+-----------------------------------------------------------------------------</code></pre>
+<p>Das funktioniert natürlich auch für die predictions mit <code>,at()</code>:</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb152-1"><a href="ml_log.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">restore</span> logm2</span>
+<span id="cb152-2"><a href="ml_log.html#cb152-2" aria-hidden="true" tabindex="-1"></a>margins, <span class="fu">at</span>(zpalter = (18 20(5)65) ) <span class="kw">post</span></span>
+<span id="cb152-3"><a href="ml_log.html#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> pred_mod2</span>
+<span id="cb152-4"><a href="ml_log.html#cb152-4" aria-hidden="true" tabindex="-1"></a>esttab pred_mod2, cells(<span class="st">&quot;b(fmt(a3)) se(fmt(a3)) ci_l(fmt(a3)) ci_u(fmt(a3)) p(fmt(a3))&quot;</span>) nonumbers</span></code></pre></div>
+<pre><code>                        b           se        min95        max95            p
+-----------------------------------------------------------------------------
+1._at               0.123      0.00697        0.109        0.136            0
+2._at               0.120      0.00644        0.108        0.133            0
+3._at               0.115      0.00520        0.105        0.125            0
+4._at               0.109      0.00411        0.101        0.117            0
+5._at               0.104      0.00318       0.0980        0.110            0
+6._at              0.0993      0.00248       0.0944        0.104            0
+7._at              0.0945      0.00210       0.0904       0.0987            0
+8._at              0.0900      0.00212       0.0859       0.0942            0
+9._at              0.0857      0.00243       0.0809       0.0904            0
+10._at             0.0815      0.00288       0.0759       0.0872            0
+11._at             0.0776      0.00337       0.0710       0.0842            0
+-----------------------------------------------------------------------------
+N                   19836                                                    
+-----------------------------------------------------------------------------</code></pre>
+</div>
+<div id="mehrebenenmodelle" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Mehrebenenmodelle</h2>
+<p><code>transform(ln*: exp(@) exp(@))</code> um die Werte im Random Part richtig anzuzeigen:</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb154-1"><a href="ml_log.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="kw">xtmixed</span> F518_SUF i.S1 ||Bula:</span>
+<span id="cb154-2"><a href="ml_log.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="kw">est</span> <span class="kw">store</span> mmodel</span>
+<span id="cb154-3"><a href="ml_log.html#cb154-3" aria-hidden="true" tabindex="-1"></a>esttab mmodel , transform(<span class="fu">ln</span>*: <span class="fu">exp</span>(@) <span class="fu">exp</span>(@))</span></code></pre></div>
+<pre><code>                      (1)   
+                 F518_SUF   
+----------------------------
+F518_SUF                    
+1.S1                    0   
+                      (.)   
+
+2.S1              -1437.4***
+                 (-26.88)   
+
+_cons              4123.8***
+                  (41.45)   
+----------------------------
+lns1_1_1                    
+_cons               354.8***
+                  (28.17)   
+----------------------------
+lnsig_e                     
+_cons              3445.8***
+                (1484.91)   
+----------------------------
+N                   16635   
+----------------------------
+t statistics in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+<p>So können wir die <code>ICC</code> hinzufügen:</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb156-1"><a href="ml_log.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="kw">xtmixed</span> F518_SUF i.S1 ||Bula:</span>
+<span id="cb156-2"><a href="ml_log.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> icc</span>
+<span id="cb156-3"><a href="ml_log.html#cb156-3" aria-hidden="true" tabindex="-1"></a>estadd <span class="fu">scalar</span> icc2 = <span class="fu">r</span>(icc2) </span>
+<span id="cb156-4"><a href="ml_log.html#cb156-4" aria-hidden="true" tabindex="-1"></a>esttab, se <span class="kw">wide</span> transform(<span class="fu">ln</span>*: <span class="fu">exp</span>(@) <span class="fu">exp</span>(@)) <span class="co">///</span></span>
+<span id="cb156-5"><a href="ml_log.html#cb156-5" aria-hidden="true" tabindex="-1"></a>    varwidth(13) scalars(icc2)   </span></code></pre></div>
+<pre><code>                       (1)                
+                  F518_SUF                
+------------------------------------------
+F518_SUF                                  
+1.S1                     0             (.)
+2.S1               -1437.4***      (53.47)
+_cons               4123.8***      (99.48)
+------------------------------------------
+lns1_1_1                                  
+_cons                354.8***      (73.97)
+------------------------------------------
+lnsig_e                                   
+_cons               3445.8***      (18.90)
+------------------------------------------
+N                    16635                
+icc2                0.0105                
+------------------------------------------
+Standard errors in parentheses
+* p&lt;0.05, ** p&lt;0.01, *** p&lt;0.001</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reg.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="misc.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Stata Tables BIBB.pdf", "Stata Tables BIBB.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
